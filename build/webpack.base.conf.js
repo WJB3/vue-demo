@@ -27,7 +27,7 @@ module.exports={
                 include:SRC_PATH
             },
             {
-                test:/\.(woff|svg|eot|woff2|tff)$/,
+                test:/\.(woff|svg|eot|woff2|tff|ttf)$/,
                 use:[
                     {
                         loader:'url-loader',
@@ -36,7 +36,18 @@ module.exports={
                         }
                     }
                 ],
-                exclude:/node_modules/,
+                // exclude:/node_modules/,
+            },
+            {
+                test:/\.(png|jpg|gif)$/,
+                use:[
+                    {
+                        loader:"file-loader",
+                        options:{
+                            limit:10000
+                        }
+                    }
+                ]
             }
         ]
     },
