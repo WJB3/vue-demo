@@ -54,7 +54,7 @@ module.exports=merge(baseWebpackConfig,{
                 html5:true,
                 collapseWhitespace: true, //把生成的 index.html 文件的内容的没用空格去掉，减少空间
             },
-            title:'基于vue的webpack4教手架项目 准备在项目中采用vue-router、vuex、vant等技术(development开发环境)',
+            title:'基于vue的webpack4教手架项目',
             hash:true,
             favicon:'src/assets/favicon-shield.ico',//将给定的favicon路径添加到输出HTML
             showErrors:true,
