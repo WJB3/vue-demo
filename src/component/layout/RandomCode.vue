@@ -1,6 +1,10 @@
 <template>
-  <div class="random-code" :style="{width:width,height:height,...style}">
-      
+  <div class="random-code" :style="{width:width,height:height,...styleObject}" @click="createCode">
+    <div class="random-code_text">
+        <span v-for="(item,index) in code" :key="index">
+            {{item}}
+        </span>
+    </div>
   </div>
 </template>
 
@@ -14,7 +18,7 @@ export default {
     props:{
         width:String,
         height:String,
-        style:Object
+        styleObject:Object
     },
     methods:{
         createCode(){
@@ -29,7 +33,11 @@ export default {
                 code+=random[charIndex];
             }
             this.code=code;
+            this.$emit("getVerification",code);
         }
+    },
+    mounted:function(){
+        this.createCode()
     }
 }
 </script>
@@ -40,6 +48,12 @@ export default {
     background: url("./../../assets/layout/code.png");
     background-repeat:no-repeat;
     background-size: cover;
+
+    &_text{
+        color:white;
+        display: flex;
+        justify-content: space-around;
+    }
 
 }
 </style>

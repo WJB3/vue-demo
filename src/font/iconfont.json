@@ -1,0 +1,23 @@
+{
+  "id": "1430751",
+  "name": "vue-scaffold-start",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "8144859",
+      "name": "闪电",
+      "font_class": "Energy-",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "10352345",
+      "name": "退出登陆",
+      "font_class": "tuichudenglu",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    }
+  ]
+}

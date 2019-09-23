@@ -10,7 +10,7 @@
 import Login from "@/component/layout/Login.vue";
 export default {
     data(){
-
+        return {}
     },
     components:{
         Login

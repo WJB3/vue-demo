@@ -1,10 +1,37 @@
 import Vue from 'vue';//在import Vue的过程中，Vue主要是在原型上完成方法的挂载，并且初始化了全局的API。
 import App from './App.vue';//引入主VUE页面
-import {Button,Select,Row,Col,Form,FormItem,Input} from 'element-ui';
+import {
+   
+    Aside,
+    Main,
+    Container,
+    Header,
+    Footer,
+    Button,
+    Select,
+    Row,
+    Col,
+    Form,
+    FormItem,
+    Input,
+    Menu,
+    MenuItem,
+    MenuItemGroup,
+    Submenu,
+    Avatar,
+    Dropdown,
+    DropdownMenu,
+    DropdownItem
+} from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import WhiteSpace from '@/component/global/WhiteSpace/index.js';
+
  
 // import "./utils/Rem";//引入将根页面的fontsize修改后 直接就可以在项目中使用rem实现自适应
 import router from './router';
+import "@/font/iconfont.css";
+import "@/font/iconfont.js";
+import store from "./models/global";
 
 import './styles/reset.css' /**引入样式重置 */
 
@@ -17,10 +44,24 @@ Vue.use(Col);
 Vue.use(Form);
 Vue.use(FormItem);
 Vue.use(Input);
-
+Vue.use(WhiteSpace);
+Vue.use(Container);
+Vue.use(Header);
+Vue.use(Footer);
+Vue.use(Main);
+Vue.use(Aside);
+Vue.use(Menu);
+Vue.use(Submenu);
+Vue.use(MenuItem);
+Vue.use(MenuItemGroup);
+Vue.use(Avatar);
+Vue.use(Dropdown);
+Vue.use(DropdownItem);
+Vue.use(DropdownMenu);
 
 new Vue({
     el:"#root",//将渲染结果挂在这id为root的html上
     router,
+    store,
     render:h=>h(App),//render函数是渲染一个视图，然后提供给el挂载，如果没有render那页面什么都不会出来
 });
