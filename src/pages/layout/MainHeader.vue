@@ -8,11 +8,12 @@
     <div class="a_header_right">
       <a-popover placement="bottomRight">
         <template slot="content">
-          <p>Content</p>
-          <p>Content</p>
+          <div class="flexbox_row_center_center cursor_pointer">
+            <a-icon type="logout" style="margin-right:10px"/>退出登录
+          </div>
         </template>
         <template slot="title">
-          <span>Title</span>
+          <span>设置</span>
         </template>
         <a-avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
         <span>系统管理员</span>

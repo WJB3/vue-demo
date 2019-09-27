@@ -1,10 +1,18 @@
 <template>
   <div class="login-container">
+ 
     <img src="./../../assets/layout/star.png" class="img_star" />
 
-    <div class="login-container_title">管理系统</div>
+    <!-- <div class="bounceInLeft line" style="top:10%;"></div>
+    <div class="bounceInLeft line" style="top:20%;"></div>
+    <div class="bounceInLeft line" style="top:40%;"></div>
+    <div class="bounceInLeft line" style="top:50%;"></div>
+    <div class="bounceInLeft line" style="top:60%;"></div>
+    <div class="bounceInLeft line" style="top:70%;"></div>
+    <div class="bounceInLeft line" style="top:8%;"></div> -->
 
     <Login></Login>
+
   </div>
 </template>
 
@@ -21,34 +29,40 @@ export default {
 </script>
 
 <style lang="less">
-@import "./../../css/animation/rotate.less";
-
+ 
 .login-container {
+
   width: 100%;
   height: 100%;
-  display: flex;
+  display:flex;
+  justify-content: center;
   align-items: center;
-  flex-direction: column;
 
   .img_star {
-    position: absolute;
-    top:50%;
+ 
+    
     transform-origin: center;
-    -webkit-transform: translate(0,-50%);
-    -moz-transform: translate(0,-50%);
-    transform:translate(0,-50%);
-    width:300px;
-    height:300px;
-    top:50%;
+    width:400px;
+    height:400px;
     z-index:-1;
-    animation: rotate 1s infinite;
-    -moz-animation: rotate 1s infinite; /* Firefox */
-    -webkit-animation: rotate 1s infinite; /* Safari 和 Chrome */
-    -o-animation: rotate 1s infinite;
+    animation: rotate 1.5s infinite linear;
+    -moz-animation: rotate 1.5s infinite linear; /* Firefox */
+    -webkit-animation: rotate 1.5s infinite linear; /* Safari 和 Chrome */
+    -o-animation: rotate 1.5s infinite linear;
+    
   }
 
   &_title {
      
+  }
+
+  .line{
+    width:50px;
+    height:1px;
+    animation:bounceInLeft 1.5s infinite linear;
+    background: grey;
+    position:absolute;
+ 
   }
 }
 </style>
