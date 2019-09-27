@@ -1,61 +1,61 @@
 <template>
   <div class="el_menu">
     <main-menu-label></main-menu-label>
-    <el-menu default-active="2" class="el-menu_menu" :collapse="isMenuCollapse">
-      <el-submenu index="1">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>导航一</span>
-        </template>
-        <el-menu-item-group>
-          <template slot="title">分组一</template>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
-      </el-menu-item>
-      <el-menu-item index="3" disabled>
-        <i class="el-icon-document"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航四</span>
-      </el-menu-item>
-    </el-menu>
+
+    <a-menu
+      theme="dark"
+      mode="inline"
+      @select="handleMenuSelected"
+      :defaultSelectedKeys="defaultSelectedKeys"
+    >
+      <template v-for="item in routes">
+        <a-menu-item v-if="!item.children" :key="item.key">
+          <a-icon type="pie-chart"></a-icon>
+          <span>{{item.title}}</span>
+        </a-menu-item>
+        <sub-menu v-else :menu-info="item" :key="item.key" />
+      </template>
+    </a-menu>
   </div>
 </template>
 
 <script>
 import MainMenuLabel from "./MainMenuLabel";
+import SubMenu from './SubMenu';
+import { menuRoutes } from "@/router/index.js";
+import { mapState } from 'vuex';
 export default {
+  data() {
+    return {
+      routes: menuRoutes,
+    };
+  },
+  computed:mapState({
+     defaultSelectedKeys:state=>state.defaultSelectedKeys
+  }),
+  mounted: function() {},
   components: {
-    MainMenuLabel
+    MainMenuLabel,
+    SubMenu
   },
-  props:{
-    isMenuCollapse:Boolean
+  methods:{
+    handleMenuSelected:function(value){
+      this.$emit("onMenuSelected",value)
+    }
   },
-
+  props: {
+    isMenuCollapse: Boolean
+  }
 };
 </script>
 
 <style lang="less">
 .el_menu {
-  background-color: #fff;
+  background-color: #05152a;
   height: 100%;
- 
+
   &_menu {
-    border-right:0px;
+    border-right: 0px;
   }
 }
 </style>

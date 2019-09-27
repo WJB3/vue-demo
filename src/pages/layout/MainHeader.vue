@@ -1,36 +1,54 @@
 <template>
-  <div class="el_header">
-    <span class="el-icon-s-fold" @click="onCollapse"></span>
-    <el-dropdown>
-      <div class="el_header_right">
-        <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+  <a-layout-header class="a_header" style="background: #fff;">
+    <a-icon
+      class="trigger"
+      :type="isMenuCollapse ? 'menu-unfold' : 'menu-fold'"
+      @click="onCollapse"
+    />
+    <div class="a_header_right">
+      <a-popover placement="bottomRight">
+        <template slot="content">
+          <p>Content</p>
+          <p>Content</p>
+        </template>
+        <template slot="title">
+          <span>Title</span>
+        </template>
+        <a-avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
         <span>系统管理员</span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item icon="el-icon-plus">个人中心</el-dropdown-item>
-          <el-dropdown-item><span class="iconfont icon-tuichudenglu"></span>退出登录</el-dropdown-item>
-        </el-dropdown-menu>
-      </div>
-    </el-dropdown>
-  </div>
+      </a-popover>
+    </div>
+  </a-layout-header>
 </template>
 
 <script>
 export default {
-  methods:{
-    onCollapse:function(){
-      this.$emit("onCollapse")
+  methods: {
+    onCollapse: function() {
+      this.$emit("onCollapse");
     }
+  },
+  props: {
+    isMenuCollapse: Boolean
   }
 };
 </script>
 
 <style lang="less">
-.el_header {
-  height: 100%;
-  padding: 0 16px;
+.a_header {
   display: flex;
   align-items: center;
+  padding: 0 16px;
   justify-content: space-between;
+
+  .trigger {
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.3s;
+    &:hover {
+      color: #1890ff;
+    }
+  }
 
   &_right {
     display: flex;

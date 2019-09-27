@@ -1,39 +1,54 @@
 <template>
-    <div class="login-container">
-        <div class="login-container_title">管理系统</div>
-        <Login></Login>
+  <div class="login-container">
+    <img src="./../../assets/layout/star.png" class="img_star" />
 
-    </div>
+    <div class="login-container_title">管理系统</div>
+
+    <Login></Login>
+  </div>
 </template>
 
 <script>
 import Login from "@/component/layout/Login.vue";
 export default {
-    data(){
-        return {}
-    },
-    components:{
-        Login
-    }
-}
+  data() {
+    return {};
+  },
+  components: {
+    Login
+  }
+};
 </script>
 
 <style lang="less">
-.login-container{
-    
-    width:100%;
-    height:100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    background: url("./../../assets/layout/star.jpg");
-    background-size:100% 100%;
-    background-repeat:no-repeat;
+@import "./../../css/animation/rotate.less";
 
+.login-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 
-    &_title{
-        margin:10% 0 50px 0;
-    }
+  .img_star {
+    position: absolute;
+    top:50%;
+    transform-origin: center;
+    -webkit-transform: translate(0,-50%);
+    -moz-transform: translate(0,-50%);
+    transform:translate(0,-50%);
+    width:300px;
+    height:300px;
+    top:50%;
+    z-index:-1;
+    animation: rotate 1s infinite;
+    -moz-animation: rotate 1s infinite; /* Firefox */
+    -webkit-animation: rotate 1s infinite; /* Safari 和 Chrome */
+    -o-animation: rotate 1s infinite;
+  }
 
+  &_title {
+     
+  }
 }
 </style>

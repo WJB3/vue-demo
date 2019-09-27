@@ -9,7 +9,9 @@ export default new Vuex.Store({
 
     },
     state:{
-        isMenuCollapse:false
+        isMenuCollapse:false,
+        routerArr:['控制台'],
+        defaultSelectedKeys:['dashboard']
     },
     getters:{
 

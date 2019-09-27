@@ -1,23 +1,21 @@
 <template>
-    <div id="root">
-        <router-view></router-view>
-    </div>
+  <div id="root">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
 export default {
-    data(){
-        return{
-             
-        }
-    }
-}
+  data() {
+    return {};
+  }
+};
 </script>
 
 <style>
-#root{
-    width:100%;
-    height:100%;
-    font-size:20px;
+#root {
+  width: 100%;
+  height: 100%;
+  font-family: "Microsoft YaHei";
 }
 </style>

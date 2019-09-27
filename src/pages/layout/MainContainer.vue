@@ -1,64 +1,76 @@
 <template>
-  <el-container>
-    <el-aside :width="isMenuCollapse?'64px':'200px'">
-      <main-menu ></main-menu>
-    </el-aside>
-    <el-container>
-      <el-header>
-        <main-header v-on:onCollapse="handleCollapse"></main-header>
-      </el-header>
-      <el-main>Main</el-main>
-      <el-footer>
-        <main-footer></main-footer>
-      </el-footer>
-    </el-container>
-  </el-container>
+  <a-layout class="main_container">
+    <a-layout-sider :trigger="null" collapsiable v-model="isMenuCollapse" >
+      <main-menu v-on:onMenuSelected="handleMenuSelected"></main-menu>
+    </a-layout-sider>
+    <a-layout>
+      <main-header :isMenuCollapse="isMenuCollapse" v-on:onCollapse="handleCollapse" class="main_header"></main-header>
+      <div class="main_breadcrumb">
+        <a-breadcrumb>
+          <template v-for="(item,key) in routerArr">
+            <a-breadcrumb-item :key="key">{{item}}</a-breadcrumb-item>
+          </template>
+        </a-breadcrumb>
+      </div>
+      <main-content class="main_content"></main-content>
+    </a-layout>
+  </a-layout>
 </template>
 
 <script>
-
-import MainMenu from './MainMenu';
-import MainHeader from './MainHeader';
-import MainFooter from './MainFooter';
+import MainMenu from "./MainMenu";
+import MainHeader from "./MainHeader";
+import MainFooter from "./MainFooter";
+import MainContent from "./MainContent";
+import { keyToTitle } from "@/utils/routeUtils";
 import { mapState } from "vuex";
 
 export default {
-  mounted:function(){
-    
-  },
-  components:{
+  mounted: function() {},
+  components: {
     MainMenu,
     MainHeader,
-    MainFooter
+    MainFooter,
+    MainContent
   },
-  computed:mapState({
-    isMenuCollapse:state=>state.isMenuCollapse
+  computed: mapState({
+    isMenuCollapse: state => state.isMenuCollapse,
+    routerArr: state => state.routerArr,
+
   }),
-  methods:{
-    handleCollapse:function(){
-      this.$store.commit("updateState",{
-          isMenuCollapse:!this.isMenuCollapse
-        }
-      ) 
+  methods: {
+    handleCollapse: function() {
+      this.$store.commit("updateState", {
+        isMenuCollapse: !this.isMenuCollapse
+      });
+    },
+    handleMenuSelected: function(value) {
+      let key = value ? value.key : undefined;
+      const arr = keyToTitle(key.split("_"));
+      this.$store.commit("updateState", {
+        routerArr: arr
+      });
     }
   }
-
 };
 </script>
 
 <style lang="less">
-.el-container {
+.main_container {
   width: 100%;
   height: 100%;
 }
-.el-aside{
-  border-right: 1px solid #f5f5f5;
-  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.08);
+.main_header{
+  border-bottom:1px solid rgba(0, 21, 41, 0.08);
+  box-shadow: 1px 1px 4px rgba(0, 21, 41, 0.08);
 }
-.el-header{
-  border-bottom:1px solid #f5f5f5;
+.main_breadcrumb{
+  padding:16px 26px;
+  background-color:#fff;
+  border-bottom:1px solid rgba(0, 21, 41, 0.08);
+ 
 }
-.el-footer{
-  background-color:#f5f5f5;
+.main_content{
+  margin-top:4px;
 }
 </style>

@@ -15,6 +15,6 @@
         "@babel/plugin-transform-runtime",
         "@babel/plugin-proposal-function-bind",
         "@babel/plugin-syntax-dynamic-import",
-        ["component",{"libraryName":"element-ui","styleLibraryName":"theme-chalk"}]
+        ["import",{"libraryName":"ant-design-vue","libraryDirectory":"es", "style": "css" }]
     ]
 }
