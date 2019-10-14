@@ -21,8 +21,7 @@ export default new Vuex.Store({
     },
     mutations:{
         updateState(state,payload){
-            console.log(state);
-            console.log(payload)
+            
             Object.assign(state,payload);
         }
     }

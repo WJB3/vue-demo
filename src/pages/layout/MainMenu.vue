@@ -10,7 +10,7 @@
     >
       <template v-for="item in routes">
         <a-menu-item v-if="!item.children" :key="item.key">
-          <a-icon type="pie-chart"></a-icon>
+          <a-icon :type="item.icon" v-if="item.icon"></a-icon>
           <span>{{item.title}}</span>
         </a-menu-item>
         <sub-menu v-else :menu-info="item" :key="item.key" />

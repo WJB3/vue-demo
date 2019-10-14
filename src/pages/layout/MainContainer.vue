@@ -45,6 +45,7 @@ export default {
       });
     },
     handleMenuSelected: function(value) {
+      this.$router.push(`/${value.key.split("_").join("/")}`);
       let key = value ? value.key : undefined;
       const arr = keyToTitle(key.split("_"));
       this.$store.commit("updateState", {
