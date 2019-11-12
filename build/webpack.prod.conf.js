@@ -10,6 +10,7 @@ const HtmlWebpackPlugin=require('html-webpack-plugin');
 const BundleAnalyzerPlugin=require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 //分离css
 const MiniCssExtractPlugin=require('mini-css-extract-plugin');
+const styleUtils=require("./loaderUtils");
 
 module.exports=merge(baseWebpackConfig,{
     mode:"production",//会将 process.env.NODE_ENV 的值设为 production。启用 FlagDependencyUsagePlugin, FlagIncludedChunksPlugin, ModuleConcatenationPlugin, NoEmitOnErrorsPlugin, OccurrenceOrderPlugin, SideEffectsFlagPlugin 和 UglifyJsPlugin.
@@ -19,47 +20,13 @@ module.exports=merge(baseWebpackConfig,{
         path:DIST_PATH
     },
     module:{
-        // rules:[
-        //     {
-        //         test:/\.css$/,
-        //         use:[
-        //             MiniCssExtractPlugin.loader,
-        //             {loader:'css-loader'},
-        //             {loader:"postcss-loader"}
-        //         ]
-        //     },
-        //     {
-        //         test:/\.(sc|sa)ss$/,
-        //         use:[
-        //             MiniCssExtractPlugin.loader,
-        //             {loader:'css-loader'},
-        //             {loader:"sass-loader"},
-        //             {loader:"postcss-loader"}
-        //         ]
-        //     },
-        //     {
-        //         test:/\.less$/,
-        //         use:[
-        //             MiniCssExtractPlugin.loader,
-        //             {loader:'css-loader'},
-        //             {loader:'less-loader'},
-        //             {loader:"postcss-loader"}
-        //         ]
-        //     },
-        //     {
-        //         test:/\.(png|svg|jpg|gif)$/,
-        //         use:[
-        //             {
-        //                 loader:'file-loader',
-        //                 options:{
-        //                     limit:10000,
-        //                     name:"[hash].[ext]",
-        //                     outputPath:"images/"
-        //                 }
-        //             }
-        //         ]
-        //     }
-        // ]
+        rules:styleUtils.styleLoaders({
+            sourceMap:true,
+            usePostcss:true,
+            useTypescriptCssModule:false,
+            useCssModule:false,
+            isBuild:true
+        })
     },
     plugins:[
         new CleanWebpackPlugin({}),//每次打包前清除dist

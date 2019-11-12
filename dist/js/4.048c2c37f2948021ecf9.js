@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[4],{398:function(e,t,i){"use strict";i.r(t);var n=function(){var e=this.$createElement;return(this._self._c||e)("div",[this._v("人员管理——人事档案")])};n._withStripped=!0;var s={},l=i(8),r=Object(l.a)(s,n,[],!1,null,null,null);r.options.__file="src/pages/staff/files/index.vue";t.default=r.exports}}]);
+//# sourceMappingURL=4.048c2c37f2948021ecf9.js.map

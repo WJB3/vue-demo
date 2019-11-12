@@ -42,27 +42,39 @@
 </template>
 
 <script>
-import RandomCode from "./RandomCode";
-import CanvasCode from "./CanvasCode";
-import SlideVerificationCode from "./SlideVerificationCode";
+ 
 export default {
   data() {
     return {
       form: null
     };
   },
-  beforeCreate() {
+  created() {
     this.form = this.$form.createForm(this);
   },
   components: {},
   methods: {
     handleSubmitForm(e) {
       e.preventDefault();
+      const _this=this;
+      console.log(_this);
       this.form.validateFields((err, values) => {
         if (!err) {
-          console.log("Received values of form: ", values);
+          this.$store.dispatch("login",{
+            username:values.username,
+            password:values.password
+          }).then(res=>{
+            console.log(!res)
+            if(!res){
+              _this.$message.error("系统检测到你输入到的信息有误！请重新输入！");
+              return ;
+            }else{
+              _this.$router.push({path:"/"})
+            }
+          })
         }
       });
+      
     }
   }
 };
@@ -70,13 +82,8 @@ export default {
 
 <style lang="less">
 .login_component {
- 
-  width:380px;
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  
-  
+  width: 380px;
+  margin: 0 auto;
+  margin-top: 100px;
 }
 </style>

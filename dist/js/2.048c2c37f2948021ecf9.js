@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[2],{405:function(e,t,n){"use strict";n.r(t);var o=function(){var e=this.$createElement;return(this._self._c||e)("router-view")};o._withStripped=!0;var r={},i=n(8),u=Object(i.a)(r,o,[],!1,null,null,null);u.options.__file="src/component/route/RouteView.vue";t.default=u.exports}}]);
+//# sourceMappingURL=2.048c2c37f2948021ecf9.js.map

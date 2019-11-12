@@ -5,6 +5,7 @@ import MainContainer from './../pages/layout/MainContainer';
 
 const Dashboard=()=>import("@/pages/dashboard/index.vue");
 const TestCanvas=()=>import("@/pages/test/canvas/index.vue");
+const SvgCanvas=()=>import("@/pages/test/svg/index.vue");
 const StaffFiles=()=>import("@/pages/staff/files/index.vue");
 const RouteView=()=>import("@/component/route/RouteView.vue");
 const StaffLaborVersion=()=>import("@/pages/staff/labor/version/index.vue");
@@ -74,6 +75,12 @@ const menuRoutes=[
                 key:"test_canvass",
                 title:"canvas测试",
                 component:TestCanvas
+            },
+            {
+                path:"svg",
+                key:"test_svg",
+                title:"svg测试",
+                component:SvgCanvas
             }
         ]
     }
@@ -86,13 +93,31 @@ const routes=[
         component:MainContainer,
         key:"index",
         title:"首页",
-        children:menuRoutes
+        children:menuRoutes,
+        meta:{
+            title:"",
+            requireAuth:true
+        }
     }
 ];
 
 const router=new VueRouter({
     routes
 });
+
+router.beforeEach((to,from,next)=>{
+    if(to.matched.some(record=>record.meta.requireAuth)){
+        if(localStorage.getItem("AUTHORITY")){
+            next()
+        }else{
+            next({
+                path:"/login",
+            })
+        }
+    }else{
+        next()
+    }
+})
 
 export {
     routes,router,menuRoutes

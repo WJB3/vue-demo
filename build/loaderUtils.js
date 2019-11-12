@@ -1,4 +1,5 @@
 const path=require('path');
+const MiniCssExtractPlugin=require('mini-css-extract-plugin');
 
 exports.cssLoaders=function(options){
     options=options||{}
@@ -25,7 +26,14 @@ exports.cssLoaders=function(options){
     }
 
     function generateLoaders(loader,loaderOptions){
-        const loaders=options.usePostCSS?[styleLoader,cssLoader,postcssLoader]:[styleLoader,cssLoader];
+        const _loaders=options.usePostCSS?[cssLoader,postcssLoader]:[cssLoader];
+
+        const loaders=options.isBuild?[..._loaders]:[styleLoader,..._loaders]
+
+        if(options.isBuild){
+            loaders.unshift(MiniCssExtractPlugin.loader)
+        }
+
         if(loader){
             loaders.push({
                 loader:loader+'-loader',
@@ -43,6 +51,8 @@ exports.cssLoaders=function(options){
                 }
             })
         }
+
+
 
         return loaders;
     }
@@ -80,6 +90,6 @@ exports.styleLoaders=function(options){
             })
         }
     }
-
+    console.log(output)
     return output;
 }
