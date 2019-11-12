@@ -4,6 +4,12 @@ import LoginContainer from './../pages/layout/LoginContainer';
 import MainContainer from './../pages/layout/MainContainer';
 
 const Dashboard=()=>import("@/pages/dashboard/index.vue");
+const Discount=()=>import("@/pages/discount/index.vue");
+const Info=()=>import("@/pages/info/index.vue");
+const Model=()=>import("@/pages/model/index.vue");
+const Brand=()=>import("@/pages/brand/index.vue");
+const Score=()=>import("@/pages/score/index.vue");
+const Trade=()=>import("@/pages/trade/index.vue");
 const TestCanvas=()=>import("@/pages/test/canvas/index.vue");
 const SvgCanvas=()=>import("@/pages/test/svg/index.vue");
 const StaffFiles=()=>import("@/pages/staff/files/index.vue");
@@ -21,6 +27,49 @@ const menuRoutes=[
         title:"控制台",
         icon:"dashboard",
         component:Dashboard
+    },
+    {
+        path:"/brand",
+        key:"brand",
+        title:"品牌管理",
+        icon:"ant-design",
+        component:Brand
+    },
+    {
+        path:"/score",
+        key:"score",
+        title:"积分管理",
+        icon:"key",
+        component:Score
+    },
+    {
+        path:"/trade",
+        key:"trade",
+        title:"商品管理",
+        icon:"gift",
+        component:Trade
+    },
+    {
+        path:"/model",
+        key:"model",
+        title:"型号管理",
+        icon:"appstore",
+        component:Model
+    },
+     
+    {
+        path:"/discount",
+        key:"discount",
+        title:"购物车管理",
+        icon:"shopping-cart",
+        component:Discount
+    },
+    {
+        path:"/info",
+        key:"info",
+        title:"公司信息介绍",
+        icon:"database",
+        component:Info
     },
     {
         path:"/staff",
