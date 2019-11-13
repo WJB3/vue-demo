@@ -8,7 +8,8 @@
       </div>
     </a-tab-pane>
     <a-tab-pane v-for="pane in panes" :tab="pane.title" :key="pane.key" :closable="pane.closable">
-       <template >{{pane.content}}</template>
+      <div v-html="pane.content"></div>
+      <i-form v-if="pane.isForm"></i-form>
     </a-tab-pane>
   </a-tabs>
 </template>
@@ -20,7 +21,7 @@ export default {
   data() {
     return {
       activeKey: "list",
-      panes: [{ title: "添加公司信息", content: "a", key: "form" }],
+      panes: [],
       listClosable: false
     };
   },
@@ -34,7 +35,12 @@ export default {
     handleAddCompany: function() {
       const panes = this.panes;
       const activeKey = "newTabForm";
-      panes.push({ title: "添加公司信息", content: (<div>我是谁</div>), key: activeKey });
+      panes.push({
+        title: "添加公司信息",
+        content: "<div></div>",
+        key: "newTabForm",
+        isForm: true
+      });
       this.panes = panes;
       this.activeKey = activeKey;
     },
@@ -65,9 +71,13 @@ export default {
         if (lastIndex >= 0) {
           activekey = panes[lastIndex].key;
         } else {
-          activeKey = panes[0].key;
+          activeKey = "list";
         }
       }
+      if (panes.length === 0) {
+        activeKey = "list";
+      }
+
       this.panes = panes;
       this.activeKey = activeKey;
     }

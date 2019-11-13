@@ -1,7 +1,7 @@
 import Vue from 'vue';//在import Vue的过程中，Vue主要是在原型上完成方法的挂载，并且初始化了全局的API。
 import App from './App.vue';//引入主VUE页面
 import { 
-    Layout,Menu,Icon,Avatar,Breadcrumb,Form,Input,Checkbox,Button,Popover,message,Tabs,Table
+    Layout,Menu,Icon,Avatar,Breadcrumb,Form,Input,Checkbox,Button,Popover,message,Tabs,Table,Col,Row,Upload
 } from 'ant-design-vue';
 import WhiteSpace from '@/component/global/WhiteSpace/index.js';
 import 'ant-design-vue/dist/antd.css'; 
@@ -27,6 +27,9 @@ Vue.use(Button);
 Vue.use(Popover);
 Vue.use(Tabs);
 Vue.use(Table);
+Vue.use(Col);
+Vue.use(Row);
+Vue.use(Upload);
 Vue.prototype.$message = message;
 
 new Vue({

@@ -38,10 +38,10 @@ module.exports=merge(baseWebpackConfig,{
         quiet:true,
         useLocalIp:false,//此选项允许浏览器使用你的本地ip打开
         proxy:{//代理服务器
-            "/api":{
-                target:"http://localhost:8080",
+            "/file":{
+                target:"http://wxdimgs.viphk.ngrok.org/upload",
                 changeOrigin:true,
-                pathRewrite:{"^api":"/api"}
+                pathRewrite:{"^/file":""}
             }
         }
     },
