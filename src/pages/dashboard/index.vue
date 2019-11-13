@@ -1,8 +1,9 @@
 <template>
     <a-tabs v-model="activeKey" type="editable-card"  @edit="onEdit" >
-        <a-tab-pane v-for="pane in panes" :tab="pane.title" :key="pane.key" :closable="pane.closable">
-            {{pane.content}}
+        <a-tab-pane tab="列表" key="list">
+             
         </a-tab-pane>
+        
     </a-tabs>
 </template>
 
@@ -10,12 +11,12 @@
 export default {
     data(){
         const panes=[
-            { title: '列表', content: 'Content of Tab 1', key: '1' },
+            //{ title: '列表', content: <div></div>, key: '1' },
         ]
         return {
-            activeKey:panes[0].key,
-            panes,
-            newTabIndex:0
+            // activeKey:panes[0].key,
+            // panes,
+            // newTabIndex:0
         }
     },
     methods:{
