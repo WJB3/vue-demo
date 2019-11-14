@@ -1,6 +1,6 @@
 <template>
   <div class="footer-toolbar" :style='{width}'>
-      <slot></slot>
+      <div class="right"><slot></slot></div>
   </div>
 </template>
 
@@ -21,11 +21,14 @@ export default {
     },
     methods:{
         resizeFooterToolbar:function(){
+            
             const sider=document.querySelector(".ant-layout-sider");
+       
             if(sider==null){
                 return ;
             }
-            const width=`calc(100-${sider.style.width})`;
+            const width=`calc(100% - ${sider.style.width})`;
+        
             if(width!==this.width){
                 this.width=width;
             }
@@ -46,6 +49,10 @@ export default {
     border-top: 1px solid #e8e8e8;
     padding: 0 24px;
     z-index: 9;
-    width:100%;
+    // width:100%;
+    transition:width 0.1s; 
+}
+.right{
+    float:right;
 }
 </style>

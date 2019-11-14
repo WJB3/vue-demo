@@ -24,6 +24,7 @@ import MainFooter from "./MainFooter";
 import MainContent from "./MainContent";
 import { keyToTitle } from "@/utils/routeUtils";
 import { mapState } from "vuex";
+import { triggerWindowResizeEvent } from '@/utils/dispatchUtils';
 
 export default {
   mounted: function() {},
@@ -40,16 +41,24 @@ export default {
   }),
   methods: {
     handleCollapse: function() {
+      let flag=this.isMenuCollapse;
       this.$store.commit("updateState", {
         isMenuCollapse: !this.isMenuCollapse
       });
+      if(this.isMenuCollapse!==flag){
+        setTimeout(()=>{
+          triggerWindowResizeEvent();
+        },0)
+      }
     },
     handleMenuSelected: function(value) {
-      this.$router.push(`/${value.key.split("_").join("/")}`);
+      let path=value.key.split("_").join("/");
+      this.$router.push(`/${path}`);
       let key = value ? value.key : undefined;
       const arr = keyToTitle(key.split("_"));
       this.$store.commit("updateState", {
-        routerArr: arr
+        routerArr: arr,
+        selectedKeys:[path]
       });
     }
   }

@@ -6,6 +6,7 @@
       theme="dark"
       mode="inline"
       @select="handleMenuSelected"
+      :selectedKeys="selectedKeys"
       :defaultSelectedKeys="defaultSelectedKeys"
     >
       <template v-for="item in routes">
@@ -31,9 +32,17 @@ export default {
     };
   },
   computed:mapState({
-     defaultSelectedKeys:state=>state.defaultSelectedKeys
+     defaultSelectedKeys:state=>state.defaultSelectedKeys,
+     selectedKeys:state=>state.selectedKeys
   }),
-  mounted: function() {},
+  mounted: function() {
+    const path=this.$router.history.current.path.substr(1);
+    this.handleMenuSelected({key:path});
+    this.$store.commit("updateState", {
+        selectedKeys:[path]
+    });
+     
+  },
   components: {
     MainMenuLabel,
     SubMenu

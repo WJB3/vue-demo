@@ -5,7 +5,7 @@ import {
 } from 'ant-design-vue';
 import WhiteSpace from '@/component/global/WhiteSpace/index.js';
 import 'ant-design-vue/dist/antd.css'; 
- 
+
 // import "./utils/Rem";//引入将根页面的fontsize修改后 直接就可以在项目中使用rem实现自适应
 import { router }  from './router';
 import "@/font/iconfont.css";

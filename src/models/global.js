@@ -1,18 +1,19 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-
+import staff from './staff';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     namespaced:true,
     modules:{
-        
+        staff
     },
     state:{
         isMenuCollapse:false,
         routerArr:['控制台'],
         defaultSelectedKeys:['dashboard'],
-        isLogin:false
+        isLogin:false,
+        selectedKeys:[],
     },
     getters:{
 
@@ -28,7 +29,6 @@ export default new Vuex.Store({
     },
     mutations:{
         updateState(state,payload){
-            
             Object.assign(state,payload);
         }
     }
