@@ -1,12 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import staff from './staff';
+import brand from './brand';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     namespaced:true,
     modules:{
-        staff
+        staff,
+        brand
     },
     state:{
         isMenuCollapse:false,

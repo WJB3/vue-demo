@@ -43,7 +43,7 @@ export default {
   props: ["data", "pagination"],
   methods:{
       handleTableChange:function(pagination, filters, sorter){
-          this.$store.dispatch("staff/getList",{page:pagination.current-1})
+          console.log(pagination);
       }
   },
   mounted:function(){

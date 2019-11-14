@@ -1,4 +1,4 @@
-import staffService from '@/services/staffService';
+import brandService from '@/services/brandService';
 import Vuex from 'vuex';
 
 export default  {
@@ -14,10 +14,24 @@ export default  {
 
     },
     actions:{
+        async add({commit},payload){
+            try{    
+                const list=await brandService.add(payload);
+                commit("getList");
+                if(list){
+                    return true;
+                }
+                 
+            }catch(e){
+                console.log("我捕获到了错误")
+                console.error(e);
+                return false;
+            }
+        },
         async getList({commit},payload){//用户登录
             try{    
-                const list=await staffService.list(payload);
-        
+                const list=await brandService.list(payload);
+           
                 commit("updateState",{
                     list
                 })
@@ -28,7 +42,7 @@ export default  {
     },
     mutations:{
         updateState(state,payload){
-           
+            console.log(payload)
             state.data=payload.list.rows;
             const pagination={
                 ...state.pagination

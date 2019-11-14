@@ -39,7 +39,7 @@ module.exports=merge(baseWebpackConfig,{
         useLocalIp:false,//此选项允许浏览器使用你的本地ip打开
         proxy:{//代理服务器
             "/file":{
-                target:"http://wxdfcb.viphk.ngrok.org/hi/main?hi=24AXRBU571BH",
+                target:"http://wxdimgs.viphk.ngrok.org/upload",
                 changeOrigin:true,
                 pathRewrite:{"^/file":""}
             },
