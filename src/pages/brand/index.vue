@@ -3,12 +3,12 @@
     <a-tab-pane tab="列表" key="list" :closable="listClosable">
       <div class="wrap_table">
         <a-button type="primary" style="margin-bottom:10px;" @click="handleAddBrand">新建品牌</a-button>
-        <i-table :data="data" :pagination="pagination"></i-table>
+        <i-table :data="data" :pagination="pagination" v-on:onEdit="handleEdit" ></i-table>
       </div>
     </a-tab-pane>
     <a-tab-pane v-for="pane in panes" :tab="pane.title" :key="pane.key" :closable="pane.closable">
       <div v-html="pane.content"></div>
-      <i-form v-if="pane.isForm"></i-form>
+      <i-form v-if="pane.isForm" v-on:onAddSuccess="handleAddSuccess" :current="current" :type="type"></i-form>
     </a-tab-pane>
   </a-tabs>
 </template>
@@ -26,8 +26,10 @@ export default {
     };
   },
   computed: mapState({
-    data: state => state.brand.data ,
-    pagination:state => state.brand.pagination
+    data: state => state.brand.data,
+    pagination: state => state.brand.pagination,
+    type:state=>state.brand.type,
+    current:state=>state.brand.current
   }),
   components: {
     iTable,
@@ -35,11 +37,28 @@ export default {
   },
 
   mounted: function() {
-      this.getList()
+    this.getList();
   },
   methods: {
-    getList:function(){
-        this.$store.dispatch("brand/getList",{})
+    getList: function() {
+      this.$store.dispatch("brand/getList", {});
+    },
+    handleEdit: function(value) {
+      console.log(value)
+      this.$store.commit("brand/updateState", {
+        type:"EDIT",
+        current:value
+      });
+      const panes = this.panes;
+      const activeKey = "newTabForm";
+      panes.push({
+        title: "编辑品牌",
+        content: "<div></div>",
+        key: "newTabForm",
+        isForm: true
+      });
+      this.panes = panes;
+      this.activeKey = activeKey;
     },
     handleAddBrand: function() {
       const panes = this.panes;
@@ -66,6 +85,10 @@ export default {
       });
       this.panes = panes;
       this.activeKey = activeKey;
+    },
+    handleAddSuccess() {
+      console.log("handleAddSuccess");
+      this.removeTab("newTabForm");
     },
     removeTab(targetKey) {
       let activeKey = this.activeKey;
@@ -98,7 +121,7 @@ export default {
 .wrap_table {
   padding: 10px 50px;
 }
-.a_tab{
+.a_tab {
   background: white;
 }
 </style>

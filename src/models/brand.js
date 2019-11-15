@@ -7,17 +7,20 @@ export default  {
     state:{
         data:[],
         pagination:{
-            pageSize:10
-        }
+            pageSize:10,
+            total:0
+        },
+        type:"ADD",
+        current:{}
     },
     getters:{
 
     },
     actions:{
-        async add({commit},payload){
+        async add({commit,dispatch},payload){
             try{    
                 const list=await brandService.add(payload);
-                commit("getList");
+                dispatch("getList");
                 if(list){
                     return true;
                 }
@@ -26,6 +29,29 @@ export default  {
                 console.log("我捕获到了错误")
                 console.error(e);
                 return false;
+            }
+        },
+        async edit({commit,dispatch},payload){
+            try{    
+                const list=await brandService.edit(payload);
+                dispatch("getList");
+                if(list){
+                    return true;
+                }
+                 
+            }catch(e){
+                console.log("我捕获到了错误")
+                console.error(e);
+                return false;
+            }
+        },
+        async delete({commit,dispatch},payload){//品牌删除
+            try{    
+                const list=await brandService.deleteBrand(payload);
+           
+                dispatch("getList")
+            }catch(e){
+                console.error(e);
             }
         },
         async getList({commit},payload){//用户登录
@@ -42,12 +68,14 @@ export default  {
     },
     mutations:{
         updateState(state,payload){
-            console.log(payload)
-            state.data=payload.list.rows;
-            const pagination={
-                ...state.pagination
+            if(payload.list){
+                state.data=payload.list.rows;
+                const pagination={
+                    ...state.pagination
+                }
+                state.pagination=payload.list.rows && payload.list.rows.length>0?{total:payload.list.rows[0].count,...pagination}:{}
             }
-            state.pagination=payload.list.rows && payload.list.rows.length>0?{total:payload.list.rows[0].count,...pagination}:{}
+            
             Object.assign(state,payload);
         }
     }

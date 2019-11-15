@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 axios.defaults.timeout=5000;
-axios.defaults.headers.post['Content-Type']='application/x-www-form-urlencoded;charset=UTF-8';
-axios.defaults.headers.common['X-Requested-With']='XMLHttpRequest';
+//axios.defaults.headers.post['Content-Type']='application/x-www-form-urlencoded;charset=UTF-8';
+//axios.defaults.headers.common['X-Requested-With']='XMLHttpRequest';
 
 //request拦截器Post传参序列化
 axios.interceptors.request.use(
@@ -38,10 +38,9 @@ export default function request(url,options){
         if(newOptions.method==='POST'||newOptions.method==="PUT"){
             newOptions.headers={
                 Accept:'application/json',
-                'Content-Type':'application/json;charset=utf-8',
+                'Content-Type':'application/x-www-form-urlencoded',
                 ...newOptions.headers
             };
-            newOptions.body=JSON.stringify(newOptions.body);
         }
     }
 

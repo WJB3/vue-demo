@@ -22,33 +22,7 @@
         </a-col>
         <a-col :span="8">
           <a-form-item label="公司图片:" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-            <a-upload
-              name="upload_file"
-              listType="picture-card"
-              class="avatar-uploader"
-              :beforeUpload="beforeUpload"
-              :headers="headers"
-              @change="handleChangeImage"
-              action="/file"
-              v-decorator="[
-                `imgurl`,
-                {
-                  rules: [
-                    {
-                      required: true,
-                      message: '请输入公司图片!',
-                    },
-                  ],
-                },
-              ]"
-              placeholder="请输入公司图片"
-            >
-              <img v-if="imageUrl" :src="imageUrl" alt="avatar" />
-              <div v-else class="image_margin">
-                <a-icon :type="loading ? 'loading' : 'plus'" />
-                <div class="ant-upload-text">Upload</div>
-              </div>
-            </a-upload>
+             <file-uploader  ></file-uploader>
           </a-form-item>
         </a-col>
       </a-row>
@@ -63,6 +37,7 @@
 <script>
 import postImageService from "@/services/fileService";
 import FooterToolbar from '@/component/footer-toolbar';
+import FileUploader from '@/component/file-loader'
 import axios from "axios";
 function getBase64(img, callback) {
   const reader = new FileReader();
@@ -79,7 +54,8 @@ export default {
     };
   },
   components:{
-    FooterToolbar
+    FooterToolbar,
+    FileUploader
   },
   methods: {
     beforeUpload(file) {
