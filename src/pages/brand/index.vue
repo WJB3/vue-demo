@@ -3,19 +3,31 @@
     <a-tab-pane tab="列表" key="list" :closable="listClosable">
       <div class="wrap_table">
         <a-button type="primary" style="margin-bottom:10px;" @click="handleAddBrand">新建品牌</a-button>
-        <i-table :data="data" :pagination="pagination" v-on:onEdit="handleEdit" ></i-table>
+        <i-table :data="data" :pagination="pagination" v-on:onEdit="handleEdit"  v-on:onView="handleView"></i-table>
+
+        <i-modal :visible="visible"></i-modal>
+
       </div>
     </a-tab-pane>
     <a-tab-pane v-for="pane in panes" :tab="pane.title" :key="pane.key" :closable="pane.closable">
       <div v-html="pane.content"></div>
-      <i-form v-if="pane.isForm" v-on:onAddSuccess="handleAddSuccess" :current="current" :type="type"></i-form>
+      <i-form
+        v-if="pane.isForm"
+        v-on:onAddSuccess="handleAddSuccess"  
+        v-on:onEditSuccess="handleEditSuccess"   
+        :current="current"
+        :type="type"
+      ></i-form>
     </a-tab-pane>
+    
   </a-tabs>
+ 
 </template>
 
 <script>
 import iTable from "./table";
 import iForm from "./form";
+import iModal from "./modal";
 import { mapState } from "vuex";
 export default {
   data() {
@@ -28,12 +40,14 @@ export default {
   computed: mapState({
     data: state => state.brand.data,
     pagination: state => state.brand.pagination,
-    type:state=>state.brand.type,
-    current:state=>state.brand.current
+    type: state => state.brand.type,
+    current: state => state.brand.current,
+    visible:state=>state.brand.visible
   }),
   components: {
     iTable,
-    iForm
+    iForm,
+    iModal
   },
 
   mounted: function() {
@@ -43,11 +57,28 @@ export default {
     getList: function() {
       this.$store.dispatch("brand/getList", {});
     },
-    handleEdit: function(value) {
-      console.log(value)
+    handleView:function(value){
+      
       this.$store.commit("brand/updateState", {
-        type:"EDIT",
-        current:value
+        type: "VIEW",
+        current: value
+      });
+      const panes = this.panes;
+      const activeKey = "newTabForm";
+      panes.push({
+        title: "查看品牌",
+        content: "<div></div>",
+        key: "newTabForm",
+        isForm: true
+      });
+      this.panes = panes;
+      this.activeKey = activeKey;
+    },
+    handleEdit: function(value) {
+      
+      this.$store.commit("brand/updateState", {
+        type: "EDIT",
+        current: value
       });
       const panes = this.panes;
       const activeKey = "newTabForm";
@@ -87,7 +118,11 @@ export default {
       this.activeKey = activeKey;
     },
     handleAddSuccess() {
-      console.log("handleAddSuccess");
+      this.$message("添加品牌成功!");
+      this.removeTab("newTabForm");
+    },
+    handleEditSuccess() {
+      this.$message("编辑品牌成功!");
       this.removeTab("newTabForm");
     },
     removeTab(targetKey) {
@@ -109,6 +144,10 @@ export default {
       if (panes.length === 0) {
         activeKey = "list";
       }
+      this.$store.commit("brand/updateState", {
+        type: "ADD",
+        current: {}
+      });
 
       this.panes = panes;
       this.activeKey = activeKey;

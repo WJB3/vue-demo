@@ -3,13 +3,15 @@
     name="upload_file"
     listType="picture-card"
     class="avatar-uploader"
+    :showUploadList="false"
     :beforeUpload="beforeUpload"
     :headers="headers"
     @change="handleChangeImage"
     action="/file"
     :placeholder="placeholder"
   >
-    <div class="image_margin" v-if="!imageUrl">
+    <img v-if="imageUrl" :src="imageUrl" alt="avatar" />
+    <div v-else class="image_margin" >
       <a-icon :type="loading ? 'loading' : 'plus'" />
       <div class="ant-upload-text">Upload</div>
     </div>
@@ -31,6 +33,9 @@ export default {
       imageUrl:"",
       loading:false
     };
+  },
+  mounted:function(){
+    this.imageUrl=this.value;
   },
   methods: {
     beforeUpload(file) {
@@ -57,10 +62,12 @@ export default {
         getBase64(info.file.originFileObj, imageUrl => {
           this.imageUrl = imageUrl;
           this.loading = false;
+          this.triggerChange(info.file.response);
         });
+       
       }
-      console.log(this.imageUrl);
-      this.triggerChange(this.imageUrl)
+ 
+     
     },
   }
 };

@@ -11,7 +11,8 @@ export default  {
             total:0
         },
         type:"ADD",
-        current:{}
+        current:{},
+        visible:false
     },
     getters:{
 
@@ -73,9 +74,10 @@ export default  {
                 const pagination={
                     ...state.pagination
                 }
-                state.pagination=payload.list.rows && payload.list.rows.length>0?{total:payload.list.rows[0].count,...pagination}:{}
+                 
+                state.pagination=payload.list.rows && payload.list.rows.length>0?{...pagination,total:payload.list.rows[0].count}:{}
             }
-            
+ 
             Object.assign(state,payload);
         }
     }

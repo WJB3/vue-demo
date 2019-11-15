@@ -35,7 +35,7 @@ export default {
 
   mounted: function() {
       this.getList();
-      console.log(this.pagination)
+    
   },
   methods: {
     getList:function(){

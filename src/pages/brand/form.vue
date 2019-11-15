@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <a-card :bordered="bordered">
     <a-form :form="form">
-      <a-row :gutter="24">
+      <a-row :gutter="{md: 8, lg: 24, xl: 48}">
         <a-col :span="8">
-          <a-form-item label="品牌名称:" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
+          <a-form-item label="品牌名称:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
             <a-input
+              :disabled="disabled"
               v-decorator="[
                 `name`,
                 {
@@ -23,7 +24,7 @@
           </a-form-item>
         </a-col>
         <a-col :span="8">
-          <a-form-item label="品牌图片:" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
+          <a-form-item label="品牌图片:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
              <file-uploader name="品牌图片"  v-decorator="[
                 `imgurl`,
                 {
@@ -33,13 +34,16 @@
                       message: '请输入公司图片!',
                     },
                   ],
+                  initialValue:current.imgurl
                 },
               ]"></file-uploader>
           </a-form-item>
         </a-col>
         <a-col :span="8">
-          <a-form-item label="优先级:" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
+          <a-form-item label="优先级:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
             <a-input-number
+            class="input_number"
+            :disabled="disabled"
               v-decorator="[
                 `aindex`,
                 {
@@ -60,9 +64,9 @@
       </a-row>
     </a-form>
     <footer-toolbar>
-      <a-button type="primary" @click="handleSubmit">确定</a-button>
+      <a-button type="primary" @click="handleSubmit" :disabled="disabled">确定</a-button>
     </footer-toolbar>
-  </div>
+  </a-card>
 </template>
 
 <script>
@@ -77,7 +81,9 @@ export default {
       form: this.$form.createForm(this),
       imageUrl: this.current.imgurl ? this.current.imgurl : "",
       loading: false,
-      headers: {}
+      headers: {},
+      disabled:this.type==="VIEW",
+      bordered:false
     };
   },
   components: {
@@ -95,12 +101,6 @@ export default {
         if (!err) {
           const values = vals;
  
-          if (values.imgurl && values.imgurl.file) {
-            values.imgurl = values.imgurl.file.response;
-          }else if(values.imgurl){
-            values.imgurl = values.imgurl;
-          }
-
           const newFormData = new FormData();
           newFormData.append("name", values.name);
           newFormData.append("imgurl", values.imgurl);
@@ -108,13 +108,19 @@ export default {
           if (this.type === "ADD") {
             this.$store.dispatch("brand/add", newFormData).then(res => {
               console.log(res);
+               if(res){
+                  this.$emit("onAddSuccess");
+               }
             });
           }else if(this.type === "EDIT"){
             this.$store.dispatch("brand/edit", newFormData).then(res => {
-              console.log(res);
+               console.log(res);
+               if(res){
+                  this.$emit("onEditSuccess");
+               }
             });
           }
-          this.$emit("onAddSuccess");
+          
         }
       });
     }
@@ -123,6 +129,9 @@ export default {
 </script>
 
 <style lang="less">
+.input_number{
+  width:80%;
+}
 .avatar-uploader > .ant-upload {
   width: 128px;
   height: 128px;

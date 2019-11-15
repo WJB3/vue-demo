@@ -12,6 +12,8 @@
       <div type="link" @click="handleEdit(record)" class="link">编辑</div>
       <a-divider type="vertical" />
       <div type="link" @click="handleDelete(record)" class="link">删除</div>
+      <a-divider type="vertical" />
+      <div type="link" @click="handleView(record)" class="link">查看</div>
     </span>
   </a-table>
 </template>
@@ -50,7 +52,7 @@ export default {
           dataIndex: "action",
           key: "action",
           fixed:"right",
-          width: 150,
+          width: 170,
           scopedSlots: { customRender: "action" }
         }
       ]
@@ -59,7 +61,7 @@ export default {
   props: ["data", "pagination"],
   methods: {
     handleTableChange: function(pagination, filters, sorter) {
-      console.log(pagination);
+      this.$store.dispatch("brand/getList", {page:pagination.current-1});
     },
     handleDelete: function(value) {
       const _this = this;
@@ -75,16 +77,19 @@ export default {
           });
         },
         onCancel() {
-          console.log("Cancel");
+          
         }
       });
     },
     handleEdit: function(value) {
       this.$emit("onEdit", value);
+    },
+    handleView:function(value){
+      this.$emit("onView",value);
     }
   },
   mounted: function() {
-    console.log(this.pagination);
+     
   }
 };
 </script>
@@ -96,5 +101,6 @@ export default {
   border-color: transparent;
   box-shadow: none;
   display:inline-block;
+  cursor: pointer;
 }
 </style>
