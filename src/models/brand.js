@@ -12,17 +12,21 @@ export default  {
         },
         type:"ADD",
         current:{},
-        visible:false
+        visible:false,
+        loading:false,
+        searchText:""
     },
     getters:{
 
     },
     actions:{
         async add({commit,dispatch},payload){
+            
             try{    
                 const list=await brandService.add(payload);
                 dispatch("getList");
                 if(list){
+                    
                     return true;
                 }
                  
@@ -49,16 +53,20 @@ export default  {
         async delete({commit,dispatch},payload){//品牌删除
             try{    
                 const list=await brandService.deleteBrand(payload);
-           
                 dispatch("getList")
             }catch(e){
                 console.error(e);
             }
         },
         async getList({commit},payload){//用户登录
+            commit("updateState",{
+                loading:true
+            })
             try{    
                 const list=await brandService.list(payload);
-           
+                commit("updateState",{
+                    loading:false
+                })
                 commit("updateState",{
                     list
                 })

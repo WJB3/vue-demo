@@ -25,7 +25,9 @@
         </a-col>
         <a-col :span="8">
           <a-form-item label="品牌图片:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
-             <file-uploader name="品牌图片"  v-decorator="[
+            <file-uploader
+              name="品牌图片"
+              v-decorator="[
                 `imgurl`,
                 {
                   rules: [
@@ -36,14 +38,15 @@
                   ],
                   initialValue:current.imgurl
                 },
-              ]"></file-uploader>
+              ]"
+            ></file-uploader>
           </a-form-item>
         </a-col>
         <a-col :span="8">
           <a-form-item label="优先级:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
             <a-input-number
-            class="input_number"
-            :disabled="disabled"
+              class="input_number"
+              :disabled="disabled"
               v-decorator="[
                 `aindex`,
                 {
@@ -62,6 +65,29 @@
           </a-form-item>
         </a-col>
       </a-row>
+      <a-row :gutter="{md: 8, lg: 24, xl: 48}">
+        <a-col :span="8">
+          <a-form-item label="品牌" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+            <pop-select-brand
+              class="brand"
+              :disabled="disabled"
+              v-decorator="[
+                `brand`,
+                {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入品牌!',
+                    },
+                     
+                  ],
+                  initialValue:current.brand
+                },
+              ]"
+            />
+          </a-form-item>
+        </a-col>
+      </a-row>
     </a-form>
     <footer-toolbar>
       <a-button type="primary" @click="handleSubmit" :disabled="disabled">确定</a-button>
@@ -72,9 +98,10 @@
 <script>
 import postImageService from "@/services/fileService";
 import FooterToolbar from "@/component/footer-toolbar";
-import FileUploader from '@/component/file-loader'
+import FileUploader from "@/component/file-loader";
+import PopSelectBrand from "@/component/pop-select-brand";
 import axios from "axios";
- 
+
 export default {
   data() {
     return {
@@ -82,25 +109,26 @@ export default {
       imageUrl: this.current.imgurl ? this.current.imgurl : "",
       loading: false,
       headers: {},
-      disabled:this.type==="VIEW",
-      bordered:false
+      disabled: this.type === "VIEW",
+      bordered: false
     };
   },
   components: {
     FooterToolbar,
-    FileUploader
+    FileUploader,
+    PopSelectBrand
   },
   mounted() {},
   props: ["current", "type"],
   methods: {
-   
-    
     customRequest(params) {},
     handleSubmit() {
       this.form.validateFields((err, vals) => {
         if (!err) {
           const values = vals;
- 
+
+          const { uuid } = this.current;
+
           const newFormData = new FormData();
           newFormData.append("name", values.name);
           newFormData.append("imgurl", values.imgurl);
@@ -108,19 +136,19 @@ export default {
           if (this.type === "ADD") {
             this.$store.dispatch("brand/add", newFormData).then(res => {
               console.log(res);
-               if(res){
-                  this.$emit("onAddSuccess");
-               }
+              if (res) {
+                this.$emit("onAddSuccess");
+              }
             });
-          }else if(this.type === "EDIT"){
+          } else if (this.type === "EDIT") {
+            console.log("EDIT");
+            newFormData.append("uuid", uuid);
             this.$store.dispatch("brand/edit", newFormData).then(res => {
-               console.log(res);
-               if(res){
-                  this.$emit("onEditSuccess");
-               }
+              if (res) {
+                this.$emit("onEditSuccess");
+              }
             });
           }
-          
         }
       });
     }
@@ -129,8 +157,8 @@ export default {
 </script>
 
 <style lang="less">
-.input_number{
-  width:80%;
+.input_number {
+  width: 80%;
 }
 .avatar-uploader > .ant-upload {
   width: 128px;

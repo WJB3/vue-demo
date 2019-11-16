@@ -3,25 +3,30 @@
     <a-tab-pane tab="列表" key="list" :closable="listClosable">
       <div class="wrap_table">
         <a-button type="primary" style="margin-bottom:10px;" @click="handleAddBrand">新建品牌</a-button>
-        <i-table :data="data" :pagination="pagination" v-on:onEdit="handleEdit"  v-on:onView="handleView"></i-table>
+        <a-input-search placeholder="搜索..." class="search_input"  />
+        <i-table
+          :data="data"
+          :pagination="pagination"
+          v-on:onEdit="handleEdit"
+          v-on:onView="handleView"
+          :loading="loading"
+         
+        ></i-table>
 
         <i-modal :visible="visible"></i-modal>
-
       </div>
     </a-tab-pane>
     <a-tab-pane v-for="pane in panes" :tab="pane.title" :key="pane.key" :closable="pane.closable">
       <div v-html="pane.content"></div>
       <i-form
         v-if="pane.isForm"
-        v-on:onAddSuccess="handleAddSuccess"  
-        v-on:onEditSuccess="handleEditSuccess"   
+        v-on:onAddSuccess="handleAddSuccess"
+        v-on:onEditSuccess="handleEditSuccess"
         :current="current"
         :type="type"
       ></i-form>
     </a-tab-pane>
-    
   </a-tabs>
- 
 </template>
 
 <script>
@@ -42,7 +47,9 @@ export default {
     pagination: state => state.brand.pagination,
     type: state => state.brand.type,
     current: state => state.brand.current,
-    visible:state=>state.brand.visible
+    visible: state => state.brand.visible,
+    loading: state => state.brand.loading,
+    searchText:state=>state.brand.searchText
   }),
   components: {
     iTable,
@@ -54,11 +61,11 @@ export default {
     this.getList();
   },
   methods: {
+    
     getList: function() {
       this.$store.dispatch("brand/getList", {});
     },
-    handleView:function(value){
-      
+    handleView: function(value) {
       this.$store.commit("brand/updateState", {
         type: "VIEW",
         current: value
@@ -75,7 +82,6 @@ export default {
       this.activeKey = activeKey;
     },
     handleEdit: function(value) {
-      
       this.$store.commit("brand/updateState", {
         type: "EDIT",
         current: value
@@ -118,11 +124,11 @@ export default {
       this.activeKey = activeKey;
     },
     handleAddSuccess() {
-      this.$message("添加品牌成功!");
+      this.$message.success("添加品牌成功!");
       this.removeTab("newTabForm");
     },
     handleEditSuccess() {
-      this.$message("编辑品牌成功!");
+      this.$message.success("编辑品牌成功!");
       this.removeTab("newTabForm");
     },
     removeTab(targetKey) {
@@ -157,6 +163,10 @@ export default {
 </script>
 
 <style lang="less">
+.search_input{
+  width:200px;
+  float:right;
+}
 .wrap_table {
   padding: 10px 50px;
 }

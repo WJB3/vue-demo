@@ -25,9 +25,7 @@ async function edit(params){
 async function deleteBrand(params){
     return request('/api/hi/main?hi=24AXRBU571JT',{
         method:"POST",
-        body:{
-            ...params
-        }
+        body:params
     })
 }
 
