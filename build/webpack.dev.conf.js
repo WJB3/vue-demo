@@ -28,7 +28,7 @@ module.exports=merge(baseWebpackConfig,{
             warnings:false,
             errors:true,
         },
-        host:"localhost",
+        host:"127.0.0.1",
         open:true,//开发服务器将打开浏览器
         noInfo:true,//那些显示的 webpack 包(bundle)信息」的消息将被隐藏。错误和警告仍然会显示。
         https:false,

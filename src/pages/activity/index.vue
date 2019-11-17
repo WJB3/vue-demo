@@ -2,7 +2,7 @@
   <a-tabs v-model="activeKey" type="editable-card" @edit="onEdit" class="a_tab">
     <a-tab-pane tab="列表" key="list" :closable="listClosable">
       <div class="wrap_table">
-        <a-button type="primary" style="margin-bottom:10px;" @click="handleAddBrand">新建优惠券</a-button>
+        <a-button type="primary" style="margin-bottom:10px;" @click="handleAddBrand">新建活动</a-button>
         <a-input-search placeholder="搜索..." class="search_input"  />
         <i-table
           :data="data"
@@ -43,13 +43,13 @@ export default {
     };
   },
   computed: mapState({
-    data: state => state.discount.data,
-    pagination: state => state.discount.pagination,
-    type: state => state.discount.type,
-    current: state => state.discount.current,
-    visible: state => state.discount.visible,
-    loading: state => state.discount.loading,
-    searchText:state=>state.discount.searchText
+    data: state => state.activity.data,
+    pagination: state => state.activity.pagination,
+    type: state => state.activity.type,
+    current: state => state.activity.current,
+    visible: state => state.activity.visible,
+    loading: state => state.activity.loading,
+    searchText:state=>state.activity.searchText
   }),
   components: {
     iTable,
@@ -63,17 +63,17 @@ export default {
   methods: {
     
     getList: function() {
-      this.$store.dispatch("discount/getList", {});
+      this.$store.dispatch("activity/getList", {});
     },
     handleView: function(value) {
-      this.$store.commit("discount/updateState", {
+      this.$store.commit("activity/updateState", {
         type: "VIEW",
         current: value
       });
       const panes = this.panes;
       const activeKey = "newTabForm";
       panes.push({
-        title: "查看优惠券",
+        title: "查看活动",
         content: "<div></div>",
         key: "newTabForm",
         isForm: true
@@ -82,14 +82,14 @@ export default {
       this.activeKey = activeKey;
     },
     handleEdit: function(value) {
-      this.$store.commit("discount/updateState", {
+      this.$store.commit("activity/updateState", {
         type: "EDIT",
         current: value
       });
       const panes = this.panes;
       const activeKey = "newTabForm";
       panes.push({
-        title: "编辑优惠券",
+        title: "编辑活动",
         content: "<div></div>",
         key: "newTabForm",
         isForm: true
@@ -101,7 +101,7 @@ export default {
       const panes = this.panes;
       const activeKey = "newTabForm";
       panes.push({
-        title: "添加优惠券",
+        title: "添加活动",
         content: "<div></div>",
         key: "newTabForm",
         isForm: true
@@ -124,11 +124,11 @@ export default {
       this.activeKey = activeKey;
     },
     handleAddSuccess() {
-      this.$message.success("添优惠券成功!");
+      this.$message.success("添加活动成功!");
       this.removeTab("newTabForm");
     },
     handleEditSuccess() {
-      this.$message.success("编辑优惠券成功!");
+      this.$message.success("编辑活动成功!");
       this.removeTab("newTabForm");
     },
     removeTab(targetKey) {
@@ -150,7 +150,7 @@ export default {
       if (panes.length === 0) {
         activeKey = "list";
       }
-      this.$store.commit("discount/updateState", {
+      this.$store.commit("activity/updateState", {
         type: "ADD",
         current: {}
       });

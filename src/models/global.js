@@ -2,13 +2,23 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import staff from './staff';
 import brand from './brand';
+import order from './order';
+import model from './model';
+import discount from './discount';
+import trade from './trade';
+import activity from './activity';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     namespaced:true,
     modules:{
         staff,
-        brand
+        brand,
+        order,
+        model,
+        discount,
+        trade,
+        activity
     },
     state:{
         isMenuCollapse:false,

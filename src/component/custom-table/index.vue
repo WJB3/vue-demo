@@ -1,4 +1,5 @@
 <template>
+<div>
   <a-table
     :bordered="bordered"
     :loading="loading"
@@ -34,6 +35,12 @@
       <a-button @click="() => handleReset(clearFilters)" size="small" style="width: 90px">重置</a-button>
     </div>
 
+    <template slot="order_statis" slot-scope="text">
+      <a-badge status="warning" v-if="text===1" text="已付款"/>
+      <a-badge status="processing" v-if="text===2" text="已发货"/>
+      <a-badge status="success" v-if="text===3" text="已收款"/>
+    </template>
+
     <template slot="nameRender" slot-scope="text">
       <span v-if="searchText">
         <template
@@ -58,6 +65,8 @@
       <div type="link" @click="handleView(record)" class="link">查看</div>
     </span>
   </a-table>
+  <a-button class="confirm-button" v-if="showConfirm" size="small" type="primary" @click="handleConfirm">确认</a-button>
+</div>
 </template>
 
 <script>
@@ -71,7 +80,9 @@ export default {
       rowSelection:{
         type:this.rowType,
         columnWidth:50,
-      }
+        onChange:this.handleChangeClick
+      },
+      current:{}
     };
   },
   props:{
@@ -104,6 +115,9 @@ export default {
     },
     rowType:{
       default:"radio"
+    },
+    showConfirm:{
+      default:false
     }
   },  
   methods: {
@@ -134,7 +148,13 @@ export default {
     handleView: function(value) {
       this.$emit("onView", value);
     },
-    
+    handleChangeClick:function(selectedRowKeys, selectedRows){
+      this.current=selectedRows[0];
+      //this.$emit("onChangeTableRow",selectedRows[0])
+    },
+    handleConfirm:function(){
+      this.$emit("onConfirm",this.current)
+    }
   },
   mounted: function() {
     this.columns.forEach(item => {
@@ -173,4 +193,7 @@ export default {
   cursor: pointer;
 }
 .ant-table td { white-space: nowrap;overflow: hidden;text-overflow:ellipsis; }
+.confirm-button{
+  //float:right;
+}
 </style>

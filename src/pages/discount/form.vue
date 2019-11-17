@@ -3,7 +3,7 @@
     <a-form :form="form">
       <a-row :gutter="{md: 8, lg: 24, xl: 48}">
         <a-col :span="8">
-          <a-form-item label="品牌名称:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+          <a-form-item label="优惠券名称:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
             <a-input
               :disabled="disabled"
               v-decorator="[
@@ -12,7 +12,7 @@
                   rules: [
                     {
                       required: true,
-                      message: '请输入品牌名称!',
+                      message: '请输入名称!',
                     },
                     
                   ],
@@ -23,71 +23,96 @@
             />
           </a-form-item>
         </a-col>
+        
         <a-col :span="8">
-          <a-form-item label="品牌图片:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
-            <file-uploader
-              name="品牌图片"
-              v-decorator="[
-                `imgurl`,
-                {
-                  rules: [
-                    {
-                      required: true,
-                      message: '请输入公司图片!',
-                    },
-                  ],
-                  initialValue:current.imgurl
-                },
-              ]"
-            ></file-uploader>
-          </a-form-item>
-        </a-col>
-        <a-col :span="8">
-          <a-form-item label="优先级:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+          <a-form-item label="满减值:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
             <a-input-number
               class="input_number"
               :disabled="disabled"
               v-decorator="[
-                `aindex`,
+                `fullred`,
                 {
                   rules: [
                     {
                       required: true,
-                      message: '请输入优先级!',
+                      message: '请输入满减值!',
                     },
                      
                   ],
-                  initialValue:current.aindex
+                  initialValue:current.fullred
                 },
               ]"
-              placeholder="请输入公司名称"
+              placeholder="请输入满减值"
+            />
+          </a-form-item>
+        </a-col>
+        <a-col :span="8">
+          <a-form-item label="优惠力度:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+            <a-input-number
+              class="input_number"
+              :disabled="disabled"
+              v-decorator="[
+                `red`,
+                {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入优惠力度!',
+                    },
+                     
+                  ],
+                  initialValue:current.red
+                },
+              ]"
+              placeholder="请输入优惠力度"
             />
           </a-form-item>
         </a-col>
       </a-row>
-      <!-- <a-row :gutter="{md: 8, lg: 24, xl: 48}">
+       <a-row :gutter="{md: 8, lg: 24, xl: 48}">
         <a-col :span="8">
-          <a-form-item label="品牌" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
-            <pop-select-brand
-              class="brand"
-              :disabled="disabled"
+          <a-form-item label="优惠开始时间" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+             <a-date-picker 
+               :disabled="disabled"
               v-decorator="[
-                `brand`,
+                `starttime`,
                 {
                   rules: [
                     {
                       required: true,
-                      message: '请输入品牌!',
+                      message: '请输入优惠开始时间!',
                     },
                      
                   ],
-                  initialValue:current.brand
+                  initialValue:filterStartTime
                 },
               ]"
-            />
+              placeholder="请输入优惠开始时间"
+             />
           </a-form-item>
         </a-col>
-      </a-row> -->
+        <a-col :span="8">
+          <a-form-item label="优惠结束时间" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+             <a-date-picker 
+               :disabled="disabled"
+              v-decorator="[
+                `endtime`,
+                {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入优惠结束时间!',
+                    },
+                     
+                  ],
+                  initialValue:filterEndTime
+                },
+              ]"
+              placeholder="请输入优惠结束时间"
+             />
+          </a-form-item>
+        </a-col>
+      </a-row>
     </a-form>
     <footer-toolbar>
       <a-button type="primary" @click="handleSubmit" :disabled="disabled">确定</a-button>
@@ -101,6 +126,7 @@ import FooterToolbar from "@/component/footer-toolbar";
 import FileUploader from "@/component/file-loader";
 import PopSelectBrand from "@/component/pop-select-brand";
 import axios from "axios";
+import moment from "moment";
 
 export default {
   data() {
@@ -110,7 +136,9 @@ export default {
       loading: false,
       headers: {},
       disabled: this.type === "VIEW",
-      bordered: false
+      bordered: false,
+      filterStartTime:moment(this.current.starttime),
+      filterEndTime:moment(this.current.endtime),
     };
   },
   components: {
@@ -131,10 +159,12 @@ export default {
 
           const newFormData = new FormData();
           newFormData.append("name", values.name);
-          newFormData.append("imgurl", values.imgurl);
-          newFormData.append("aindex", values.aindex);
+          newFormData.append("fullred", values.fullred);
+          newFormData.append("red", values.red);
+          newFormData.append("starttime", values.starttime.format("YYYY-MM-DD"));
+          newFormData.append("endtime",values.endtime.format("YYYY-MM-DD"));
           if (this.type === "ADD") {
-            this.$store.dispatch("brand/add", newFormData).then(res => {
+            this.$store.dispatch("discount/add", newFormData).then(res => {
               console.log(res);
               if (res) {
                 this.$emit("onAddSuccess");
@@ -143,7 +173,7 @@ export default {
           } else if (this.type === "EDIT") {
             console.log("EDIT");
             newFormData.append("uuid", uuid);
-            this.$store.dispatch("brand/edit", newFormData).then(res => {
+            this.$store.dispatch("discount/edit", newFormData).then(res => {
               if (res) {
                 this.$emit("onEditSuccess");
               }

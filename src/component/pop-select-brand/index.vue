@@ -1,5 +1,5 @@
 <template>
-  <a-popover>
+  <a-popover  trigger="click" v-model="visible">
     <div slot="content">
       <div :style="{'width':width}">
         <custom-table
@@ -9,11 +9,13 @@
           :loading="loading"
           size="small"
           rowKey="uuid"
+          :showConfirm="showConfirm"
           v-on:onTableChange="handleTableChange"
+          v-on:onConfirm="handleConfirm"
         ></custom-table>
       </div>
     </div>
-    <a-input></a-input>
+    <a-input v-model="name"></a-input>
   </a-popover>
 </template>
 
@@ -23,6 +25,7 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
+      current:{},
       columns: [
         {
           title: "品牌名",
@@ -38,7 +41,10 @@ export default {
           filter: true
         }
       ],
-      width: "500px"
+      width: "500px",
+      name:this.value.name,
+      visible:false,
+      showConfirm:true
     };
   },
   components: {
@@ -49,8 +55,14 @@ export default {
     pagination: state => state.brand.pagination,
     loading: state => state.brand.loading
   }),
-
+  props:{
+    value:{
+      type:[Object],
+      //default:()=>({id:"",name:""})
+    }
+  },  
   mounted: function() {
+    console.log(this.value)
     this.$store.dispatch("brand/getList");
     this.width = this.columns.reduce(
       (total, current) => total + (current.width || current.width_custom),
@@ -72,6 +84,12 @@ export default {
         newData[key] = data[key][0];
       });
       return newData;
+    },
+    handleConfirm:function(current){
+      this.current=current;
+      this.name=current.uuid?current.name:"";
+      this.visible=false;
+      this.$emit("change",  current);
     }
   }
 };

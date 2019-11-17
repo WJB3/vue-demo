@@ -3,7 +3,7 @@
     <a-form :form="form">
       <a-row :gutter="{md: 8, lg: 24, xl: 48}">
         <a-col :span="8">
-          <a-form-item label="品牌名称:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+          <a-form-item label="型号名称:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
             <a-input
               :disabled="disabled"
               v-decorator="[
@@ -12,60 +12,17 @@
                   rules: [
                     {
                       required: true,
-                      message: '请输入品牌名称!',
+                      message: '请输入型号名称!',
                     },
                     
                   ],
                   initialValue:current.name
                 },
               ]"
-              placeholder="请输入品牌名称"
+              placeholder="请输入型号名称"
             />
           </a-form-item>
         </a-col>
-        <a-col :span="8">
-          <a-form-item label="品牌图片:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
-            <file-uploader
-              name="品牌图片"
-              v-decorator="[
-                `imgurl`,
-                {
-                  rules: [
-                    {
-                      required: true,
-                      message: '请输入公司图片!',
-                    },
-                  ],
-                  initialValue:current.imgurl
-                },
-              ]"
-            ></file-uploader>
-          </a-form-item>
-        </a-col>
-        <a-col :span="8">
-          <a-form-item label="优先级:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
-            <a-input-number
-              class="input_number"
-              :disabled="disabled"
-              v-decorator="[
-                `aindex`,
-                {
-                  rules: [
-                    {
-                      required: true,
-                      message: '请输入优先级!',
-                    },
-                     
-                  ],
-                  initialValue:current.aindex
-                },
-              ]"
-              placeholder="请输入公司名称"
-            />
-          </a-form-item>
-        </a-col>
-      </a-row>
-      <!-- <a-row :gutter="{md: 8, lg: 24, xl: 48}">
         <a-col :span="8">
           <a-form-item label="品牌" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
             <pop-select-brand
@@ -79,15 +36,16 @@
                       required: true,
                       message: '请输入品牌!',
                     },
-                     
+                    
                   ],
-                  initialValue:current.brand
+                  initialValue:initialBrand
                 },
               ]"
+              placeholder="请输入品牌"
             />
           </a-form-item>
         </a-col>
-      </a-row> -->
+      </a-row>
     </a-form>
     <footer-toolbar>
       <a-button type="primary" @click="handleSubmit" :disabled="disabled">确定</a-button>
@@ -110,7 +68,8 @@ export default {
       loading: false,
       headers: {},
       disabled: this.type === "VIEW",
-      bordered: false
+      bordered: false,
+      initialBrand: this.current.brandid?{id:this.current.brandid,name:this.current.brandname}:{id:"",name:""}
     };
   },
   components: {
@@ -131,10 +90,9 @@ export default {
 
           const newFormData = new FormData();
           newFormData.append("name", values.name);
-          newFormData.append("imgurl", values.imgurl);
-          newFormData.append("aindex", values.aindex);
+          newFormData.append("brandid", values.brand.uuid)
           if (this.type === "ADD") {
-            this.$store.dispatch("brand/add", newFormData).then(res => {
+            this.$store.dispatch("model/add", newFormData).then(res => {
               console.log(res);
               if (res) {
                 this.$emit("onAddSuccess");
@@ -143,7 +101,7 @@ export default {
           } else if (this.type === "EDIT") {
             console.log("EDIT");
             newFormData.append("uuid", uuid);
-            this.$store.dispatch("brand/edit", newFormData).then(res => {
+            this.$store.dispatch("model/edit", newFormData).then(res => {
               if (res) {
                 this.$emit("onEditSuccess");
               }

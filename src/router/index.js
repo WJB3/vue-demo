@@ -15,6 +15,8 @@ const Brand=()=>import("@/pages/brand/index.vue");
 const Score=()=>import("@/pages/score/index.vue");
 const Trade=()=>import("@/pages/trade/index.vue");
 const Staff=()=>import("@/pages/staff/index.vue");
+const Order=()=>import("@/pages/order/index.vue");
+const Activity=()=>import("@/pages/activity/index.vue");
 const TestCanvas=()=>import("@/pages/test/canvas/index.vue");
 const SvgCanvas=()=>import("@/pages/test/svg/index.vue");
 const StaffFiles=()=>import("@/pages/staff/files/index.vue");
@@ -36,9 +38,16 @@ const menuRoutes=[
     {
         path:"/user",
         key:"user",
-        title:"人员管理",
+        title:"用户管理",
         icon:"user",
         component:Staff
+    },
+    {
+        path:"/order",
+        key:"order",
+        title:"订单管理",
+        icon:"key",
+        component:Order
     },
     {
         path:"/brand",
@@ -48,12 +57,19 @@ const menuRoutes=[
         component:Brand
     },
     {
-        path:"/score",
-        key:"score",
-        title:"积分管理",
+        path:"/activity",
+        key:"activity",
+        title:"活动管理",
         icon:"key",
-        component:Score
+        component:Activity
     },
+    // {
+    //     path:"/score",
+    //     key:"score",
+    //     title:"积分管理",
+    //     icon:"key",
+    //     component:Score
+    // },
     {
         path:"/trade",
         key:"trade",
@@ -72,17 +88,17 @@ const menuRoutes=[
     {
         path:"/discount",
         key:"discount",
-        title:"购物车管理",
+        title:"优惠券管理",
         icon:"shopping-cart",
         component:Discount
     },
-    {
-        path:"/info",
-        key:"info",
-        title:"公司信息介绍",
-        icon:"database",
-        component:Info
-    },
+    // {
+    //     path:"/info",
+    //     key:"info",
+    //     title:"公司信息介绍",
+    //     icon:"database",
+    //     component:Info
+    // },
     // {
     //     path:"/staff",
     //     key:"staff",
