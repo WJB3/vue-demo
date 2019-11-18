@@ -90,7 +90,7 @@ export default {
 
           const newFormData = new FormData();
           newFormData.append("name", values.name);
-          newFormData.append("brandid", values.brand.uuid)
+          newFormData.append("brandid", values.brand.id)
           if (this.type === "ADD") {
             this.$store.dispatch("model/add", newFormData).then(res => {
               console.log(res);

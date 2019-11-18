@@ -77,7 +77,7 @@
                   rules: [
                     {
                       required: true,
-                      message: '请输入正文!',
+                      message: '请输入描述!',
                     },
                      
                   ],

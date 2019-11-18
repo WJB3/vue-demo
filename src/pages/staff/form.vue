@@ -1,96 +1,165 @@
 <template>
-  <div>
+  <a-card :bordered="bordered">
     <a-form :form="form">
-      <a-row :gutter="24">
+      <a-row :gutter="{md: 8, lg: 24, xl: 48}">
         <a-col :span="8">
-          <a-form-item label="公司名称:"  :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }"> 
+          <a-form-item label="品牌名称:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
             <a-input
+              :disabled="disabled"
               v-decorator="[
                 `name`,
                 {
                   rules: [
                     {
                       required: true,
-                      message: '请输入公司名称!',
+                      message: '请输入品牌名称!',
+                    },
+                    
+                  ],
+                  initialValue:current.name
+                },
+              ]"
+              placeholder="请输入品牌名称"
+            />
+          </a-form-item>
+        </a-col>
+        <a-col :span="8">
+          <a-form-item label="品牌图片:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+            <file-uploader
+              name="品牌图片"
+              v-decorator="[
+                `imgurl`,
+                {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入公司图片!',
                     },
                   ],
+                  initialValue:current.imgurl
+                },
+              ]"
+            ></file-uploader>
+          </a-form-item>
+        </a-col>
+        <a-col :span="8">
+          <a-form-item label="优先级:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+            <a-input-number
+              class="input_number"
+              :disabled="disabled"
+              v-decorator="[
+                `aindex`,
+                {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入优先级!',
+                    },
+                     
+                  ],
+                  initialValue:current.aindex
                 },
               ]"
               placeholder="请输入公司名称"
             />
           </a-form-item>
         </a-col>
+      </a-row>
+      <!-- <a-row :gutter="{md: 8, lg: 24, xl: 48}">
         <a-col :span="8">
-          <a-form-item label="公司图片:" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
-             <file-uploader  ></file-uploader>
+          <a-form-item label="品牌" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+            <pop-select-brand
+              class="brand"
+              :disabled="disabled"
+              v-decorator="[
+                `brand`,
+                {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入品牌!',
+                    },
+                     
+                  ],
+                  initialValue:current.brand
+                },
+              ]"
+            />
           </a-form-item>
         </a-col>
-      </a-row>
+      </a-row> -->
     </a-form>
     <footer-toolbar>
-      <a-button type="primary"  @click="handleSubmit">确定</a-button>
+      <a-button type="primary" @click="handleSubmit" :disabled="disabled">确定</a-button>
     </footer-toolbar>
-  </div>
-
+  </a-card>
 </template>
 
 <script>
 import postImageService from "@/services/fileService";
-import FooterToolbar from '@/component/footer-toolbar';
-import FileUploader from '@/component/file-loader'
+import FooterToolbar from "@/component/footer-toolbar";
+import FileUploader from "@/component/file-loader";
+import PopSelectBrand from "@/component/pop-select-brand";
 import axios from "axios";
-function getBase64(img, callback) {
-  const reader = new FileReader();
-  reader.addEventListener("load", () => callback(reader.result));
-  reader.readAsDataURL(img);
-}
+
 export default {
   data() {
     return {
       form: this.$form.createForm(this),
-      imageUrl: "",
+      imageUrl: this.current.imgurl ? this.current.imgurl : "",
       loading: false,
-      headers: {}
+      headers: {},
+      disabled: this.type === "VIEW",
+      bordered: false
     };
   },
-  components:{
+  components: {
     FooterToolbar,
-    FileUploader
+    FileUploader,
+    PopSelectBrand
   },
+  mounted() {},
+  props: ["current", "type"],
   methods: {
-    beforeUpload(file) {
-      const isJPG = file.type.indexOf("image/") > -1;
+    customRequest(params) {},
+    handleSubmit() {
+      this.form.validateFields((err, vals) => {
+        if (!err) {
+          const values = vals;
 
-      if (!isJPG) {
-        this.$message.error("You can only upload JPG file!");
-      }
-      const isLt2M = file.size / 1024 / 1024 < 2;
-      if (!isLt2M) {
-        this.$message.error("Image must smaller than 2MB!");
-      }
-      return isJPG && isLt2M;
-    },
-    handleChangeImage(info) {
-       if (info.file.status === 'uploading') {
-          this.loading = true;
-          return;
+          const { uuid } = this.current;
+
+          const newFormData = new FormData();
+          newFormData.append("name", values.name);
+          newFormData.append("imgurl", values.imgurl);
+          newFormData.append("aindex", values.aindex);
+          if (this.type === "ADD") {
+            this.$store.dispatch("brand/add", newFormData).then(res => {
+              console.log(res);
+              if (res) {
+                this.$emit("onAddSuccess");
+              }
+            });
+          } else if (this.type === "EDIT") {
+            console.log("EDIT");
+            newFormData.append("uuid", uuid);
+            this.$store.dispatch("brand/edit", newFormData).then(res => {
+              if (res) {
+                this.$emit("onEditSuccess");
+              }
+            });
+          }
         }
-        if (info.file.status === 'done') {
-       
-          getBase64(info.file.originFileObj, imageUrl => {
-            this.imageUrl = imageUrl;
-            this.loading = false;
-          });
-        }
-    },
-    customRequest(params) {
-      
+      });
     }
   }
 };
 </script>
 
 <style lang="less">
+.input_number {
+  width: 80%;
+}
 .avatar-uploader > .ant-upload {
   width: 128px;
   height: 128px;

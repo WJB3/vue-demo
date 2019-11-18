@@ -52,7 +52,7 @@ export default  {
         },
         async delete({commit,dispatch},payload){//品牌删除
             try{    
-                const list=await tradeService.deleteBrand(payload);
+                const list=await tradeService.deleteTrade(payload);
                 dispatch("getList")
             }catch(e){
                 console.error(e);

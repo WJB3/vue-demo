@@ -4,7 +4,7 @@
       <div class="wrap_table">
         <a-button type="primary" style="margin-bottom:10px;" @click="handleAddBrand">新建型号</a-button>
         <pop-select-brand v-on:change="handleChangeBrand" :value="emptyObject" />
-
+        <white-space height="30px"></white-space>
         <i-table
           :data="data"
           :pagination="pagination"
@@ -34,6 +34,7 @@ import iTable from "./table";
 import iForm from "./form";
 import iModal from "./modal";
 import PopSelectBrand from "@/component/pop-select-brand";
+import WhiteSpace from "@/component/white-space";
 import { mapState } from "vuex";
 export default {
   data() {
@@ -57,7 +58,8 @@ export default {
     iTable,
     iForm,
     iModal,
-    PopSelectBrand
+    PopSelectBrand,
+    WhiteSpace
   },
 
   mounted: function() {

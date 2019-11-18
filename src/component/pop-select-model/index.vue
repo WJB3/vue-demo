@@ -1,5 +1,5 @@
 <template>
-  <a-popover  trigger="click" v-model="visible">
+  <a-popover trigger="click" v-model="visible" @visibleChange="handleVisibleChange">
     <div slot="content">
       <div :style="{'width':width}">
         <custom-table
@@ -25,60 +25,70 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      current:{},
+      current: {},
       columns: [
         {
-          title: "品牌名",
+          title: "型号名",
           dataIndex: "name",
-          width: 100,
-          filter: true
-        },
-
-        {
-          title: "品牌优先级",
-          dataIndex: "aindex",
-          width_custom: 150,
+          width: 200,
           filter: true
         }
       ],
       width: "500px",
-      name:this.value.name,
-      visible:false,
-      showConfirm:true
+      name: this.value.name,
+      visible: false,
+      showConfirm: true
     };
   },
   components: {
     CustomTable
   },
   computed: mapState({
-    data: state => state.brand.data,
-    pagination: state => state.brand.pagination,
-    loading: state => state.brand.loading
+    data: state => state.model.data,
+    pagination: state => state.model.pagination,
+    loading: state => state.model.loading
   }),
-  props:{
-    value:{
-      type:[Object],
+  props: {
+    value: {
+      type: [Object]
       //default:()=>({id:"",name:""})
     },
-    disabled:{
-      default:false
+    parameter: {
+      type: [Object]
+    },
+    disabled: {
+      default: false
     }
-  },  
+  },
+
   mounted: function() {
-    if(this.value.id){
-      this.$emit("change",  {id:this.value.id,name:this.value.name});
+    if (this.value.id) {
+      this.$emit("change", { id: this.value.id, name: this.value.name });
     }
-    this.$store.dispatch("brand/getList");
-    this.width = this.columns.reduce(
-      (total, current) => total + (current.width || current.width_custom),
-      0
-    )+50;
+
+    this.width =
+      this.columns.reduce(
+        (total, current) => total + (current.width || current.width_custom),
+        0
+      ) + 50;
   },
   methods: {
+    handleVisibleChange: function(visible) {
+      if (visible) {
+        const { brand_id } = this.parameter;
+
+        if (!brand_id) {
+          this.$message.info("您未选择品牌！请选择！");
+        }
+        this.$store.dispatch("model/getList", {
+          brandid: brand_id
+        });
+      }
+    },
     handleTableChange: function(pagination, filters, sorter) {
       const filterData = this.filterData(filters);
 
-      this.$store.dispatch("brand/getList", {
+      this.$store.dispatch("model/getList", {
         page: pagination.current - 1,
         ...filterData
       });
@@ -90,11 +100,11 @@ export default {
       });
       return newData;
     },
-    handleConfirm:function(current){
-      this.current=current;
-      this.name=current.uuid?current.name:"";
-      this.visible=false;
-      this.$emit("change", {...current,id:current.uuid} );
+    handleConfirm: function(current) {
+      this.current = current;
+      this.name = current.uuid ? current.name : "";
+      this.visible = false;
+      this.$emit("change", { ...current, id: current.uuid });
     }
   }
 };

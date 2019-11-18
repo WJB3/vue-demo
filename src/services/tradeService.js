@@ -22,7 +22,7 @@ async function edit(params){
     })
 }
 //删除
-async function deleteBrand(params){
+async function deleteTrade(params){
     return request('/api/hi/main?hi=24AXRBU571KX',{
         method:"POST",
         body:params
@@ -36,5 +36,5 @@ async function getDetail(params){
 
 
 export default {
-    list,add,edit,deleteBrand,getDetail
+    list,add,edit,deleteTrade,getDetail
 }

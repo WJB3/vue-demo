@@ -25,27 +25,52 @@ export default {
       searchText: "",
       columns: [
         {
-          title: "活动标题",
-          dataIndex: "title",
+          title: "商品名称",
+          dataIndex: "name",
           width: 150,
           filter: true
         },
         {
-          title: "活动图片",
-          dataIndex: "imgurl",
-          width: 500,
+          title: "商品编号",
+          dataIndex: "goodsnumber",
+          width: 150,
+          filter: true
+        },
+         {
+          title: "积分值",
+          dataIndex: "jfcount",
+          width: 100,
           filter: true
         },
         {
-          title: "正文",
-          dataIndex: "texts",
-          width: 200,
+          title: "库存数量",
+          dataIndex: "stock",
+          width: 150,
+          filter: true
+        },
+        {
+          title: "优惠券名称",
+          dataIndex: "couponname",
+          width: 150,
+          filter: true
+        },
+       
+        {
+          title: "品牌",
+          dataIndex: "brandname",
+          width: 150,
+          filter: true
+        },
+        {
+          title: "型号",
+          dataIndex: "model",
+          width: 150,
           filter: true
         },
         {
           title: "描述",
           dataIndex: "descs",
-          width: 200,
+          width: 150,
           filter: true
         },
         {
@@ -74,7 +99,7 @@ export default {
     handleTableChange: function(pagination, filters, sorter) {
       const filterData = this.filterData(filters);
 
-      this.$store.dispatch("activity/getList", {
+      this.$store.dispatch("trade/getList", {
         page: pagination.current - 1,
         ...filterData
       });
@@ -83,15 +108,15 @@ export default {
     handleDelete: function(value) {
       const _this = this;
       const formData = new FormData();
-      formData.append("uuid", value.uuid);
+      formData.append("uuid", value.goodsid);
       this.$confirm({
-        title: "确定删除此品牌吗？",
-        content: "品牌一旦删除不可恢复",
+        title: "确定删除此商品吗？",
+        content: "商品一旦删除不可恢复",
         okText: "确定",
         okType: "danger",
         cancelText: "取消",
         onOk() {
-          _this.$store.dispatch("activity/delete", formData);
+          _this.$store.dispatch("trade/delete", formData);
         },
         onCancel() {}
       });

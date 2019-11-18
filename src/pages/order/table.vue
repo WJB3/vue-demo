@@ -34,7 +34,7 @@ export default {
         {
           title: "订单用户名",
           dataIndex: "name",
-          width: 150,
+          width: 800,
           filter: true
         },
         
