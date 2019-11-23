@@ -27,20 +27,24 @@ export default {
         {
           title: "品牌名",
           dataIndex: "name",
-          width: 150,
+          key: "name",
+          width: 200,
           filter: true
         },
         {
           title: "品牌图片",
           dataIndex: "imgurl",
-          width: 800,
-          filter: true
+          key: "imgurl",
+          width: 500,
+          filter: true,
+          imgurl:true
         },
         {
           title: "品牌优先级",
           dataIndex: "aindex",
+          key: "aindex",
           width: 400,
-          filter: true
+          filter: true,
         },
         {
           title: "操作",

@@ -27,24 +27,28 @@ export default {
         {
           title: "活动标题",
           dataIndex: "title",
+          key: "title",
           width: 150,
           filter: true
         },
         {
           title: "活动图片",
           dataIndex: "imgurl",
+          key: "imgurl",
           width: 500,
           filter: true
         },
         {
           title: "正文",
           dataIndex: "texts",
+          key: "texts",
           width: 200,
           filter: true
         },
         {
           title: "描述",
           dataIndex: "descs",
+          key: "descs",
           width: 200,
           filter: true
         },

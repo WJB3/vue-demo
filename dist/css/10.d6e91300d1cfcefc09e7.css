@@ -1,0 +1,73 @@
+
+.mouth{
+  fill:none;
+  stroke:#00B51D;
+  stroke-width:5;
+  stroke-linecap:round;
+  stroke-dasharray:44,44;
+  -webkit-transform-origin:center;
+      -ms-transform-origin:center;
+          transform-origin:center;
+  -webkit-animation: mounthAni 2.3s ease-out infinite;
+          animation: mounthAni 2.3s ease-out infinite;
+}
+.eye{
+  fill:none;
+  stroke:#00B51D;
+  stroke-width:5;
+  stroke-linecap:round;
+  stroke-dasharray:0,66;
+  -webkit-transform-origin:center;
+      -ms-transform-origin:center;
+          transform-origin:center;
+  -webkit-transform:rotate(-45deg);
+      -ms-transform:rotate(-45deg);
+          transform:rotate(-45deg);
+  -webkit-animation: eyeAni 2.3s ease-in-out infinite;
+          animation: eyeAni 2.3s ease-in-out infinite;
+}
+@-webkit-keyframes mounthAni {
+40% {
+        stroke-dasharray: 44, 22;   /* 间距改为1/4 */
+}
+80%, 100% {
+        stroke-dasharray: 44, 44;   /* 间距恢复为1/2 */
+        -webkit-transform: rotate(720deg);
+                transform: rotate(720deg);
+}
+}
+@keyframes mounthAni {
+40% {
+        stroke-dasharray: 44, 22;   /* 间距改为1/4 */
+}
+80%, 100% {
+        stroke-dasharray: 44, 44;   /* 间距恢复为1/2 */
+        -webkit-transform: rotate(720deg);
+                transform: rotate(720deg);
+}
+}
+@-webkit-keyframes eyeAni {
+40% {
+        stroke-dasharray: 0, 77;    /* 间距改为7/8 */
+}
+80%, 100% {
+        -webkit-transform: rotate(675deg);
+                transform: rotate(675deg);  /* 间距恢复为3/4 */
+        stroke-dasharray: 0, 66;
+}
+}
+@keyframes eyeAni {
+40% {
+        stroke-dasharray: 0, 77;    /* 间距改为7/8 */
+}
+80%, 100% {
+        -webkit-transform: rotate(675deg);
+                transform: rotate(675deg);  /* 间距恢复为3/4 */
+        stroke-dasharray: 0, 66;
+}
+}
+
+ 
+
+
+/*# sourceMappingURL=10.d6e91300d1cfcefc09e7.css.map*/

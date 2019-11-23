@@ -85,7 +85,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .wrap_table {
   padding: 10px 50px;
 }

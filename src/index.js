@@ -11,8 +11,6 @@ import { router }  from './router';
 import "@/font/iconfont.css";
 import "@/font/iconfont.js";
 import store from "./models/global";
-
-
 import './styles/index.less' /**引入样式重置 */
 
 Vue.config.productionTip = false;//阻止启动生产消息，常用作指令

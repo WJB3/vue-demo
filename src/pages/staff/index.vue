@@ -165,13 +165,17 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .search_input{
   width:200px;
-  float:right;
+  position:absolute;
+  right:50px;
+  top:-10px;
+  //float:right;
 }
 .wrap_table {
   padding: 10px 50px;
+  position: relative;
 }
 .a_tab {
   background: white;

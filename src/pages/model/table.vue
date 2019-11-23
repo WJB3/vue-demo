@@ -27,6 +27,7 @@ export default {
         {
           title: "型号名",
           dataIndex: "name",
+          key: "name",
           width: 1500,
           filter: true
         },

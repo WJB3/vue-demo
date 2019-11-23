@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[3],{401:function(e,t,n){"use strict";n.r(t);var i=function(){var e=this.$createElement;return(this._self._c||e)("div",[this._v("控制台")])};i._withStripped=!0;var s={},r=n(8),a=Object(r.a)(s,i,[],!1,null,null,null);a.options.__file="src/pages/dashboard/index.vue";t.default=a.exports}}]);
-//# sourceMappingURL=3.048c2c37f2948021ecf9.js.map

@@ -37,6 +37,12 @@ export default new Vuex.Store({
                 return true;
             }
             return false;
+        },
+        async logout({commit},payload){//用户登出
+       
+            localStorage.removeItem("AUTHORITY"); 
+           
+            return true;
         }
     },
     mutations:{

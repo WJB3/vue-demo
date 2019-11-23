@@ -22,7 +22,7 @@ module.exports=merge(baseWebpackConfig,{
     module:{
         rules:styleUtils.styleLoaders({
             sourceMap:true,
-            usePostcss:true,
+            usePostCSS:true,
             useTypescriptCssModule:false,
             useCssModule:false,
             isBuild:true
@@ -48,7 +48,7 @@ module.exports=merge(baseWebpackConfig,{
         }),
         new MiniCssExtractPlugin({//分离css
             filename:"css/[name].[chunkhash:8].css",
-            chunkFilename:"css/[id].[hash]css"
+            chunkFilename:"css/[id].[hash].css"
         })
     ]
 });

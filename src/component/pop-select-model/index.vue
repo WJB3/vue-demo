@@ -30,6 +30,7 @@ export default {
         {
           title: "型号名",
           dataIndex: "name",
+          key: "name",
           width: 200,
           filter: true
         }

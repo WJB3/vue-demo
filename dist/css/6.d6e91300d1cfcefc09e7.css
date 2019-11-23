@@ -1,0 +1,42 @@
+.link {
+  color: #1890ff;
+  background-color: transparent;
+  border-color: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.input_number {
+  width: 80%;
+}
+.avatar-uploader > .ant-upload {
+  width: 128px;
+  height: 128px;
+}
+.ant-upload-select-picture-card i {
+  font-size: 32px;
+  color: #999;
+}
+.ant-upload-select-picture-card .ant-upload-text {
+  margin-top: 8px;
+  color: #666;
+}
+.image_margin {
+  margin-top: 32px;
+}
+
+.search_input[data-v-b82bf754] {
+  width: 200px;
+  float: right;
+}
+.wrap_table[data-v-b82bf754] {
+  padding: 10px 50px;
+}
+.a_tab[data-v-b82bf754] {
+  background: white;
+}
+
+
+/*# sourceMappingURL=6.d6e91300d1cfcefc09e7.css.map*/

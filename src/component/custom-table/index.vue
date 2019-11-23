@@ -8,9 +8,10 @@
     :pagination="pagination"
     @change="handleTableChange"
     :rowKey="rowKey"
-    :scroll="{ x: tableWidth, y: tableHeight }"
     :size="size"
+    :scroll="{x:1600}"
     :rowSelection="rowSelection"
+    :components="components"
   >
     <div
       slot="filterDropdown"
@@ -39,6 +40,10 @@
       <a-badge status="warning" v-if="text===1" text="已付款"/>
       <a-badge status="processing" v-if="text===2" text="已发货"/>
       <a-badge status="success" v-if="text===3" text="已收款"/>
+    </template>
+
+    <template slot="imgurl" slot-scope="text">
+       <img :src="text" :style="{width:'30px',height:'30px'}"/>
     </template>
 
     <template slot="nameRender" slot-scope="text">
@@ -70,8 +75,42 @@
 </template>
 
 <script>
+ 
+
 export default {
   data() {
+    const ResizeableTitle=(h,props,children)=>{
+    
+      const {key,...restProps}=props;
+      const col=this.columns.find(col=>{
+        return col.key===key;
+      });
+
+      if(!col){
+        return (
+          <th></th>
+        )
+      }
+      if(!col.width){
+        return <th {...restProps}>{children}</th>
+      }
+      return (
+        <th {...restProps} width={col.width}>
+          <div style="display:inline-flex;width:100%">
+            {children}
+            <textarea 
+              disabled
+              style="resize: horizontal;height: 21px; border: none;background: none;flex: 1;"
+            ></textarea>
+          </div>
+        </th>
+      )
+    }
+    this.components={
+        header:{
+          cell:ResizeableTitle
+        }
+    };
     return {
       searchInput: null,
       searchText: "",
@@ -82,7 +121,8 @@ export default {
         columnWidth:50,
         onChange:this.handleChangeClick
       },
-      current:{}
+      current:{},
+      
     };
   },
   props:{
@@ -154,7 +194,8 @@ export default {
     },
     handleConfirm:function(){
       this.$emit("onConfirm",this.current)
-    }
+    },
+    
   },
   mounted: function() {
     this.columns.forEach(item => {
@@ -175,6 +216,9 @@ export default {
       if (item.action) {
         item.scopedSlots = { customRender: "action" };
       }
+      if (item.imgurl) {
+        item.scopedSlots = { customRender: "imgurl" };
+      }
     });
     this.customColumns = this.columns;
     this.tableWidth=this.customColumns.reduce((total, current)=>total+(current.width||current.width_custom),0);
@@ -193,6 +237,9 @@ export default {
   cursor: pointer;
 }
 .ant-table td { white-space: nowrap;overflow: hidden;text-overflow:ellipsis; }
+.ant-empty-image img {
+    width: auto!important;
+}
 .confirm-button{
   //float:right;
 }

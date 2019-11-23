@@ -30,18 +30,21 @@ export default {
         {
           title: "优惠券名称",
           dataIndex: "name",
+          key: "name",
           width: 150,
           filter: true
         },
         {
           title: "满减值",
           dataIndex: "fullred",
+          key: "fullred",
           width: 200,
           filter: true
         },
         {
           title: "减多少",
           dataIndex: "red",
+          key: "red",
           width: 200,
           filter: true
         },

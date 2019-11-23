@@ -49,7 +49,6 @@ export default {
     border-top: 1px solid #e8e8e8;
     padding: 0 24px;
     z-index: 9;
-    // width:100%;
     transition:width 0.1s; 
 }
 .right{

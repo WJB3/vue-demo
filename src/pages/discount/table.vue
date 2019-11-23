@@ -27,30 +27,35 @@ export default {
         {
           title: "优惠券名称",
           dataIndex: "name",
+          key: "name",
           width: 150,
           filter: true
         },
         {
           title: "满减值",
           dataIndex: "fullred",
+          key: "fullred",
           width: 800,
           filter: true
         },
         {
           title: "减多少",
           dataIndex: "red",
+          key: "red",
           width: 400,
           filter: true
         },
         {
           title: "优惠开始时间",
           dataIndex: "starttime",
+          key: "starttime",
           width: 400,
           filter: true
         },
         {
           title: "优惠结束时间",
           dataIndex: "endtime",
+          key: "endtime",
           width: 400,
           filter: true
         },

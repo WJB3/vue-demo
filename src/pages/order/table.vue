@@ -27,6 +27,7 @@ export default {
         {
           title: "订单状态",
           dataIndex: "static",
+          key:"static",
           width: 150,
           filter: true,
           scopedSlots:{customRender:"order_statis"}
@@ -34,6 +35,7 @@ export default {
         {
           title: "订单用户名",
           dataIndex: "name",
+          key: "name",
           width: 800,
           filter: true
         },

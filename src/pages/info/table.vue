@@ -19,15 +19,18 @@ export default {
             columns:[
                 {
                     title:"公司名",
-                    dataIndex:"name"
+                    dataIndex:"name",
+                    key:"name",
                 },
                 {
                     title:"描述",
-                    dataIndex:"desc"
+                    dataIndex:"desc",
+                    key:"desc",
                 },
                 {
                     title:"图片地址",
-                    dataIndex:"imgurl"
+                    dataIndex:"imgurl",
+                    key:"imgurl",
                 }
             ]
         }

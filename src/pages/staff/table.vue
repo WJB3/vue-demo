@@ -27,33 +27,40 @@ export default {
          {
           title: "姓名",
           dataIndex: "name",
+          key:"name",
           width:200,
           filter:true
         },
         {
           title: "手机号兼用户",
           dataIndex: "phone",
+          key:"phone",
           width:150
         },
         {
           title: "密码",
           dataIndex: "password",
+          key:"password",
           width:100
         },
         {
           title: "用户头像",
-          dataIndex: "img",
-          width:300
+          dataIndex: "imgurl",
+          key:"imgurl",
+          width:300,
+          imgurl:true
         },
         {
           title: "公司营业执照",
           dataIndex: "gsimg",
+          key:"gsimg",
           width:300
         },
         {
           title: "公司地址",
           dataIndex: "comaddress",
-          width:100
+          key: "comaddress",
+          width:200
         }
          
       ]

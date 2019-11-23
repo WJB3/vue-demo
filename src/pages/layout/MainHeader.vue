@@ -6,10 +6,10 @@
       @click="onCollapse"
     />
     <div class="a_header_right">
-      <a-popover placement="bottomRight">
+      <a-popover placement="bottomRight"   >
         <template slot="content">
-          <div class="flexbox_row_center_center cursor_pointer">
-            <a-icon type="logout" style="margin-right:10px"/>退出登录
+          <div class="flexbox_row_center_center cursor_pointer" @click="handleLogout" >
+            <a-icon type="logout" style="margin-right:10px" />退出登录
           </div>
         </template>
         <template slot="title">
@@ -24,9 +24,27 @@
 
 <script>
 export default {
+  data(){
+    return {
+      visible:false
+    }
+  },
   methods: {
     onCollapse: function() {
       this.$emit("onCollapse");
+    },
+    handleLogout:function(){
+      const _this=this;
+ 
+      this.$store.dispatch({
+        type:"logout",
+         
+      }).then(res=>{
+        if(res){
+ 
+          _this.$router.push({path:"/"})
+        }
+      })
     }
   },
   props: {

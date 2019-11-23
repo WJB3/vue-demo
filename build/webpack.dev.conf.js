@@ -5,7 +5,7 @@ const merge=require('webpack-merge');
 const baseWebpackConfig=require('./webpack.base.conf.js');
 //引入基础webpack设置
 const HtmlWebpackPlugin=require('html-webpack-plugin');
-const derServerPort=16000;
+const derServerPort=8080;
 //基本作用就是生成html文件
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 //友好的提示
@@ -17,7 +17,7 @@ module.exports=merge(baseWebpackConfig,{
     module:{
         rules:styleUtils.styleLoaders({
             sourceMap:true,
-            usePostcss:true,
+            usePostCSS:true,
             useTypescriptCssModule:false,
             useCssModule:false
         })
@@ -36,6 +36,7 @@ module.exports=merge(baseWebpackConfig,{
         compress:true,//一切服务都启用gzip压缩
         progress:true,//将任务进度输出到控制台
         quiet:true,
+        disableHostCheck:true,
         useLocalIp:false,//此选项允许浏览器使用你的本地ip打开
         proxy:{//代理服务器
             "/file":{
@@ -59,7 +60,7 @@ module.exports=merge(baseWebpackConfig,{
                 html5:true,
                 collapseWhitespace: true, //把生成的 index.html 文件的内容的没用空格去掉，减少空间
             },
-            title:'基于vue的webpack4教手架项目',
+            title:'铎哥出品，必属精品',
             hash:true,
             favicon:'src/assets/favicon-shield.ico',//将给定的favicon路径添加到输出HTML
             showErrors:true,

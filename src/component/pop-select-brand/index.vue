@@ -30,6 +30,7 @@ export default {
         {
           title: "品牌名",
           dataIndex: "name",
+          key: "name",
           width: 100,
           filter: true
         },
@@ -37,6 +38,7 @@ export default {
         {
           title: "品牌优先级",
           dataIndex: "aindex",
+          key: "aindex",
           width_custom: 150,
           filter: true
         }

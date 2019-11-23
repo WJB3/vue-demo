@@ -27,30 +27,35 @@ export default {
         {
           title: "商品名称",
           dataIndex: "name",
+          key: "name",
           width: 150,
           filter: true
         },
         {
           title: "商品编号",
           dataIndex: "goodsnumber",
+          key: "goodsnumber",
           width: 150,
           filter: true
         },
          {
           title: "积分值",
           dataIndex: "jfcount",
+          key: "jfcount",
           width: 100,
           filter: true
         },
         {
           title: "库存数量",
           dataIndex: "stock",
+          key: "stock",
           width: 150,
           filter: true
         },
         {
           title: "优惠券名称",
           dataIndex: "couponname",
+          key: "couponname",
           width: 150,
           filter: true
         },
@@ -58,18 +63,21 @@ export default {
         {
           title: "品牌",
           dataIndex: "brandname",
+          key: "brandname",
           width: 150,
           filter: true
         },
         {
           title: "型号",
           dataIndex: "model",
+          key: "model",
           width: 150,
           filter: true
         },
         {
           title: "描述",
           dataIndex: "descs",
+          key: "descs",
           width: 150,
           filter: true
         },

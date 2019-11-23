@@ -26,13 +26,8 @@ exports.cssLoaders=function(options){
     }
 
     function generateLoaders(loader,loaderOptions){
-        const _loaders=options.usePostCSS?[cssLoader,postcssLoader]:[cssLoader];
-
-        const loaders=options.isBuild?[..._loaders]:[styleLoader,..._loaders]
-
-        if(options.isBuild){
-            loaders.unshift(MiniCssExtractPlugin.loader)
-        }
+        
+        const loaders=options.isBuild?[cssLoader]:[styleLoader,cssLoader]
 
         if(loader){
             loaders.push({
@@ -43,6 +38,14 @@ exports.cssLoaders=function(options){
             })
         }
 
+        if(options.usePostCSS){
+            loaders.push(postcssLoader)
+        }
+
+        if(options.isBuild){
+            loaders.unshift(MiniCssExtractPlugin.loader)
+        }
+
         if(options.useTypescriptCssModule){
             loaders.push({
                 loader:'typed-css-modules-loader',
@@ -51,8 +54,6 @@ exports.cssLoaders=function(options){
                 }
             })
         }
-
-
 
         return loaders;
     }
@@ -90,6 +91,8 @@ exports.styleLoaders=function(options){
             })
         }
     }
- 
+    output.forEach(item=>{
+        console.log(item);
+    })
     return output;
 }
