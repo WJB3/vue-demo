@@ -11,7 +11,7 @@
             </a-form-item>
           </a-col>
           <a-col :span="12">
-            <a-form-item label="型号" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+            <a-form-item label="分类" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
               <pop-select-model v-on:change="handleChangeModel" :value="emptyObject" :parameter="{brand_id:brand_id}"/>
             </a-form-item>
           </a-col>

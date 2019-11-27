@@ -25,16 +25,9 @@ export default {
       searchText: "",
       columns: [
         {
-          title: "商品名称",
+          title: "规格型号",
           dataIndex: "name",
           key: "name",
-          width: 150,
-          filter: true
-        },
-        {
-          title: "商品编号",
-          dataIndex: "goodsnumber",
-          key: "goodsnumber",
           width: 150,
           filter: true
         },
@@ -68,9 +61,9 @@ export default {
           filter: true
         },
         {
-          title: "型号",
-          dataIndex: "model",
-          key: "model",
+          title: "分类",
+          dataIndex: "typename",
+          key: "typename",
           width: 150,
           filter: true
         },

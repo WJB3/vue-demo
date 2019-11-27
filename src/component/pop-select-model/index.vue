@@ -28,7 +28,7 @@ export default {
       current: {},
       columns: [
         {
-          title: "型号名",
+          title: "分类名",
           dataIndex: "name",
           key: "name",
           width: 200,

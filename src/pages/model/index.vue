@@ -2,7 +2,7 @@
   <a-tabs v-model="activeKey" type="editable-card" @edit="onEdit" class="a_tab">
     <a-tab-pane tab="列表" key="list" :closable="listClosable">
       <div class="wrap_table">
-        <a-button type="primary" style="margin-bottom:10px;" @click="handleAddBrand">新建型号</a-button>
+        <a-button type="primary" style="margin-bottom:10px;" @click="handleAddBrand">新建分类</a-button>
         <pop-select-brand v-on:change="handleChangeBrand" :value="emptyObject" />
         <white-space height="30px"></white-space>
         <i-table
@@ -82,7 +82,7 @@ export default {
       const panes = this.panes;
       const activeKey = "newTabForm";
       panes.push({
-        title: "查看型号",
+        title: "查看分类",
         content: "<div></div>",
         key: "newTabForm",
         isForm: true
@@ -98,7 +98,7 @@ export default {
       const panes = this.panes;
       const activeKey = "newTabForm";
       panes.push({
-        title: "编辑型号",
+        title: "编辑分类",
         content: "<div></div>",
         key: "newTabForm",
         isForm: true
@@ -110,7 +110,7 @@ export default {
       const panes = this.panes;
       const activeKey = "newTabForm";
       panes.push({
-        title: "添加型号",
+        title: "添加分类",
         content: "<div></div>",
         key: "newTabForm",
         isForm: true
@@ -133,11 +133,11 @@ export default {
       this.activeKey = activeKey;
     },
     handleAddSuccess() {
-      this.$message.success("添加型号成功!");
+      this.$message.success("添加分类成功!");
       this.removeTab("newTabForm");
     },
     handleEditSuccess() {
-      this.$message.success("编辑型号成功!");
+      this.$message.success("编辑分类成功!");
       this.removeTab("newTabForm");
     },
     removeTab(targetKey) {

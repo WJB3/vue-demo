@@ -3,7 +3,7 @@
     <a-form :form="form">
       <a-row :gutter="{md: 8, lg: 24, xl: 48}">
         <a-col :span="8">
-          <a-form-item label="型号名称:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+          <a-form-item label="分类名称:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
             <a-input
               :disabled="disabled"
               v-decorator="[
@@ -12,14 +12,14 @@
                   rules: [
                     {
                       required: true,
-                      message: '请输入型号名称!',
+                      message: '请输入分类名称!',
                     },
                     
                   ],
                   initialValue:current.name
                 },
               ]"
-              placeholder="请输入型号名称"
+              placeholder="请输入分类名称"
             />
           </a-form-item>
         </a-col>

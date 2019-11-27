@@ -60,7 +60,7 @@ module.exports=merge(baseWebpackConfig,{
                 html5:true,
                 collapseWhitespace: true, //把生成的 index.html 文件的内容的没用空格去掉，减少空间
             },
-            title:'铎哥出品，必属精品',
+            title:'靓海出品，必属精品',
             hash:true,
             favicon:'src/assets/favicon-shield.ico',//将给定的favicon路径添加到输出HTML
             showErrors:true,

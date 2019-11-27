@@ -1,9 +1,9 @@
 <template>
-  <a-card :bordered="bordered">
+  <a-card :bordered="bordered" :style="{'padding-bottom':'20px'}">
     <a-form :form="form">
       <a-row :gutter="{md: 8, lg: 24, xl: 48}">
         <a-col :span="8">
-          <a-form-item label="商品名称:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+          <a-form-item label="规格型号:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
             <a-input
               :disabled="disabled"
               v-decorator="[
@@ -12,38 +12,18 @@
                   rules: [
                     {
                       required: true,
-                      message: '请输入商品名称!',
+                      message: '请输入规格型号!',
                     },
                     
                   ],
                   initialValue:current.name
                 },
               ]"
-              placeholder="请输入品牌名称"
+              placeholder="请输入规格型号"
             />
           </a-form-item>
         </a-col>
-        <a-col :span="8">
-          <a-form-item label="商品编号:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
-            <a-input
-              :disabled="disabled"
-              v-decorator="[
-                `goodsnumber`,
-                {
-                  rules: [
-                    {
-                      required: true,
-                      message: '请输入商品编号!',
-                    },
-                    
-                  ],
-                  initialValue:current.goodsnumber
-                },
-              ]"
-              placeholder="请输入编号名称"
-            />
-          </a-form-item>
-        </a-col>
+         
         <a-col :span="8">
           <a-form-item label="商品图片:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
             <file-uploader
@@ -61,6 +41,27 @@
                 },
               ]"
             ></file-uploader>
+          </a-form-item>
+        </a-col>
+        <a-col :span="8">
+          <a-form-item label="描述" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+            <a-textarea
+              class="descs"
+              :disabled="disabled"
+              v-decorator="[
+                `descs`,
+                {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入描述!',
+                    },
+                     
+                  ],
+                  initialValue:current.descs
+                },
+              ]"
+            />
           </a-form-item>
         </a-col>
       </a-row>
@@ -231,7 +232,7 @@
           </a-form-item>
         </a-col>
         <a-col :span="8">
-          <a-form-item label="型号" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+          <a-form-item label="分类" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
             <pop-select-model
               class="model"
               :disabled="disabled"
@@ -242,38 +243,18 @@
                   rules: [
                     {
                       required: true,
-                      message: '请输入型号!',
+                      message: '请输入分类!',
                     },
                     
                   ],
                   initialValue:initialModel
                 },
               ]"
-              placeholder="请输入型号"
+              placeholder="请输入分类"
             />
           </a-form-item>
         </a-col>
-        <a-col :span="8">
-          <a-form-item label="描述" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
-            <a-textarea
-              class="descs"
-              :disabled="disabled"
-              v-decorator="[
-                `descs`,
-                {
-                  rules: [
-                    {
-                      required: true,
-                      message: '请输入描述!',
-                    },
-                     
-                  ],
-                  initialValue:current.descs
-                },
-              ]"
-            />
-          </a-form-item>
-        </a-col>
+        
       </a-row>
     </a-form>
     <footer-toolbar>

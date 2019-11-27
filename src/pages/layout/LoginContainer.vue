@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <div class="login-container_padding">
-      <div class="login-container_padding_title">铎哥的系统</div>
+      <div class="login-container_padding_title">靓海系统</div>
       <Login></Login>
     </div>
   </div>

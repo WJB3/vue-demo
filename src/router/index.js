@@ -57,6 +57,21 @@ const menuRoutes=[
         component:Brand
     },
     {
+        path:"/model",
+        key:"model",
+        title:"分类管理",
+        icon:"appstore",
+        component:Model
+    },
+    {
+        path:"/trade",
+        key:"trade",
+        title:"商品管理",
+        icon:"gift",
+        component:Trade
+    },
+    
+    {
         path:"/activity",
         key:"activity",
         title:"活动管理",
@@ -70,20 +85,7 @@ const menuRoutes=[
     //     icon:"key",
     //     component:Score
     // },
-    {
-        path:"/trade",
-        key:"trade",
-        title:"商品管理",
-        icon:"gift",
-        component:Trade
-    },
-    {
-        path:"/model",
-        key:"model",
-        title:"型号管理",
-        icon:"appstore",
-        component:Model
-    },
+   
      
     {
         path:"/discount",
