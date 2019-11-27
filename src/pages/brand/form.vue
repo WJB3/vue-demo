@@ -65,29 +65,29 @@
           </a-form-item>
         </a-col>
       </a-row>
-      <!-- <a-row :gutter="{md: 8, lg: 24, xl: 48}">
+      <a-row :gutter="{md: 8, lg: 24, xl: 48}">
         <a-col :span="8">
-          <a-form-item label="品牌" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
-            <pop-select-brand
-              class="brand"
+          <a-form-item label="描述" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+            <a-textarea
+              class="descs"
               :disabled="disabled"
               v-decorator="[
-                `brand`,
+                `descs`,
                 {
                   rules: [
                     {
                       required: true,
-                      message: '请输入品牌!',
+                      message: '请输入描述!',
                     },
                      
                   ],
-                  initialValue:current.brand
+                  initialValue:current.descs
                 },
               ]"
             />
           </a-form-item>
         </a-col>
-      </a-row> -->
+      </a-row>
     </a-form>
     <footer-toolbar>
       <a-button type="primary" @click="handleSubmit" :disabled="disabled">确定</a-button>
