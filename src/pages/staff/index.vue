@@ -1,6 +1,6 @@
 <template>
   <a-tabs v-model="activeKey" type="editable-card" @edit="onEdit" class="a_tab">
-    <a-tab-pane tab="列表" key="list" :closable="listClosable">
+    <a-tab-pane tab="已审核用户列表" key="list" :closable="listClosable">
       <div class="wrap_table">
          
         <a-input-search placeholder="搜索..." class="search_input"  />
@@ -13,6 +13,40 @@
           :loading="loading"
          
         ></i-table>
+
+        <i-modal :visible="visible"></i-modal>
+      </div>
+    </a-tab-pane>
+    <a-tab-pane tab="审核未通过用户列表" key="no_audit_list" :closable="listClosable">
+      <div class="wrap_table">
+         
+        <a-input-search placeholder="搜索..." class="search_input"  />
+        <white-space height="30px"></white-space>
+        <no-table
+          :data="no_audit_data"
+          :pagination="no_audit_pagination"
+          v-on:onEdit="handleEdit"
+          v-on:onView="handleView"
+          :loading="loading"
+         
+        ></no-table>
+
+        <i-modal :visible="visible"></i-modal>
+      </div>
+    </a-tab-pane>
+    <a-tab-pane tab="待审核用户列表" key="wait_audit_list" :closable="listClosable">
+      <div class="wrap_table">
+         
+        <a-input-search placeholder="搜索..." class="search_input"  />
+        <white-space height="30px"></white-space>
+        <wait-table
+          :data="wait_audit_data"
+          :pagination="wait_audit_pagination"
+          v-on:onEdit="handleEdit"
+          v-on:onView="handleView"
+          :loading="loading"
+         
+        ></wait-table>
 
         <i-modal :visible="visible"></i-modal>
       </div>
@@ -32,6 +66,8 @@
 
 <script>
 import iTable from "./table";
+import NoTable from "./no_table";
+import WaitTable from "./wait_table";
 import iForm from "./form";
 import iModal from "./modal";
 import WhiteSpace from '@/component/white-space';
@@ -45,8 +81,12 @@ export default {
     };
   },
   computed: mapState({
-    data: state => state.brand.data,
-    pagination: state => state.brand.pagination,
+    data: state => state.staff.data,
+    pagination: state => state.staff.pagination,
+    wait_audit_data: state => state.staff.wait_audit_data,
+    wait_audit_pagination: state => state.staff.wait_audit_pagination,
+    no_audit_data: state => state.staff.no_audit_data,
+    no_audit_pagination: state => state.staff.no_audit_pagination,
     type: state => state.brand.type,
     current: state => state.brand.current,
     visible: state => state.brand.visible,
@@ -57,16 +97,26 @@ export default {
     iTable,
     iForm,
     iModal,
+    NoTable,
+    WaitTable,
     WhiteSpace
   },
 
   mounted: function() {
     this.getList();
+    this.getNoList();
+    this.getWaitList();
   },
   methods: {
     
     getList: function() {
-      this.$store.dispatch("brand/getList", {});
+      this.$store.dispatch("staff/getList", {});
+    },
+    getNoList: function() {
+      this.$store.dispatch("staff/getNoAuditList", {});
+    },
+    getWaitList: function() {
+      this.$store.dispatch("staff/getWaitAuditList", {});
     },
     handleView: function(value) {
       this.$store.commit("brand/updateState", {

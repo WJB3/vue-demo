@@ -69,6 +69,13 @@
       <a-divider type="vertical" />
       <div type="link" @click="handleView(record)" class="link">查看</div>
     </span>
+
+    <span slot="audit_action" slot-scope="text, record">
+      <div type="link" @click="handleAudit(record)" class="link">审核通过</div>
+      <a-divider type="vertical" />
+      <div type="link" @click="handleRefuseAudit(record)" class="link">审核不通过</div>
+    </span>
+
   </a-table>
   <a-button class="confirm-button" v-if="showConfirm" size="small" type="primary" @click="handleConfirm">确认</a-button>
 </div>
@@ -188,6 +195,12 @@ export default {
     handleView: function(value) {
       this.$emit("onView", value);
     },
+    handleAudit: function(value) {
+      this.$emit("onAudit", value);
+    },
+    handleRefuseAudit:function(value){
+      this.$emit("onRefuseAudit", value);
+    },
     handleChangeClick:function(selectedRowKeys, selectedRows){
       this.current=selectedRows[0];
       //this.$emit("onChangeTableRow",selectedRows[0])
@@ -215,6 +228,9 @@ export default {
       }
       if (item.action) {
         item.scopedSlots = { customRender: "action" };
+      }
+       if (item.audit_action) {
+        item.scopedSlots = { customRender: "audit_action" };
       }
       if (item.imgurl) {
         item.scopedSlots = { customRender: "imgurl" };
