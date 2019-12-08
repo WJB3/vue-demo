@@ -5,7 +5,7 @@ const merge=require('webpack-merge');
 const baseWebpackConfig=require('./webpack.base.conf.js');
 //引入基础webpack设置
 const HtmlWebpackPlugin=require('html-webpack-plugin');
-const derServerPort=8080;
+const derServerPort=9090;
 //基本作用就是生成html文件
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 //友好的提示
@@ -40,12 +40,12 @@ module.exports=merge(baseWebpackConfig,{
         useLocalIp:false,//此选项允许浏览器使用你的本地ip打开
         proxy:{//代理服务器
             "/file":{
-                target:"http://wxdimgs.viphk.ngrok.org/upload",
+                target:"https://www.lianghaisy.com:8080/upload",
                 changeOrigin:true,
                 pathRewrite:{"^/file":""}
             },
             "/api":{
-                target:"http://wxdfcb.viphk.ngrok.org",
+                target:"https://www.lianghaisy.com",
                 changeOrigin:true,
                 pathRewrite:{"^/api":""}
             }
