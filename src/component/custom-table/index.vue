@@ -70,10 +70,21 @@
       <div type="link" @click="handleView(record)" class="link">查看</div>
     </span>
 
+    <span slot="order_action" slot-scope="text, record">
+      <div type="link" @click="handleChangeStatus(record)" class="link">修改状态</div>
+    </span>
+
     <span slot="audit_action" slot-scope="text, record">
       <div type="link" @click="handleAudit(record)" class="link">审核通过</div>
       <a-divider type="vertical" />
       <div type="link" @click="handleRefuseAudit(record)" class="link">审核不通过</div>
+    </span>
+
+    <span slot="order_status" slot-scope="text">
+         <a-badge status="warning" text="待付款" v-if="text===0"/>
+         <a-badge status="processing" text="待发货"  v-if="text===1"/>
+         <a-badge status="success" text="已发货"  v-if="text===2"/>
+         <a-badge status="processing" text="已退款"  v-if="text===3"/>
     </span>
 
   </a-table>
@@ -178,6 +189,9 @@ export default {
     handleTableChange: function(pagination, filters, sorter) {
       this.$emit("onTableChange",pagination, filters, sorter)
     },
+    handleChangeStatus:function(value){
+      this.$emit("onChangeStatus",value);
+    },
     handleSearch(selectedKeys, confirm) {
       confirm();
       this.searchText = selectedKeys[0];
@@ -234,6 +248,12 @@ export default {
       }
       if (item.imgurl) {
         item.scopedSlots = { customRender: "imgurl" };
+      }
+      if (item.order_status) {
+        item.scopedSlots = { customRender: "order_status" };
+      }
+       if (item.order_action) {
+        item.scopedSlots = { customRender: "order_action" };
       }
     });
     this.customColumns = this.columns;

@@ -91,8 +91,6 @@ exports.styleLoaders=function(options){
             })
         }
     }
-    output.forEach(item=>{
-        console.log(item);
-    })
+  
     return output;
 }

@@ -68,6 +68,12 @@ export default {
           filter: true
         },
         {
+          title: "价格",
+          dataIndex: "price",
+          key: "price",
+          width: 100,
+        },
+        {
           title: "描述",
           dataIndex: "descs",
           key: "descs",

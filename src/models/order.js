@@ -20,10 +20,10 @@ export default  {
 
     },
     actions:{
-        async add({commit,dispatch},payload){
+        async change({commit,dispatch},payload){
             
             try{    
-                const list=await brandService.add(payload);
+                const list=await orderService.changeStatus(payload);
                 dispatch("getList");
                 if(list){
                     
@@ -36,28 +36,7 @@ export default  {
                 return false;
             }
         },
-        async edit({commit,dispatch},payload){
-            try{    
-                const list=await brandService.edit(payload);
-                dispatch("getList");
-                if(list){
-                    return true;
-                }
-                 
-            }catch(e){
-                console.log("我捕获到了错误")
-                console.error(e);
-                return false;
-            }
-        },
-        async delete({commit,dispatch},payload){//品牌删除
-            try{    
-                const list=await brandService.deleteBrand(payload);
-                dispatch("getList")
-            }catch(e){
-                console.error(e);
-            }
-        },
+         
         async getList({commit},payload){//用户登录
             commit("updateState",{
                 loading:true
