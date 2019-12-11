@@ -98,7 +98,7 @@
                 {
                   rules: [
                     {
-                      required: true,
+                      required: false,
                       message: '请输入积分值!',
                     },
                      
@@ -120,7 +120,7 @@
                 {
                   rules: [
                     {
-                      required: true,
+                      required: false,
                       message: '请输入库存数量!',
                     },
                      

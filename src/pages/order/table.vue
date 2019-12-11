@@ -13,6 +13,7 @@
       v-on:onDelete="handleDelete"
       v-on:onTableChange="handleTableChange"
       v-on:onChangeStatus="handleChangeStatus"
+      v-on:onOrderView="handleOrderView"
     ></custom-table>
     <a-modal
       title="请选择状态值"
@@ -34,6 +35,165 @@
         <a-select-option :value="2">已发货</a-select-option>
       </a-select>
     </a-modal>
+
+    <a-modal
+      title="订单详情"
+      v-model="detailVisible"
+      @ok="handleOrderOk"
+      @cancel="handleCancel"
+      okText="确定"
+      cancelText="取消"
+    >
+      <a-form :form="form">
+        <a-row>
+          <a-form-item label="订单状态" :label-col="{ span:8 }" :wrapper-col="{ span: 16 }">
+            <a-input
+              disabled
+              v-decorator="[
+                `name`,
+                {
+                  rules: [
+                    {
+                      required: false,
+                      message: '',
+                    },
+                    
+                  ],
+                  initialValue:this.status
+                },
+              ]"
+              placeholder
+            />
+          </a-form-item>
+        </a-row>
+        <a-row>
+          <a-form-item label="订单用户名" :label-col="{ span:8 }" :wrapper-col="{ span: 16 }">
+            <a-input
+              disabled
+              v-decorator="[
+                `name`,
+                {
+                  rules: [
+                    {
+                      required: false,
+                      message: '',
+                    },
+                    
+                  ],
+                  initialValue:current.username
+                },
+              ]"
+              placeholder
+            />
+          </a-form-item>
+        </a-row>
+        <a-row>
+          <a-form-item label="实付金额" :label-col="{ span:8 }" :wrapper-col="{ span: 16 }">
+            <a-input
+              disabled
+              v-decorator="[
+                `name`,
+                {
+                  rules: [
+                    {
+                      required: false,
+                      message: '',
+                    },
+                    
+                  ],
+                  initialValue:current.sfprice
+                },
+              ]"
+              placeholder
+            />
+          </a-form-item>
+        </a-row>
+        <a-row>
+          <a-form-item label="电话" :label-col="{ span:8 }" :wrapper-col="{ span: 16 }">
+            <a-input
+              disabled
+              v-decorator="[
+                `name`,
+                {
+                  rules: [
+                    {
+                      required: false,
+                      message: '',
+                    },
+                    
+                  ],
+                  initialValue:current.phone
+                },
+              ]"
+              placeholder
+            />
+          </a-form-item>
+        </a-row>
+        <a-row>
+          <a-form-item label="省市区" :label-col="{ span:8 }" :wrapper-col="{ span: 16 }">
+            <a-input
+              disabled
+              v-decorator="[
+                `name`,
+                {
+                  rules: [
+                    {
+                      required: false,
+                      message: '',
+                    },
+                    
+                  ],
+                  initialValue:current.area
+                },
+              ]"
+              placeholder
+            />
+          </a-form-item>
+        </a-row>
+        <a-row>
+          <a-form-item label="详细地址" :label-col="{ span:8 }" :wrapper-col="{ span: 16 }">
+            <a-input
+              disabled
+              v-decorator="[
+                `name`,
+                {
+                  rules: [
+                    {
+                      required: false,
+                      message: '',
+                    },
+                    
+                  ],
+                  initialValue:current.adressdetail
+                },
+              ]"
+              placeholder
+            />
+          </a-form-item>
+        </a-row>
+        <a-row>
+          <a-form-item label="签收人" :label-col="{ span:8 }" :wrapper-col="{ span: 16 }">
+            <a-input
+              disabled
+              v-decorator="[
+                `name`,
+                {
+                  rules: [
+                    {
+                      required: false,
+                      message: '',
+                    },
+                    
+                  ],
+                  initialValue:current.qname
+                },
+              ]"
+              placeholder
+            />
+          </a-form-item>
+        </a-row>
+      </a-form>
+    </a-modal>
   </div>
 </template>
 
@@ -42,9 +202,11 @@ import CustomTable from "@/component/custom-table";
 export default {
   data() {
     return {
+      form: this.$form.createForm(this),
       searchInput: null,
       searchText: "",
       visible: false,
+      detailVisible: false,
       order_status: 0,
       current: {},
       bodyStyle: {
@@ -103,13 +265,7 @@ export default {
           width: 200,
           filter: true
         },
-        {
-          title: "实付金额",
-          dataIndex: "sfprice",
-          key: "sfprice",
-          width: 150,
-          filter: true
-        },
+
         {
           title: "操作",
           dataIndex: "action",
@@ -121,11 +277,25 @@ export default {
       ]
     };
   },
+  computed:{
+    status:function(){
+      const status=this.current.status;
+      return status===3?"已退款":status===2?"已发货":status===1?"待发货":status===0?"待付款":""
+    }
+  },
   components: {
     CustomTable
   },
   props: ["data", "pagination", "loading"],
   methods: {
+    handleOrderOk: function() {
+      this.detailVisible = false;
+    },
+    handleOrderView: function(value) {
+      this.current = value;
+      console.log(this.current);
+      this.detailVisible = true;
+    },
     handleChangeSelect: function(value) {
       this.order_status = value;
     },
@@ -153,6 +323,7 @@ export default {
     },
     handleCancel: function() {
       this.visible = false;
+      this.detailVisible = false;
     },
     handleChangeStatus: function(value) {
       const _this = this;

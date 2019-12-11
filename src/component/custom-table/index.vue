@@ -72,6 +72,7 @@
 
     <span slot="order_action" slot-scope="text, record">
       <div type="link" @click="handleChangeStatus(record)" class="link">修改状态</div>
+  
     </span>
 
     <span slot="audit_action" slot-scope="text, record">
@@ -179,6 +180,9 @@ export default {
     }
   },  
   methods: {
+    handleViewOrder:function(data){
+       this.$emit("onOrderView",data)
+    },
     filterData: function(data) {
       const newData = {};
       Object.keys(data).forEach(key => {

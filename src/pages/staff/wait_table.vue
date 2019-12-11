@@ -49,14 +49,22 @@ export default {
           title: "用户头像",
           dataIndex: "imgurl",
           key:"imgurl",
-          width:300,
+          width:200,
+          imgurl:true
+        },
+        {
+          title: "门店图片",
+          dataIndex: "comimg",
+          key:"comimg",
+          width:200,
           imgurl:true
         },
         {
           title: "公司营业执照",
           dataIndex: "gsimg",
           key:"gsimg",
-          width:300
+          width:200,
+          imgurl:true
         },
         {
           title: "公司地址",
