@@ -14,7 +14,8 @@ export default  {
         current:{},
         visible:false,
         loading:false,
-        searchText:""
+        searchText:"",
+        detail:{}
     },
     getters:{
 
@@ -52,6 +53,17 @@ export default  {
             }catch(e){
                 console.error(e);
             }
+        },
+        async detail({commit},payload){//用户详情
+           
+            try{    
+                const list=await orderService.detail(payload);
+                commit("updateState",{
+                    detail:list&&list.rows&&Array.isArray(list.rows)&&list.rows.length>0?list.rows[0]:{}
+                })
+            }catch(e){
+                console.error(e);
+            }
         }
     },
     mutations:{
@@ -65,7 +77,7 @@ export default  {
                 state.pagination=payload.list.rows && payload.list.rows.length>0?{...pagination,total:payload.list.rows[0].count}:{}
             }
  
-            Object.assign(state,payload);
+            Object.assign({},state,payload);
         }
     }
 }

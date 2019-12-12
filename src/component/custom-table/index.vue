@@ -72,6 +72,7 @@
 
     <span slot="order_action" slot-scope="text, record">
       <div type="link" @click="handleChangeStatus(record)" class="link">修改状态</div>
+      <div type="link" @click="handleViewOrder(record)" class="link">查看详情</div>
   
     </span>
 
@@ -141,9 +142,20 @@ export default {
         onChange:this.handleChangeClick
       },
       current:{},
+      ExtraData:[]
       
     };
   },
+  // watch :{
+  //   data : {
+  //     handler(value) {
+  //       this.$set(this, "ExtraData", value);
+  //       this.$forceUpdate()
+  //     }
+  //   },
+     
+  // },
+  
   props:{
     bordered:{
       default:true
@@ -178,7 +190,7 @@ export default {
     showConfirm:{
       default:false
     }
-  },  
+  },
   methods: {
     handleViewOrder:function(data){
        this.$emit("onOrderView",data)
@@ -255,6 +267,26 @@ export default {
       }
       if (item.order_status) {
         item.scopedSlots = { customRender: "order_status" };
+        item.filterMultiple=false;
+        item.onFilter=(value, record) => {},
+        item.filters=[
+            {
+              text: "待付款",
+              value: 0
+            },
+            {
+              text: "已付款",
+              value: 1
+            },
+            {
+              text: "已发货",
+              value: 2
+            },
+            {
+              text: "已完成",
+              value: 3
+            }
+          ]
       }
        if (item.order_action) {
         item.scopedSlots = { customRender: "order_action" };
@@ -262,7 +294,7 @@ export default {
     });
     this.customColumns = this.columns;
     this.tableWidth=this.customColumns.reduce((total, current)=>total+(current.width||current.width_custom),0);
-
+   
   }
 };
 </script>

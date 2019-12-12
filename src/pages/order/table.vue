@@ -7,7 +7,7 @@
       :columns="columns"
       size="default"
       bordered
-      rowKey="uuid"
+      rowKey="orderid"
       v-on:onEdit="handleEdit"
       v-on:onView="handleView"
       v-on:onDelete="handleDelete"
@@ -46,27 +46,6 @@
     >
       <a-form :form="form">
         <a-row>
-          <a-form-item label="订单状态" :label-col="{ span:8 }" :wrapper-col="{ span: 16 }">
-            <a-input
-              disabled
-              v-decorator="[
-                `name`,
-                {
-                  rules: [
-                    {
-                      required: false,
-                      message: '',
-                    },
-                    
-                  ],
-                  initialValue:this.status
-                },
-              ]"
-              placeholder
-            />
-          </a-form-item>
-        </a-row>
-        <a-row>
           <a-form-item label="订单用户名" :label-col="{ span:8 }" :wrapper-col="{ span: 16 }">
             <a-input
               disabled
@@ -80,7 +59,7 @@
                     },
                     
                   ],
-                  initialValue:current.username
+                  initialValue:detail.username
                 },
               ]"
               placeholder
@@ -92,7 +71,7 @@
             <a-input
               disabled
               v-decorator="[
-                `name`,
+                `sfprice`,
                 {
                   rules: [
                     {
@@ -101,7 +80,7 @@
                     },
                     
                   ],
-                  initialValue:current.sfprice
+                  initialValue:detail.sfprice
                 },
               ]"
               placeholder
@@ -113,7 +92,7 @@
             <a-input
               disabled
               v-decorator="[
-                `name`,
+                `phone`,
                 {
                   rules: [
                     {
@@ -122,7 +101,7 @@
                     },
                     
                   ],
-                  initialValue:current.phone
+                  initialValue:detail.phone
                 },
               ]"
               placeholder
@@ -134,7 +113,7 @@
             <a-input
               disabled
               v-decorator="[
-                `name`,
+                `area`,
                 {
                   rules: [
                     {
@@ -143,7 +122,7 @@
                     },
                     
                   ],
-                  initialValue:current.area
+                  initialValue:detail.area
                 },
               ]"
               placeholder
@@ -155,7 +134,7 @@
             <a-input
               disabled
               v-decorator="[
-                `name`,
+                `adressdetail`,
                 {
                   rules: [
                     {
@@ -164,34 +143,21 @@
                     },
                     
                   ],
-                  initialValue:current.adressdetail
+                  initialValue:detail.adressdetail
                 },
               ]"
               placeholder
             />
           </a-form-item>
         </a-row>
-        <a-row>
-          <a-form-item label="签收人" :label-col="{ span:8 }" :wrapper-col="{ span: 16 }">
-            <a-input
-              disabled
-              v-decorator="[
-                `name`,
-                {
-                  rules: [
-                    {
-                      required: false,
-                      message: '',
-                    },
-                    
-                  ],
-                  initialValue:current.qname
-                },
-              ]"
-              placeholder
-            />
-          </a-form-item>
-        </a-row>
+        <a-list
+          :grid="{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }"
+          :dataSource="detail.goods"
+        >
+          <a-list-item slot="renderItem" slot-scope="item, index">
+            <a-card :title="item.title">Card content</a-card>
+          </a-list-item>
+        </a-list>
       </a-form>
     </a-modal>
   </div>
@@ -199,6 +165,7 @@
 
 <script>
 import CustomTable from "@/component/custom-table";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -220,8 +187,26 @@ export default {
           dataIndex: "status",
           key: "status",
           width: 100,
-          filter: true,
-          order_status: true
+          //filter: true,
+          order_status: true,
+          filters: [
+            {
+              text: "待付款",
+              value: 0
+            },
+            {
+              text: "已付款",
+              value: 1
+            },
+            {
+              text: "已发货",
+              value: 2
+            },
+            {
+              text: "已完成",
+              value: 3
+            }
+          ]
         },
         {
           title: "订单用户名",
@@ -277,23 +262,33 @@ export default {
       ]
     };
   },
-  computed:{
-    status:function(){
-      const status=this.current.status;
-      return status===3?"已退款":status===2?"已发货":status===1?"待发货":status===0?"待付款":""
+  computed: {
+    status: function() {
+      const status = this.current.status;
+      return status === 3
+        ? "已退款"
+        : status === 2
+        ? "已发货"
+        : status === 1
+        ? "待发货"
+        : status === 0
+        ? "待付款"
+        : "";
     }
   },
   components: {
     CustomTable
   },
-  props: ["data", "pagination", "loading"],
+  props: ["data", "pagination", "loading", "detail"],
   methods: {
     handleOrderOk: function() {
       this.detailVisible = false;
     },
     handleOrderView: function(value) {
       this.current = value;
-      console.log(this.current);
+      this.$store.dispatch("order/detail", {
+        orderid: value.orderid
+      });
       this.detailVisible = true;
     },
     handleChangeSelect: function(value) {
@@ -367,7 +362,9 @@ export default {
       this.$emit("onView", value);
     }
   },
-  mounted: function() {}
+  mounted: function() {
+    console.log(this.detail)
+  }
 };
 </script>
 

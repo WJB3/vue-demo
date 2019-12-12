@@ -1,15 +1,14 @@
 <template>
   <a-tabs v-model="activeKey" type="editable-card" @edit="onEdit" class="a_tab">
-    <a-tab-pane tab="列表" key="list" :closable="listClosable">
+    <a-tab-pane tab="订单列表" key="list" :closable="listClosable">
       <div class="wrap_table">
-         
         <i-table
           :data="data"
           :pagination="pagination"
+          :detail="detail"
           v-on:onEdit="handleEdit"
           v-on:onView="handleView"
           :loading="loading"
-         
         ></i-table>
 
         <i-modal :visible="visible"></i-modal>
@@ -32,7 +31,7 @@
 import iTable from "./table";
 import iForm from "./form";
 import iModal from "./modal";
-import { mapState } from "vuex";
+import { mapState,mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -42,13 +41,14 @@ export default {
     };
   },
   computed: mapState({
-    data: state => state.order.data,
+    data: state =>  [...state.order.data],
     pagination: state => state.order.pagination,
     type: state => state.order.type,
     current: state => state.order.current,
     visible: state => state.order.visible,
     loading: state => state.order.loading,
-    searchText:state=>state.order.searchText
+    searchText: state => state.order.searchText,
+    detail:state=>state.order.detail
   }),
   components: {
     iTable,
@@ -57,12 +57,11 @@ export default {
   },
 
   mounted: function() {
-    this.getList();
+    this.getList({});
   },
   methods: {
-    
-    getList: function() {
-      this.$store.dispatch("order/getList", {});
+    getList: function(params) {
+      this.$store.dispatch("order/getList", {...params});
     },
     handleView: function(value) {
       this.$store.commit("order/updateState", {
@@ -162,9 +161,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.search_input{
-  width:200px;
-  float:right;
+.search_input {
+  width: 200px;
+  float: right;
 }
 .wrap_table {
   padding: 10px 50px;
