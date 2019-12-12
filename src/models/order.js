@@ -15,10 +15,10 @@ export default  {
         visible:false,
         loading:false,
         searchText:"",
-        detail:{}
+        detail:{goods:'[]'}
     },
     getters:{
-
+        data: state => state.data
     },
     actions:{
         async change({commit,dispatch},payload){
@@ -58,6 +58,7 @@ export default  {
            
             try{    
                 const list=await orderService.detail(payload);
+                console.log(list)
                 commit("updateState",{
                     detail:list&&list.rows&&Array.isArray(list.rows)&&list.rows.length>0?list.rows[0]:{}
                 })
@@ -76,8 +77,11 @@ export default  {
                  
                 state.pagination=payload.list.rows && payload.list.rows.length>0?{...pagination,total:payload.list.rows[0].count}:{}
             }
+       
  
-            Object.assign({},state,payload);
+            Object.assign(state,payload);
+
+      
         }
     }
 }

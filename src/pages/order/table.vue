@@ -59,7 +59,7 @@
                     },
                     
                   ],
-                  initialValue:detail.username
+                  initialValue:detail.name
                 },
               ]"
               placeholder
@@ -150,14 +150,24 @@
             />
           </a-form-item>
         </a-row>
-        <a-list
-          :grid="{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }"
-          :dataSource="detail.goods"
-        >
-          <a-list-item slot="renderItem" slot-scope="item, index">
-            <a-card :title="item.title">Card content</a-card>
-          </a-list-item>
-        </a-list>
+        <a-row>
+          <a-form-item>
+            <a-list
+              :grid="{ gutter: 16, xs: 1, sm: 1, md: 1, lg: 1, xl: 1, xxl: 1 }"
+              :dataSource="JSON.parse(detail.goods)"
+            >
+              <a-list-item slot="renderItem" slot-scope="item, index">
+                <a-card title="商品信息">
+                  <div>型号：{{item.typename}}</div>
+                  <div>商品名称：{{item.goodsname}}</div>
+                  <div>品牌名：{{item.brandname}}</div>
+                  <div>商品价格：{{item.goodsprice}}</div>
+                  <div>商品数量：{{item.num}}</div>
+                </a-card>
+              </a-list-item>
+            </a-list>
+          </a-form-item>
+        </a-row>
       </a-form>
     </a-modal>
   </div>
@@ -276,10 +286,19 @@ export default {
         : "";
     }
   },
+
   components: {
     CustomTable
   },
   props: ["data", "pagination", "loading", "detail"],
+  watch: {
+    detail: {
+      handler(val) {
+        console.log("detail");
+        console.log(val);
+      }
+    }
+  },
   methods: {
     handleOrderOk: function() {
       this.detailVisible = false;
@@ -362,9 +381,7 @@ export default {
       this.$emit("onView", value);
     }
   },
-  mounted: function() {
-    console.log(this.detail)
-  }
+  mounted: function() {}
 };
 </script>
 

@@ -12,6 +12,7 @@
         ></i-table>
 
         <i-modal :visible="visible"></i-modal>
+
       </div>
     </a-tab-pane>
     <a-tab-pane v-for="pane in panes" :tab="pane.title" :key="pane.key" :closable="pane.closable">
@@ -55,9 +56,15 @@ export default {
     iForm,
     iModal
   },
-
+  watch:{
+    detail:{
+      handler(val){
+        console.log(val)
+      }
+    }
+  },
   mounted: function() {
-    this.getList({});
+    this.getList({status:0});
   },
   methods: {
     getList: function(params) {
