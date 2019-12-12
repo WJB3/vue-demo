@@ -5,7 +5,7 @@ const merge=require('webpack-merge');
 const baseWebpackConfig=require('./webpack.base.conf.js');
 //引入基础webpack设置
 const HtmlWebpackPlugin=require('html-webpack-plugin');
-const derServerPort=8080;
+const derServerPort=9090;
 //基本作用就是生成html文件
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 //友好的提示

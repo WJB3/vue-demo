@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[17],{733:function(e,t,n){"use strict";n.r(t);var i=function(){var e=this.$createElement;return(this._self._c||e)("div",[this._v("人事管理——合同变更--版本变更")])};i._withStripped=!0;var s={},r=n(13),a=Object(r.a)(s,i,[],!1,null,null,null);a.options.__file="src/pages/staff/labor/version/index.vue";t.default=a.exports}}]);
-//# sourceMappingURL=17.d6e91300d1cfcefc09e7.js.map

@@ -283,7 +283,7 @@ export default {
       if (item.order_status) {
         item.scopedSlots = { customRender: "order_status" };
         item.filterMultiple = false;
-        (item.onFilter = (value, record) => {}),
+        (item.onFilter = (value, record) => {return record.status===value}),
           (item.filters = [
             {
               text: "待付款",

@@ -64,7 +64,7 @@ export default {
     }
   },
   mounted: function() {
-    this.getList({status:0});
+    this.getList({});
   },
   methods: {
     getList: function(params) {

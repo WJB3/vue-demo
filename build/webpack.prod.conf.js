@@ -43,8 +43,8 @@ module.exports=merge(baseWebpackConfig,{
             
         }),
         new BundleAnalyzerPlugin({//打包分析
-            analyzerPort:10000,
-            openAnalyzer:true,
+            // analyzerPort:10000,
+            // openAnalyzer:true,
         }),
         new MiniCssExtractPlugin({//分离css
             filename:"css/[name].[chunkhash:8].css",
