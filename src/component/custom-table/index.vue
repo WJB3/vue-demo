@@ -154,7 +154,7 @@ export default {
   watch: {
     data: {
       handler(value) {
-        console.log(value);
+    
       }
     }
   },
@@ -202,11 +202,10 @@ export default {
       this.previewVisible = false;
     },
     handleImagePreview: function(value) {
-      console.log(value);
+   
       this.imgurl = value;
       this.previewVisible = true;
-      console.log(this.previewVisible);
-      console.log(this.imgurl);
+     
     },
     handleViewOrder: function(data) {
       this.$emit("onOrderView", data);

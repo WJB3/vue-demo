@@ -35,7 +35,7 @@ export default {
     };
   },
   mounted:function(){
-    console.log(this.value);
+   
     this.imageUrl=this.value;
   },
   methods: {
