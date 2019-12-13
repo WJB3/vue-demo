@@ -257,10 +257,15 @@ export default {
           title: "签收人",
           dataIndex: "qname",
           key: "qname",
-          width: 200,
+          width: 100,
           filter: true
         },
-
+        {
+          title:"订单下单日期",
+          dataIndex:"dateline",
+          key:"dateline",
+          width: 150,
+        },
         {
           title: "操作",
           dataIndex: "action",

@@ -1,8 +1,9 @@
 <template>
   <div class="menu_label">
-    <svg class="icon" aria-hidden="true">
+    <img src="http://www.lianghaisy.com/uploadFile/brandimgs/logo.png" style="width:80px;height:80px;" />
+    <!-- <svg class="icon" aria-hidden="true">
       <use xlink:href="#icon-Energy-"></use>
-    </svg>
+    </svg> -->
   </div>
 </template>
 
@@ -14,6 +15,8 @@ export default {};
 .menu_label {
   display:flex;
   background: #002140;
+  justify-content: center;
+  align-items: center;
   .icon {
     height:32px;
     margin:16px 0;
