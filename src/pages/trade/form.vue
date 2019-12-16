@@ -23,7 +23,7 @@
             />
           </a-form-item>
         </a-col>
-         
+
         <a-col :span="8">
           <a-form-item label="商品图片:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
             <file-uploader
@@ -144,7 +144,7 @@
                 {
                   rules: [
                     {
-                      required: true,
+                      required: false,
                       message: '请输入优惠券!',
                     },
                     
@@ -254,7 +254,28 @@
             />
           </a-form-item>
         </a-col>
-        
+        <a-col :span="8">
+          <a-form-item label="用户获取积分:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+            <a-input-number
+              class="input_number"
+              :disabled="disabled"
+              v-decorator="[
+                `hqjf`,
+                {
+                  rules: [
+                    {
+                      required: false,
+                      message: '请输入用户获取积分!',
+                    },
+                     
+                  ],
+                  initialValue:current.hqjf
+                },
+              ]"
+              placeholder="请输入用户获取积分"
+            />
+          </a-form-item>
+        </a-col>
       </a-row>
     </a-form>
     <footer-toolbar>
@@ -270,7 +291,7 @@ import FileUploader from "@/component/file-loader";
 import PopSelectBrand from "@/component/pop-select-brand";
 import PopSelectDiscount from "@/component/pop-select-discount";
 import PopSelectModel from "@/component/pop-select-model";
- 
+
 import axios from "axios";
 
 export default {
@@ -285,9 +306,13 @@ export default {
       initialDiscount: this.current.brandid
         ? { id: this.current.couponid, name: this.current.couponname }
         : { id: "", name: "" },
-      initialBrand: this.current.brandid?{id:this.current.brandid,name:this.current.brandname}:{id:"",name:""},
-      initialModel:this.current.typeid?{id:this.current.typeid,name:this.current.typename}:{id:"",name:""},
-      brand_id:""
+      initialBrand: this.current.brandid
+        ? { id: this.current.brandid, name: this.current.brandname }
+        : { id: "", name: "" },
+      initialModel: this.current.typeid
+        ? { id: this.current.typeid, name: this.current.typename }
+        : { id: "", name: "" },
+      brand_id: ""
     };
   },
   components: {
@@ -306,12 +331,12 @@ export default {
         if (!err) {
           const values = vals;
 
-          const { uuid,goodsid } = this.current;
+          const { uuid, goodsid } = this.current;
 
           const newFormData = new FormData();
           newFormData.append("name", values.name);
-          newFormData.append("goodsnumber", values.goodsnumber);
-          newFormData.append("imgurl", values.imgurl); 
+          // newFormData.append("goodsnumber", values.goodsnumber);
+          newFormData.append("imgurl", values.imgurl);
           newFormData.append("price", values.price);
           newFormData.append("jfcount", values.jfcount);
           newFormData.append("stock", values.stock);
@@ -320,8 +345,8 @@ export default {
           newFormData.append("kcgoods", values.kcgoods);
           newFormData.append("brandid", values.brand.id);
           newFormData.append("typeid", values.model.id);
-          newFormData.append("descs",values.descs);
-
+          newFormData.append("descs", values.descs);
+          newFormData.append("hqjf", values.hqjf);
 
           if (this.type === "ADD") {
             this.$store.dispatch("trade/add", newFormData).then(res => {
@@ -342,8 +367,8 @@ export default {
         }
       });
     },
-    handleChangeBrand(current){
-      this.brand_id=current.id;
+    handleChangeBrand(current) {
+      this.brand_id = current.id;
     }
   }
 };
