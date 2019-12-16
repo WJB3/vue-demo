@@ -111,27 +111,28 @@
           </a-form-item>
         </a-col>
         <a-col :span="8">
-          <a-form-item label="库存数量:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+          <a-form-item label="用户获取积分:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
             <a-input-number
               class="input_number"
               :disabled="disabled"
               v-decorator="[
-                `stock`,
+                `hqjf`,
                 {
                   rules: [
                     {
                       required: false,
-                      message: '请输入库存数量!',
+                      message: '请输入用户获取积分!',
                     },
                      
                   ],
-                  initialValue:current.stock
+                  initialValue:current.hqjf
                 },
               ]"
-              placeholder="请输入库存数量"
+              placeholder="请输入用户获取积分"
             />
           </a-form-item>
         </a-col>
+        
       </a-row>
       <a-row :gutter="{md: 8, lg: 24, xl: 48}">
         <a-col :span="8">
@@ -255,24 +256,24 @@
           </a-form-item>
         </a-col>
         <a-col :span="8">
-          <a-form-item label="用户获取积分:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+          <a-form-item label="库存数量:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
             <a-input-number
               class="input_number"
               :disabled="disabled"
               v-decorator="[
-                `hqjf`,
+                `stock`,
                 {
                   rules: [
                     {
                       required: false,
-                      message: '请输入用户获取积分!',
+                      message: '请输入库存数量!',
                     },
                      
                   ],
-                  initialValue:current.hqjf
+                  initialValue:current.stock
                 },
               ]"
-              placeholder="请输入用户获取积分"
+              placeholder="请输入库存数量"
             />
           </a-form-item>
         </a-col>
