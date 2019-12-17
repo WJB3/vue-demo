@@ -103,7 +103,7 @@
                     },
                      
                   ],
-                  initialValue:current.jfcount
+                  initialValue:current.jfcount||0
                 },
               ]"
               placeholder="请输入积分值"
@@ -125,7 +125,7 @@
                     },
                      
                   ],
-                  initialValue:current.hqjf
+                  initialValue:current.hqjf||0
                 },
               ]"
               placeholder="请输入用户获取积分"
