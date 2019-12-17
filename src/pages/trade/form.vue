@@ -270,7 +270,7 @@
                     },
                      
                   ],
-                  initialValue:current.stock
+                  initialValue:current.stock||0
                 },
               ]"
               placeholder="请输入库存数量"
