@@ -23,12 +23,14 @@
       :bodyStyle="bodyStyle"
       okText="确定"
       cancelText="取消"
+      :destroyOnClose="true"
     >
       <a-select
         size="large"
         style="width: 200px;"
         @change="handleChangeSelect"
-        :defaultValue="current.status"
+        :defaultValue="order_status"
+       
       >
         <a-select-option :value="0">待付款</a-select-option>
         <a-select-option :value="1">待发货</a-select-option>
