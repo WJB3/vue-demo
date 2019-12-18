@@ -30,7 +30,6 @@
         style="width: 200px;"
         @change="handleChangeSelect"
         :defaultValue="order_status"
-       
       >
         <a-select-option :value="0">待付款</a-select-option>
         <a-select-option :value="1">待发货</a-select-option>
