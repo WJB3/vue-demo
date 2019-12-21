@@ -9,6 +9,7 @@ VueRouter.prototype.push = function push(location) {
 
 const Dashboard=()=>import("@/pages/dashboard/index.vue");
 const Discount=()=>import("@/pages/discount/index.vue");
+const Statement=()=>import("@/pages/statement/index.vue");
 const Info=()=>import("@/pages/info/index.vue");
 const Model=()=>import("@/pages/model/index.vue");
 const Brand=()=>import("@/pages/brand/index.vue");
@@ -78,21 +79,19 @@ const menuRoutes=[
         icon:"key",
         component:Activity
     },
-    // {
-    //     path:"/score",
-    //     key:"score",
-    //     title:"积分管理",
-    //     icon:"key",
-    //     component:Score
-    // },
-   
-     
     {
         path:"/discount",
         key:"discount",
         title:"优惠券管理",
         icon:"shopping-cart",
         component:Discount
+    },
+    {
+        path:"/statement",
+        key:"statement",
+        title:"报表统计",
+        icon:"file-excel",
+        component:Statement
     },
     // {
     //     path:"/info",

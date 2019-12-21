@@ -7,6 +7,7 @@ import model from './model';
 import discount from './discount';
 import trade from './trade';
 import activity from './activity';
+import statement from './statement';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -18,7 +19,8 @@ export default new Vuex.Store({
         model,
         discount,
         trade,
-        activity
+        activity,
+        statement
     },
     state:{
         isMenuCollapse:false,

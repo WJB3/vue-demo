@@ -45,6 +45,10 @@
         <a-badge status="success" v-if="text===3" text="已收款" />
       </template>
 
+      <span slot="sale_total" slot-scope="text,record">
+        {{(Number(record.num)*Number(record.price)).toFixed(2)}}
+      </span>
+
       <span slot="imgurl" slot-scope="text">
         <div @click="handleImagePreview(text)">
           <img :src="text" :style="{width:'30px',height:'30px'}" />
@@ -153,9 +157,7 @@ export default {
   },
   watch: {
     data: {
-      handler(value) {
-    
-      }
+      handler(value) {}
     }
   },
 
@@ -202,10 +204,8 @@ export default {
       this.previewVisible = false;
     },
     handleImagePreview: function(value) {
-   
       this.imgurl = value;
       this.previewVisible = true;
-     
     },
     handleViewOrder: function(data) {
       this.$emit("onOrderView", data);
@@ -279,10 +279,15 @@ export default {
       if (item.imgurl) {
         item.scopedSlots = { customRender: "imgurl" };
       }
+      if (item.sale_total) {
+        item.scopedSlots = { customRender: "sale_total" };
+      }
       if (item.order_status) {
         item.scopedSlots = { customRender: "order_status" };
         item.filterMultiple = false;
-        (item.onFilter = (value, record) => {return record.status===value}),
+        (item.onFilter = (value, record) => {
+          return record.status === value;
+        }),
           (item.filters = [
             {
               text: "待付款",
