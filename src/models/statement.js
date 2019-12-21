@@ -39,7 +39,22 @@ export default  {
                 console.error(e);
             }
         },
-        
+        async searchList({commit},payload){//用户登录
+            commit("updateState",{
+                loading:true
+            })
+            try{    
+                const list=await statementService.search(payload);
+                commit("updateState",{
+                    loading:false
+                })
+                commit("updateState",{
+                    list
+                })
+            }catch(e){
+                console.error(e);
+            }
+        },
     },
     mutations:{
         updateState(state,payload){

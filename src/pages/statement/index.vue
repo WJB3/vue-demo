@@ -135,7 +135,7 @@ export default {
   },
   methods: {
     handleSearchData:function(value){
-      this.getList({
+      this.getSearchList({
               mydate:this.defaultTime.format("YYYY-MM-DD"),
               name:value
       });
@@ -163,6 +163,9 @@ export default {
     },
     getList: function(params) {
       this.$store.dispatch("statement/getList", { ...params });
+    },
+    getSearchList: function(params) {
+      this.$store.dispatch("statement/searchList", { ...params });
     },
     handleView: function(value) {
       this.$store.commit("order/updateState", {
