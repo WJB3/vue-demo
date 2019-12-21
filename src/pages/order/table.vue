@@ -31,7 +31,7 @@
         @change="handleChangeSelect"
         :defaultValue="order_status"
       >
-        <a-select-option :value="0">待付款</a-select-option>
+        <!-- <a-select-option :value="0">待付款</a-select-option> -->
         <a-select-option :value="1">待发货</a-select-option>
         <a-select-option :value="2">已发货</a-select-option>
       </a-select>
@@ -201,10 +201,10 @@ export default {
           //filter: true,
           order_status: true,
           filters: [
-            {
-              text: "待付款",
-              value: 0
-            },
+            // {
+            //   text: "待付款",
+            //   value: 0
+            // },
             {
               text: "已付款",
               value: 1
@@ -287,8 +287,8 @@ export default {
         ? "已发货"
         : status === 1
         ? "待发货"
-        : status === 0
-        ? "待付款"
+        // : status === 0
+        // ? "待付款"
         : "";
     }
   },

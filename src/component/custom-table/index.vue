@@ -91,7 +91,7 @@
       </span>
 
       <span slot="order_status" slot-scope="text">
-        <a-badge status="warning" text="待付款" v-if="text===0" />
+        <!-- <a-badge status="warning" text="待付款" v-if="text===0" /> -->
         <a-badge status="processing" text="待发货" v-if="text===1" />
         <a-badge status="success" text="已发货" v-if="text===2" />
         <a-badge status="processing" text="已退款" v-if="text===3" />
@@ -289,10 +289,10 @@ export default {
           return record.status === value;
         }),
           (item.filters = [
-            {
-              text: "待付款",
-              value: 0
-            },
+            // {
+            //   text: "待付款",
+            //   value: 0
+            // },
             {
               text: "已付款",
               value: 1
