@@ -10,7 +10,7 @@
             <a-button type="primary" @click="handleSearch">查询</a-button>
           </div>
 
-          <!-- <a-input-search placeholder="搜索..." class="search_input" /> -->
+          <a-input-search placeholder="搜索..." class="search_input"  @search="handleSearchData"/>
         </div>
 
         <i-table
@@ -134,9 +134,14 @@ export default {
     });
   },
   methods: {
+    handleSearchData:function(value){
+      this.getList({
+              mydate:this.defaultTime.format("YYYY-MM-DD"),
+              name:value
+      });
+    },
     timeChange:function(value,dateString){
-      console.log(value);
-      console.log(dateString);
+ 
       this.defaultTime=moment(dateString);
     },
     handleSearch:function(){
@@ -263,7 +268,7 @@ export default {
 }
 .picker_range {
   position: absolute;
-  right: 0;
+  right: 250px;
   top: 0;
 }
 .wrap_table {
