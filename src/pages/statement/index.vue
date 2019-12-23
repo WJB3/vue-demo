@@ -5,12 +5,14 @@
         <div class="table_top">
           <a-button icon="file-excel" type="primary" @click="handleExportExcel">导出报表</a-button>
           <div class="picker_range">
-            <span style="margin-right:10px;">开始时间</span>
-            <a-date-picker size="default" :value="defaultTime" @change="timeChange"/>
-            <a-button type="primary" @click="handleSearch">查询</a-button>
+            <span style="margin-right:10px;">起止时间</span>
+            <a-date-picker size="default" :value="defaultTime" @change="timeStartChange"/>
+            <a-date-picker size="default" :value="defaultEndTime" @change="timeEndChange"/>
+           
           </div>
 
-          <a-input-search placeholder="搜索..." class="search_input"  @search="handleSearchData"/>
+          <a-input  placeholder="搜索..." class="search_input" v-model="searchText"  @change="handleSearchData"/>
+          <a-button type="primary" @click="handleSearch" class="button_search">查询</a-button>
         </div>
 
         <i-table
@@ -53,8 +55,9 @@ export default {
       activeKey: "list",
       panes: [],
       listClosable: false,
- 
+      searchText:"",
       defaultTime:moment('2019-12-01'),
+      defaultEndTime:moment('2019-12-01'),
       columns: [
         {
           title: "品牌名",
@@ -130,23 +133,28 @@ export default {
   },
   mounted: function() {
     this.getList({
-      mydate:"2019-12-01"
+      mydate:"2019-12-01",
+      mydate2:"2019-12-01"
     });
   },
   methods: {
     handleSearchData:function(value){
-      this.getSearchList({
-              mydate:this.defaultTime.format("YYYY-MM-DD"),
-              name:value
-      });
+      this.searchText=value.target.value;
+      
     },
-    timeChange:function(value,dateString){
+    timeStartChange:function(value,dateString){
  
       this.defaultTime=moment(dateString);
     },
+    timeEndChange:function(value,dateString){
+ 
+      this.defaultEndTime=moment(dateString);
+    },
     handleSearch:function(){
-      this.getList({
-        mydate:this.defaultTime.format("YYYY-MM-DD")
+      this.getSearchList({
+              mydate:this.defaultTime.format("YYYY-MM-DD"),
+              mydate2:this.defaultEndTime.format("YYYY-MM-DD"),
+              name:this.searchText
       });
     },
     handleExportExcel: function() {
@@ -267,11 +275,16 @@ export default {
 <style lang="less" scoped>
 .search_input {
   width: 200px;
-  float: right;
+  position:absolute;
+  right:80px;
+}
+.button_search{
+  position:absolute;
+  right:0;
 }
 .picker_range {
   position: absolute;
-  right: 250px;
+  right: 300px;
   top: 0;
 }
 .wrap_table {
