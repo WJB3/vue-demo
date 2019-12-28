@@ -84,6 +84,10 @@
         <div type="link" @click="handleViewOrder(record)" class="link">查看详情</div>
       </span>
 
+      <span slot="bind_action" slot-scope="text, record">
+        <div type="link" @click="handleBindDiscount(record)" class="link">绑定优惠券</div>
+      </span>
+
       <span slot="audit_action" slot-scope="text, record">
         <div type="link" @click="handleAudit(record)" class="link">审核通过</div>
         <a-divider type="vertical" />
@@ -210,6 +214,9 @@ export default {
     handleViewOrder: function(data) {
       this.$emit("onOrderView", data);
     },
+    handleBindDiscount:function(data){
+       this.$emit("onBindDiscount", data);
+    },
     filterData: function(data) {
       const newData = {};
       Object.keys(data).forEach(key => {
@@ -269,6 +276,9 @@ export default {
             }, 0);
           }
         };
+      }
+      if(item.bind_action){
+        item.scopedSlots = { customRender: "bind_action" };
       }
       if (item.action) {
         item.scopedSlots = { customRender: "action" };

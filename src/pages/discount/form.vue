@@ -19,11 +19,11 @@
                   initialValue:current.name
                 },
               ]"
-              placeholder="请输入品牌名称"
+              placeholder="请输入优惠券名称"
             />
           </a-form-item>
         </a-col>
-        
+
         <a-col :span="8">
           <a-form-item label="满减值:" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
             <a-input-number
@@ -69,11 +69,11 @@
           </a-form-item>
         </a-col>
       </a-row>
-       <a-row :gutter="{md: 8, lg: 24, xl: 48}">
+      <a-row :gutter="{md: 8, lg: 24, xl: 48}">
         <a-col :span="8">
           <a-form-item label="优惠开始时间" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
-             <a-date-picker 
-               :disabled="disabled"
+            <a-date-picker
+              :disabled="disabled"
               v-decorator="[
                 `starttime`,
                 {
@@ -88,13 +88,13 @@
                 },
               ]"
               placeholder="请输入优惠开始时间"
-             />
+            />
           </a-form-item>
         </a-col>
         <a-col :span="8">
           <a-form-item label="优惠结束时间" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
-             <a-date-picker 
-               :disabled="disabled"
+            <a-date-picker
+              :disabled="disabled"
               v-decorator="[
                 `endtime`,
                 {
@@ -109,7 +109,57 @@
                 },
               ]"
               placeholder="请输入优惠结束时间"
-             />
+            />
+          </a-form-item>
+        </a-col>
+        <a-col :span="8">
+          <a-form-item label="优惠券类别" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+            <a-select
+              :disabled="disabled"
+              v-decorator="[
+                `lb1`,
+                {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入优惠券类别!',
+                    },
+                     
+                  ],
+                  initialValue:current.lb1
+                },
+              ]"
+            >
+              <a-select-option :value="0">现金抵用券</a-select-option>
+              <a-select-option :value="1">满减卷</a-select-option>
+            </a-select>
+          </a-form-item>
+        </a-col>
+      </a-row>
+      <a-row>
+        <a-col :span="8">
+          <a-form-item label="优惠券产品类别" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+            <a-select
+              :disabled="disabled"
+              v-decorator="[
+                `lb2`,
+                {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入优惠券产品类别!',
+                    },
+                     
+                  ],
+                  initialValue:current.lb2
+                },
+              ]"
+            >
+              <a-select-option :value="0">通用卷</a-select-option>
+              <a-select-option :value="1">轮胎类</a-select-option>
+              <a-select-option :value="2">机油类</a-select-option>
+              <a-select-option :value="3">养护品类</a-select-option>
+            </a-select>
           </a-form-item>
         </a-col>
       </a-row>
@@ -137,8 +187,8 @@ export default {
       headers: {},
       disabled: this.type === "VIEW",
       bordered: false,
-      filterStartTime:moment(this.current.starttime),
-      filterEndTime:moment(this.current.endtime),
+      filterStartTime: moment(this.current.starttime),
+      filterEndTime: moment(this.current.endtime)
     };
   },
   components: {
@@ -161,8 +211,13 @@ export default {
           newFormData.append("name", values.name);
           newFormData.append("fullred", values.fullred);
           newFormData.append("red", values.red);
-          newFormData.append("starttime", values.starttime.format("YYYY-MM-DD"));
-          newFormData.append("endtime",values.endtime.format("YYYY-MM-DD"));
+          newFormData.append("lb1", values.lb1);
+          newFormData.append("lb2", values.lb2);
+          newFormData.append(
+            "starttime",
+            values.starttime.format("YYYY-MM-DD")
+          );
+          newFormData.append("endtime", values.endtime.format("YYYY-MM-DD"));
           if (this.type === "ADD") {
             this.$store.dispatch("discount/add", newFormData).then(res => {
               console.log(res);

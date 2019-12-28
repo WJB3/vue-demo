@@ -1,4 +1,5 @@
 <template>
+<div>
   <custom-table
     :data="data"
     :pagination="pagination"
@@ -11,13 +12,28 @@
     v-on:onView="handleView"
     v-on:onDelete="handleDelete"
     v-on:onTableChange="handleTableChange"
+    v-on:onBindDiscount="handleBindDiscount"
   >
     
   </custom-table>
+   <a-modal
+      title="绑定优惠券"
+      v-model="visible"
+      @ok="handleOk"
+      @cancel="handleCancel"
+      :bodyStyle="bodyStyle"
+      okText="确定"
+      cancelText="取消"
+      :destroyOnClose="true"
+    > 
+       <pop-select-discount :value="defaultDiscount"/>
+    </a-modal>
+  </div>
 </template>
 
 <script>
 import CustomTable from "@/component/custom-table";
+import PopSelectDiscount from "@/component/pop-select-discount";
 export default {
   data() {
     return {
@@ -70,16 +86,37 @@ export default {
           key: "comaddress",
           width:200,
      
+        },
+         {
+          title: "操作",
+          dataIndex: "bind_action",
+          key: "bind_action",
+          fixed: "right",
+          width:50,
+          bind_action: true
         }
          
-      ]
+      ],
+      bodyStyle: {
+        display: "flex",
+        "justify-content": "center",
+        "align-items": "center"
+      },
+      visible: false,
+      defaultDiscount:{id:"",name:""}
     };
   },
   components: {
-    CustomTable
+    CustomTable,PopSelectDiscount
   },
   props: ["data", "pagination", "loading"],
   methods: {
+    handleOk:function(){
+
+    },
+    handleCancel:function(){
+      this.visible=false;
+    },
     filterData: function(data) {
       const newData = {};
       Object.keys(data).forEach(key => {
@@ -95,7 +132,9 @@ export default {
         ...filterData
       });
     },
-    
+    handleBindDiscount:function(){
+      this.visible=true;
+    },
     handleDelete: function(value) {
       const _this = this;
       const formData = new FormData();
