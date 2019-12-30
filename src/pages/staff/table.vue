@@ -1,22 +1,20 @@
 <template>
-<div>
-  <custom-table
-    :data="data"
-    :pagination="pagination"
-    :loading="loading"
-    :columns="columns"
-    size="default"
-    bordered
-    rowKey="uuid"
-    v-on:onEdit="handleEdit"
-    v-on:onView="handleView"
-    v-on:onDelete="handleDelete"
-    v-on:onTableChange="handleTableChange"
-    v-on:onBindDiscount="handleBindDiscount"
-  >
-    
-  </custom-table>
-   <a-modal
+  <div>
+    <custom-table
+      :data="data"
+      :pagination="pagination"
+      :loading="loading"
+      :columns="columns"
+      size="default"
+      bordered
+      rowKey="uuid"
+      v-on:onEdit="handleEdit"
+      v-on:onView="handleView"
+      v-on:onDelete="handleDelete"
+      v-on:onTableChange="handleTableChange"
+      v-on:onBindDiscount="handleBindDiscount"
+    ></custom-table>
+    <a-modal
       title="绑定优惠券"
       v-model="visible"
       @ok="handleOk"
@@ -25,8 +23,8 @@
       okText="确定"
       cancelText="取消"
       :destroyOnClose="true"
-    > 
-       <pop-select-discount :value="defaultDiscount"/>
+    >
+      <pop-select-discount :value="defaultDiscount" @change="selectDiscount" />
     </a-modal>
   </div>
 </template>
@@ -40,62 +38,60 @@ export default {
       searchInput: null,
       searchText: "",
       columns: [
-         {
+        {
           title: "姓名",
           dataIndex: "name",
-          key:"name",
-          width:200,
-          filter:true
+          key: "name",
+          width: 200,
+          filter: true
         },
         {
           title: "手机号兼用户",
           dataIndex: "phone",
-          key:"phone",
-          width:150
+          key: "phone",
+          width: 150
         },
         {
           title: "密码",
           dataIndex: "password",
-          key:"password",
-          width:100
+          key: "password",
+          width: 100
         },
         {
           title: "用户头像",
           dataIndex: "imgurl",
-          key:"imgurl",
-          width:200,
-          imgurl:true
+          key: "imgurl",
+          width: 200,
+          imgurl: true
         },
         {
           title: "门店图片",
           dataIndex: "comimg",
-          key:"comimg",
-          width:200,
-          imgurl:true
+          key: "comimg",
+          width: 200,
+          imgurl: true
         },
         {
           title: "公司营业执照",
           dataIndex: "gsimg",
-          key:"gsimg",
-          width:200,
-          imgurl:true
+          key: "gsimg",
+          width: 200,
+          imgurl: true
         },
         {
           title: "公司地址",
           dataIndex: "comaddress",
           key: "comaddress",
-          width:200,
-     
+          width: 200
         },
-         {
+        {
           title: "操作",
           dataIndex: "bind_action",
           key: "bind_action",
           fixed: "right",
-          width:50,
+          width: 50,
           bind_action: true
         }
-         
       ],
       bodyStyle: {
         display: "flex",
@@ -103,19 +99,36 @@ export default {
         "align-items": "center"
       },
       visible: false,
-      defaultDiscount:{id:"",name:""}
+      defaultDiscount: { id: "", name: "" },
+      current:{}
     };
   },
   components: {
-    CustomTable,PopSelectDiscount
+    CustomTable,
+    PopSelectDiscount
   },
   props: ["data", "pagination", "loading"],
   methods: {
-    handleOk:function(){
-
+    selectDiscount: function(value) {
+      this.defaultDiscount = {
+        id: value.id,
+        name: value.name
+      };
     },
-    handleCancel:function(){
-      this.visible=false;
+    handleOk: function() {
+      const newFormData = new FormData();
+      newFormData.append("userid", this.current.uuid);
+      newFormData.append("conid", this.defaultDiscount.id);
+ 
+      this.$store.dispatch("staff/bindDiscount", newFormData).then((res)=>{
+        if(res){
+          this.$message.info("绑定优惠券成功！");
+          this.visible=false;
+        }
+      });
+    },
+    handleCancel: function() {
+      this.visible = false;
     },
     filterData: function(data) {
       const newData = {};
@@ -132,8 +145,9 @@ export default {
         ...filterData
       });
     },
-    handleBindDiscount:function(){
-      this.visible=true;
+    handleBindDiscount: function(value) {
+      this.visible = true;
+      this.current=value;
     },
     handleDelete: function(value) {
       const _this = this;

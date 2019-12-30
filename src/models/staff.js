@@ -73,6 +73,23 @@ export default  {
                 return false;
             }
         },
+        async bindDiscount({commit,dispatch},payload){
+            
+            try{    
+                const list=await staffService.bindDiscount(payload);
+                dispatch("getList");
+                dispatch("getNoAuditList");
+                dispatch("getWaitAuditList");
+                if(list){
+                    return true;
+                }
+                 
+            }catch(e){
+                console.log("我捕获到了错误")
+                console.error(e);
+                return false;
+            }
+        },
         async refuse_audit({commit,dispatch},payload){
             
             try{    

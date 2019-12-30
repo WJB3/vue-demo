@@ -41,10 +41,18 @@ async function refuse_audit(params){
     })
 }
 
+async function bindDiscount(params){
+    return request(`/api/hi/main?hi=24B6OD8OMLUS`,{
+        method:"POST",
+        body:params
+    })
+}
+
 export default {
     list,
     no_audit_list,
     wait_audit_list,
     audit,
-    refuse_audit
+    refuse_audit,
+    bindDiscount
 }
