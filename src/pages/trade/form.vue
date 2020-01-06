@@ -277,6 +277,35 @@
             />
           </a-form-item>
         </a-col>
+       
+     
+      </a-row>
+      <a-row>
+         <a-col :span="8">
+          <a-form-item label="产品类别" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+            <a-select
+              :disabled="disabled"
+              v-decorator="[
+                `con`,
+                {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入产品类别!',
+                    },
+                     
+                  ],
+                  initialValue:current.con
+                },
+              ]"
+            >
+      
+              <a-select-option :value="1">轮胎类</a-select-option>
+              <a-select-option :value="2">机油类</a-select-option>
+              <a-select-option :value="3">电池类</a-select-option>
+            </a-select>
+          </a-form-item>
+        </a-col>
       </a-row>
     </a-form>
     <footer-toolbar>
@@ -348,6 +377,7 @@ export default {
           newFormData.append("typeid", values.model.id);
           newFormData.append("descs", values.descs);
           newFormData.append("hqjf", values.hqjf);
+          newFormData.append("con",values.con);
 
           if (this.type === "ADD") {
             this.$store.dispatch("trade/add", newFormData).then(res => {

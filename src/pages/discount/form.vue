@@ -158,7 +158,7 @@
               <a-select-option :value="0">通用卷</a-select-option>
               <a-select-option :value="1">轮胎类</a-select-option>
               <a-select-option :value="2">机油类</a-select-option>
-              <a-select-option :value="3">养护品类</a-select-option>
+              <a-select-option :value="3">电池类</a-select-option>
             </a-select>
           </a-form-item>
         </a-col>
