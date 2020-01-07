@@ -13,13 +13,32 @@
       v-on:onDelete="handleDelete"
       v-on:onTableChange="handleTableChange"
       v-on:onBindDiscount="handleBindDiscount"
+      v-on:onViewBindDiscount="handleViewBindDiscount"
+      v-on:onUnBindDiscount="handleUnBindDiscount"
     ></custom-table>
+    <a-modal
+      title="查看优惠价"
+      v-model="viewVisible"
+      @ok="handleCancel"
+      @cancel="handleCancel"
+      :bodyStyle="bodyStyle"
+      okText="确定"
+      cancelText="取消"
+      :destroyOnClose="true"
+    >
+      <a-list itemLayout="horizontal" :dataSource="detailDiscount" style="width:100%">
+        <a-list-item slot="renderItem" slot-scope="item, index">
+          <a-list-item-meta title="优惠券信息">
+            <div slot="description">优惠券名称：{{item.name}}</div>
+          </a-list-item-meta>
+        </a-list-item>
+      </a-list>
+    </a-modal>
     <a-modal
       title="绑定优惠券"
       v-model="visible"
       @ok="handleOk"
       @cancel="handleCancel"
-      :bodyStyle="bodyStyle"
       okText="确定"
       cancelText="取消"
       :destroyOnClose="true"
@@ -94,20 +113,20 @@ export default {
         }
       ],
       bodyStyle: {
-        display: "flex",
-        "justify-content": "center",
-        "align-items": "center"
+        display: "flex"
       },
       visible: false,
+      viewVisible: false,
       defaultDiscount: { id: "", name: "" },
-      current:{}
+      current: {},
+      bindType: 0 //绑定类型 0为绑定 1为解绑
     };
   },
   components: {
     CustomTable,
     PopSelectDiscount
   },
-  props: ["data", "pagination", "loading"],
+  props: ["data", "pagination", "loading", "detailDiscount"],
   methods: {
     selectDiscount: function(value) {
       this.defaultDiscount = {
@@ -117,18 +136,39 @@ export default {
     },
     handleOk: function() {
       const newFormData = new FormData();
-      newFormData.append("userid", this.current.uuid);
-      newFormData.append("conid", this.defaultDiscount.id);
- 
-      this.$store.dispatch("staff/bindDiscount", newFormData).then((res)=>{
-        if(res){
-          this.$message.info("绑定优惠券成功！");
-          this.visible=false;
+      this.$store.dispatch("staff/viewDiscount", { uuid: this.current.uuid });
+      if (this.bindType === 0) {
+        newFormData.append("userid", this.current.uuid);
+        newFormData.append("conid", this.defaultDiscount.id);
+
+        this.$store.dispatch("staff/bindDiscount", newFormData).then(res => {
+          if (res) {
+            this.$message.info("绑定优惠券成功！");
+            this.visible = false;
+          }
+        });
+      } else if (this.bindType === 1) {
+        //newFormData.append("userid", this.current.uuid);
+        let item=this.detailDiscount.find(item=>item.uuid===this.defaultDiscount.id);
+        console.log(item);
+        if(!item){
+          this.$message.info("改用户没有绑定此优惠券");
+          return ;
         }
-      });
+
+        newFormData.append("myconid",item.myconid);
+
+        this.$store.dispatch("staff/unBindDiscount", newFormData).then(res => {
+          if (res) {
+            this.$message.info("解绑优惠券成功！");
+            this.visible = false;
+          }
+        });
+      }
     },
     handleCancel: function() {
       this.visible = false;
+      this.viewVisible = false;
     },
     filterData: function(data) {
       const newData = {};
@@ -146,8 +186,19 @@ export default {
       });
     },
     handleBindDiscount: function(value) {
+      this.bindType = 0;
       this.visible = true;
-      this.current=value;
+      this.current = value;
+    },
+    handleUnBindDiscount: function(value) {
+      this.bindType = 1;
+      this.visible = true;
+      this.current = value;
+    },
+    handleViewBindDiscount: function(value) {
+      this.$store.dispatch("staff/viewDiscount", { uuid: value.uuid });
+      this.viewVisible = true;
+      this.current = value;
     },
     handleDelete: function(value) {
       const _this = this;
@@ -172,7 +223,9 @@ export default {
       this.$emit("onView", value);
     }
   },
-  mounted: function() {}
+  mounted: function() {
+    console.log(this.detailDiscount);
+  }
 };
 </script>
 

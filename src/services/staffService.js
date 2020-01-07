@@ -48,11 +48,24 @@ async function bindDiscount(params){
     })
 }
 
+async function unBindDiscount(params){
+    return request(`/api/hi/main?hi=24B6OD8OMQY7`,{
+        method:"POST",
+        body:params
+    })
+}
+
+async function viewDiscount(params){
+    return request(`/api/hi/main?hi=24B6OD8OMLV4&${stringify(params)}`)
+}
+
 export default {
     list,
     no_audit_list,
     wait_audit_list,
     audit,
     refuse_audit,
-    bindDiscount
+    bindDiscount,
+    viewDiscount,
+    unBindDiscount
 }

@@ -85,7 +85,9 @@
       </span>
 
       <span slot="bind_action" slot-scope="text, record">
+        <div type="link" @click="viewBindDiscount(record)" class="link">查看优惠券</div>
         <div type="link" @click="handleBindDiscount(record)" class="link">绑定优惠券</div>
+        <div type="link" @click="handleUnBindDiscount(record)" class="link">解绑优惠券</div>
       </span>
 
       <span slot="audit_action" slot-scope="text, record">
@@ -216,6 +218,12 @@ export default {
     },
     handleBindDiscount:function(data){
        this.$emit("onBindDiscount", data);
+    },
+     handleUnBindDiscount:function(data){
+       this.$emit("onUnBindDiscount", data);
+    },
+    viewBindDiscount:function(data){
+       this.$emit("onViewBindDiscount", data);
     },
     filterData: function(data) {
       const newData = {};

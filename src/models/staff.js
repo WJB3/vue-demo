@@ -16,7 +16,8 @@ export default  {
         wait_audit_data:[],
         wait_audit_pagination:{
             pageSize:10
-        }
+        },
+        detailDiscount:[]
     },
     getters:{
 
@@ -55,6 +56,16 @@ export default  {
                 console.error(e);
             }
         },
+        async viewDiscount({commit},payload){//审核未通过
+            try{    
+                const list=await staffService.viewDiscount(payload);
+                commit("updateDiscount",{
+                    list
+                })
+            }catch(e){
+                console.error(e);
+            }
+        },
         async audit({commit,dispatch},payload){
             
             try{    
@@ -77,6 +88,23 @@ export default  {
             
             try{    
                 const list=await staffService.bindDiscount(payload);
+                dispatch("getList");
+                dispatch("getNoAuditList");
+                dispatch("getWaitAuditList");
+                if(list){
+                    return true;
+                }
+                 
+            }catch(e){
+                console.log("我捕获到了错误")
+                console.error(e);
+                return false;
+            }
+        },
+        async unBindDiscount({commit,dispatch},payload){
+            
+            try{    
+                const list=await staffService.unBindDiscount(payload);
                 dispatch("getList");
                 dispatch("getNoAuditList");
                 dispatch("getWaitAuditList");
@@ -136,6 +164,9 @@ export default  {
             }
             state.pagination=payload.list.rows && payload.list.rows.length>0?{total:payload.list.rows[0].count,...pagination}:{}
             Object.assign(state,payload);
+        },
+        updateDiscount(state,payload){
+            state.detailDiscount=payload.list.rows;
         }
     }
 }

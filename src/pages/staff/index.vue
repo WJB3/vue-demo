@@ -11,7 +11,7 @@
           v-on:onEdit="handleEdit"
           v-on:onView="handleView"
           :loading="loading"
-         
+          :detailDiscount="detailDiscount"
         ></i-table>
 
         <i-modal :visible="visible"></i-modal>
@@ -28,7 +28,7 @@
           v-on:onEdit="handleEdit"
           v-on:onView="handleView"
           :loading="loading"
-         
+        
         ></no-table>
 
         <i-modal :visible="visible"></i-modal>
@@ -91,7 +91,8 @@ export default {
     current: state => state.brand.current,
     visible: state => state.brand.visible,
     loading: state => state.brand.loading,
-    searchText:state=>state.brand.searchText
+    searchText:state=>state.brand.searchText,
+    detailDiscount:state=>state.staff.detailDiscount
   }),
   components: {
     iTable,
