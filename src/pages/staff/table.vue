@@ -26,11 +26,13 @@
       cancelText="取消"
       :destroyOnClose="true"
     >
-      <a-list itemLayout="horizontal" :dataSource="detailDiscount" style="width:100%">
+      <a-list itemLayout="horizontal" :dataSource="detailDiscount" style="width:100%" >
         <a-list-item slot="renderItem" slot-scope="item, index">
           <a-list-item-meta title="优惠券信息">
             <div slot="description">优惠券名称：{{item.name}}</div>
+            
           </a-list-item-meta>
+          <div slot="extra" class="link" @click="handleUnBindDiscount(item)">解绑</div>
         </a-list-item>
       </a-list>
     </a-modal>
@@ -113,7 +115,9 @@ export default {
         }
       ],
       bodyStyle: {
-        display: "flex"
+        display: "flex",
+        'justify-content':'center',
+        'align-items':'center'
       },
       visible: false,
       viewVisible: false,
@@ -133,6 +137,17 @@ export default {
         id: value.id,
         name: value.name
       };
+    },
+    handleUnBindDiscount:function(value){
+      const newFormData = new FormData();
+      newFormData.append("myconid",value.myconid);
+      this.$store.dispatch("staff/unBindDiscount", newFormData).then(res => {
+          if (res) {
+            this.$message.info("解绑优惠券成功！");
+            this.visible = false;
+            this.$store.dispatch("staff/viewDiscount", { uuid: this.current.uuid });
+          }
+      });
     },
     handleOk: function() {
       const newFormData = new FormData();
@@ -190,11 +205,11 @@ export default {
       this.visible = true;
       this.current = value;
     },
-    handleUnBindDiscount: function(value) {
-      this.bindType = 1;
-      this.visible = true;
-      this.current = value;
-    },
+    // handleUnBindDiscount: function(value) {
+    //   this.bindType = 1;
+    //   this.visible = true;
+    //   this.current = value;
+    // },
     handleViewBindDiscount: function(value) {
       this.$store.dispatch("staff/viewDiscount", { uuid: value.uuid });
       this.viewVisible = true;
