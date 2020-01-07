@@ -14,6 +14,9 @@ function keyToTitle(arr){//key转化为title
     }
 }
 
+
+
 export  {
-    keyToTitle
+    keyToTitle,
+ 
 }

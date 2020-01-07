@@ -7,7 +7,7 @@
     :beforeUpload="beforeUpload"
     :headers="headers"
     @change="handleChangeImage"
-    action="/file"
+    action="https://www.lianghaisy.com/upload"
     :placeholder="placeholder"
   >
     <img v-if="imageUrl" :src="imageUrl" alt="avatar" />

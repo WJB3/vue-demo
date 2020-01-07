@@ -1,4 +1,5 @@
 import request from '@/utils/httpInvoker';
+import { api } from '@/utils/helperUtils';
 import { stringify } from 'qs';
 
 /*
@@ -6,7 +7,7 @@ import { stringify } from 'qs';
  */
 async function list(params){
     //return request(`/api/hi/main?${encodeURIComponent(`hi=24AXRBU571BH?${stringify(params)}`)}`)
-    return request(`/api/hi/main?hi=24AXRBU571BH&${stringify(params)}`)
+    return request(`${api}/hi/main?hi=24AXRBU571BH&${stringify(params)}`)
 }
 
 /*
@@ -14,7 +15,7 @@ async function list(params){
  */
 async function no_audit_list(params){
     //return request(`/api/hi/main?${encodeURIComponent(`hi=24AXRBU571BH?${stringify(params)}`)}`)
-    return request(`/api/hi/main?hi=24B1PXVN40EA&${stringify(params)}`)
+    return request(`${api}/hi/main?hi=24B1PXVN40EA&${stringify(params)}`)
 }
 
 /*
@@ -22,12 +23,12 @@ async function no_audit_list(params){
  */
 async function wait_audit_list(params){
     //return request(`/api/hi/main?${encodeURIComponent(`hi=24AXRBU571BH?${stringify(params)}`)}`)
-    return request(`/api/hi/main?hi=24B1PXVN40DU&${stringify(params)}`)
+    return request(`${api}/hi/main?hi=24B1PXVN40DU&${stringify(params)}`)
 }
 
 async function audit(params){
     //return request(`/api/hi/main?${encodeURIComponent(`hi=24AXRBU571BH?${stringify(params)}`)}`)
-    return request(`/api/hi/main?hi=24B1PXVN40DJ`,{
+    return request(`${api}/hi/main?hi=24B1PXVN40DJ`,{
         method:"POST",
         body:params
     })
@@ -35,28 +36,28 @@ async function audit(params){
 
 async function refuse_audit(params){
     //return request(`/api/hi/main?${encodeURIComponent(`hi=24AXRBU571BH?${stringify(params)}`)}`)
-    return request(`/api/hi/main?hi=24B1PXVN40DL`,{
+    return request(`${api}/hi/main?hi=24B1PXVN40DL`,{
         method:"POST",
         body:params
     })
 }
 
 async function bindDiscount(params){
-    return request(`/api/hi/main?hi=24B6OD8OMLUS`,{
+    return request(`${api}/hi/main?hi=24B6OD8OMLUS`,{
         method:"POST",
         body:params
     })
 }
 
 async function unBindDiscount(params){
-    return request(`/api/hi/main?hi=24B6OD8OMQY7`,{
+    return request(`${api}/hi/main?hi=24B6OD8OMQY7`,{
         method:"POST",
         body:params
     })
 }
 
 async function viewDiscount(params){
-    return request(`/api/hi/main?hi=24B6OD8OMLV4&${stringify(params)}`)
+    return request(`${api}/hi/main?hi=24B6OD8OMLV4&${stringify(params)}`)
 }
 
 export default {
