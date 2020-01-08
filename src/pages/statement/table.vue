@@ -34,6 +34,7 @@
         <!-- <a-select-option :value="0">待付款</a-select-option> -->
         <a-select-option :value="1">待发货</a-select-option>
         <a-select-option :value="2">已发货</a-select-option>
+       
       </a-select>
     </a-modal>
 
@@ -199,7 +200,7 @@ export default {
     status: function() {
       const status = this.current.status;
       return status === 3
-        ? "已退款"
+        ? "已完成"
         : status === 2
         ? "已发货"
         : status === 1

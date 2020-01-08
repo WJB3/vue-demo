@@ -25,6 +25,7 @@ const RouteView=()=>import("@/component/route/RouteView.vue");
 const StaffLaborVersion=()=>import("@/pages/staff/labor/version/index.vue");
 const StaffLaborRenewal=()=>import("@/pages/staff/labor/renewal/index.vue");
 const StaffLaborRenewrecord=()=>import("@/pages/staff/labor/renewrecord/index.vue");
+const Credit=()=>import("@/pages/credit/index.vue");
 
 Vue.use(VueRouter);
 
@@ -92,6 +93,13 @@ const menuRoutes=[
         title:"报表统计",
         icon:"file-excel",
         component:Statement
+    },
+    {
+        path:"/credit",
+        key:"credit",
+        title:"积分兑换",
+        icon:"copy",
+        component:Credit
     },
     // {
     //     path:"/info",

@@ -34,6 +34,7 @@
         <!-- <a-select-option :value="0">待付款</a-select-option> -->
         <a-select-option :value="1">待发货</a-select-option>
         <a-select-option :value="2">已发货</a-select-option>
+        <a-select-option :value="3">已完成</a-select-option>
       </a-select>
     </a-modal>
 
@@ -200,24 +201,7 @@ export default {
           width: 100,
           //filter: true,
           order_status: true,
-          filters: [
-            // {
-            //   text: "待付款",
-            //   value: 0
-            // },
-            {
-              text: "已付款",
-              value: 1
-            },
-            {
-              text: "已发货",
-              value: 2
-            },
-            {
-              text: "已完成",
-              value: 3
-            }
-          ]
+          
         },
         {
           title: "订单用户名",
@@ -282,7 +266,7 @@ export default {
     status: function() {
       const status = this.current.status;
       return status === 3
-        ? "已退款"
+        ? "已完成"
         : status === 2
         ? "已发货"
         : status === 1

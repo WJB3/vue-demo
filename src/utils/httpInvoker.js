@@ -15,9 +15,11 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
     response=>{
+ 
         const responseData=response.data;
         return responseData;
     },error=>{
+       
         return Promise.reject(error.response.data);
     }
 )

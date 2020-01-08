@@ -45,9 +45,10 @@
         <a-badge status="success" v-if="text===3" text="已收款" />
       </template>
 
-      <span slot="sale_total" slot-scope="text,record">
-        {{(Number(record.num)*Number(record.price)).toFixed(2)}}
-      </span>
+      <span
+        slot="sale_total"
+        slot-scope="text,record"
+      >{{(Number(record.num)*Number(record.price)).toFixed(2)}}</span>
 
       <span slot="imgurl" slot-scope="text">
         <div @click="handleImagePreview(text)">
@@ -84,10 +85,14 @@
         <div type="link" @click="handleViewOrder(record)" class="link">查看详情</div>
       </span>
 
+      <span slot="credit_action" slot-scope="text, record">
+        <div type="link" @click="handleChangeCreditStatus(record)" class="link">修改状态</div>
+    
+      </span>
+
       <span slot="bind_action" slot-scope="text, record">
         <div type="link" @click="viewBindDiscount(record)" class="link">查看优惠券</div>
         <div type="link" @click="handleBindDiscount(record)" class="link">绑定优惠券</div>
-         
       </span>
 
       <span slot="audit_action" slot-scope="text, record">
@@ -100,8 +105,16 @@
         <!-- <a-badge status="warning" text="待付款" v-if="text===0" /> -->
         <a-badge status="processing" text="待发货" v-if="text===1" />
         <a-badge status="success" text="已发货" v-if="text===2" />
-        <a-badge status="processing" text="已退款" v-if="text===3" />
+        <a-badge status="processing" text="已完成" v-if="text===3" />
       </span>
+
+       <span slot="credit_status" slot-scope="text">
+        <!-- <a-badge status="warning" text="待付款" v-if="text===0" /> -->
+        <a-badge status="processing" text="未发货" v-if="text===0" />
+        <a-badge status="success" text="已发货" v-if="text===1" />
+        <a-badge status="processing" text="已完成" v-if="text===2" />
+      </span>
+
     </a-table>
     <a-button
       class="confirm-button"
@@ -216,14 +229,14 @@ export default {
     handleViewOrder: function(data) {
       this.$emit("onOrderView", data);
     },
-    handleBindDiscount:function(data){
-       this.$emit("onBindDiscount", data);
+    handleBindDiscount: function(data) {
+      this.$emit("onBindDiscount", data);
     },
-     handleUnBindDiscount:function(data){
-       this.$emit("onUnBindDiscount", data);
+    handleUnBindDiscount: function(data) {
+      this.$emit("onUnBindDiscount", data);
     },
-    viewBindDiscount:function(data){
-       this.$emit("onViewBindDiscount", data);
+    viewBindDiscount: function(data) {
+      this.$emit("onViewBindDiscount", data);
     },
     filterData: function(data) {
       const newData = {};
@@ -237,6 +250,9 @@ export default {
     },
     handleChangeStatus: function(value) {
       this.$emit("onChangeStatus", value);
+    },
+    handleChangeCreditStatus: function(value) {
+      this.$emit("onChangeCreditStatus", value);
     },
     handleSearch(selectedKeys, confirm) {
       confirm();
@@ -285,7 +301,7 @@ export default {
           }
         };
       }
-      if(item.bind_action){
+      if (item.bind_action) {
         item.scopedSlots = { customRender: "bind_action" };
       }
       if (item.action) {
@@ -312,7 +328,7 @@ export default {
             //   value: 0
             // },
             {
-              text: "已付款",
+              text: "待发货",
               value: 1
             },
             {
@@ -325,8 +341,36 @@ export default {
             }
           ]);
       }
+      if (item.credit_status) {
+        item.scopedSlots = { customRender: "credit_status" };
+        item.filterMultiple = false;
+        (item.onFilter = (value, record) => {
+          return record.status === value;
+        }),
+          (item.filters = [
+            // {
+            //   text: "待付款",
+            //   value: 0
+            // },
+            {
+              text: "未发货",
+              value: 0
+            },
+            {
+              text: "已发货",
+              value: 1
+            },
+            {
+              text: "已完成",
+              value: 2
+            }
+          ]);
+      }
       if (item.order_action) {
         item.scopedSlots = { customRender: "order_action" };
+      }
+      if (item.credit_action) {
+        item.scopedSlots = { customRender: "credit_action" };
       }
     });
     this.customColumns = this.columns;
