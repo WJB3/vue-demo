@@ -7,12 +7,12 @@
     :beforeUpload="beforeUpload"
     :headers="headers"
     @change="handleChangeImage"
-    action="/file"
+    action="https://www.lianghaisy.com/upload"
     :placeholder="placeholder"
-    :customRequest="customRequest"
+     
   >
     <img v-if="imageUrl" :src="imageUrl" alt="avatar" />
-    <div v-else class="image_margin" >
+    <div v-else class="image_margin">
       <a-icon :type="loading ? 'loading' : 'plus'" />
       <div class="ant-upload-text">Upload</div>
     </div>
@@ -20,49 +20,49 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 function getBase64(img, callback) {
   const reader = new FileReader();
   reader.addEventListener("load", () => callback(reader.result));
   reader.readAsDataURL(img);
 }
 export default {
-  props: ["name","value"],
+  props: ["name", "value"],
   data() {
     return {
       placeholder: `请输入${this.name}`,
       headers: {
         //'Content-Type':"multipart/form-data"
       },
-      imageUrl:"",
-      loading:false
+      imageUrl: "",
+      loading: false
     };
   },
-  mounted:function(){
-   
-    this.imageUrl=this.value;
+  mounted: function() {
+    this.imageUrl = this.value;
   },
   methods: {
-    // customRequest({action,data,file,withCredentials,headers}){
-    //   const _this=this;
-    //   const formData=new FormData();
-    //   formData.append("upload_file",file);
-    //   axios
-    //   .post(action,formData,{
-    //     withCredentials,
-    //     headers,
-    //     // onUploadProgress: ({ total, loaded }) => {
-    //     //   onProgress({ percent: Math.round(loaded / total * 100).toFixed(2) }, file);
-    //     // },
-    //   })
-    //   .then((res) => {
-    //     console.log(res)
-    //      _this.loading = false;
-    //   })
-    //   .catch((err)=>{
-    //     console.log(err)
-    //   })
-    // },
+    customRequest({ action, data, file, withCredentials, headers }) {
+      const _this = this;
+      const formData = new FormData();
+      formData.append("upload_file", file);
+      axios
+        .post(action, formData, {
+          withCredentials,
+          headers
+          // onUploadProgress: ({ total, loaded }) => {
+          //   onProgress({ percent: Math.round(loaded / total * 100).toFixed(2) }, file);
+          // },
+        })
+        .then(res => {
+          console.log(res);
+          _this.loading = false;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+
     beforeUpload(file) {
       const isJPG = file.type.indexOf("image/") > -1;
 
@@ -76,10 +76,9 @@ export default {
       return isJPG && isLt2M;
     },
     triggerChange: function(changedValue) {
-      this.$emit("change",  changedValue);
+      this.$emit("change", changedValue);
     },
     handleChangeImage(info) {
-      console.log(info);
       if (info.file.status === "uploading") {
         this.loading = true;
         return;
@@ -90,11 +89,8 @@ export default {
           this.loading = false;
           this.triggerChange(info.file.response);
         });
-       
       }
- 
-     
-    },
+    }
   }
 };
 </script>
