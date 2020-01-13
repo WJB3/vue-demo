@@ -23,6 +23,7 @@
           v-on:onEdit="handleEdit"
           v-on:onView="handleView"
           :loading="loading"
+          :type_id="type_id"
         ></i-table>
 
         <i-modal :visible="visible"></i-modal>
@@ -56,7 +57,8 @@ export default {
       panes: [],
       listClosable: false,
       emptyObject: { id: "", name: "" },
-      brand_id:""
+      brand_id:"",
+      type_id:""
     };
   },
   computed: mapState({
@@ -88,6 +90,7 @@ export default {
       this.brand_id=current.id;
     },
     handleChangeModel:function(current){
+      this.type_id=current.id;
       this.getList({typeid:current.id})
     },
     handleView: function(value) {

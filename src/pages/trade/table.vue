@@ -94,7 +94,7 @@ export default {
   components: {
     CustomTable
   },
-  props: ["data", "pagination", "loading"],
+  props: ["data", "pagination", "loading","type_id"],
   methods: {
     filterData: function(data) {
       const newData = {};
@@ -108,6 +108,7 @@ export default {
 
       this.$store.dispatch("trade/getList", {
         page: pagination.current - 1,
+        typeid:this.type_id,
         ...filterData
       });
     },
