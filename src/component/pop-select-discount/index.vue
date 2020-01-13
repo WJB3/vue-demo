@@ -81,7 +81,8 @@ export default {
     this.width = this.columns.reduce(
       (total, current) => total + (current.width || current.width_custom),
       0
-    )+50;
+    )+50+"px";
+    console.log(this.width);
   },
   methods: {
     handleTableChange: function(pagination, filters, sorter) {

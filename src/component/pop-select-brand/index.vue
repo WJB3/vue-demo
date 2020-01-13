@@ -39,8 +39,8 @@ export default {
           title: "品牌优先级",
           dataIndex: "aindex",
           key: "aindex",
-          width_custom: 150,
-          filter: true
+          width: 150,
+      
         }
       ],
       width: "500px",
@@ -74,7 +74,8 @@ export default {
     this.width = this.columns.reduce(
       (total, current) => total + (current.width || current.width_custom),
       0
-    )+50;
+    )+50+"px";
+    console.log(this.width);
   },
   methods: {
     handleTableChange: function(pagination, filters, sorter) {

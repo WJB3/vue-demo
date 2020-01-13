@@ -12,7 +12,7 @@
       @change="handleTableChange"
       :rowKey="rowKey"
       :size="size"
-      :scroll="{x:1600}"
+      :scroll="{x:tableWidth?tableWidth:1600}"
       :rowSelection="rowSelection"
       :components="components"
     >
@@ -377,7 +377,7 @@ export default {
     this.tableWidth = this.customColumns.reduce(
       (total, current) => total + (current.width || current.width_custom),
       0
-    );
+    )+"px";
   }
 };
 </script>

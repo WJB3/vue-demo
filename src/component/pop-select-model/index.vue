@@ -1,5 +1,5 @@
 <template>
-  <a-popover trigger="click" v-model="visible" @visibleChange="handleVisibleChange">
+  <a-popover   trigger="click" v-model="visible" @visibleChange="handleVisibleChange">
     <div slot="content">
       <div :style="{'width':width}">
         <custom-table
@@ -71,7 +71,8 @@ export default {
       this.columns.reduce(
         (total, current) => total + (current.width || current.width_custom),
         0
-      ) + 50;
+      ) + 50+"px";
+      console.log(this.width);
   },
   methods: {
     handleVisibleChange: function(visible) {

@@ -120,6 +120,18 @@ export default {
           key:"jf",
           width: 150,
         },
+         {
+          title:"品牌名",
+          dataIndex:"brandname",
+          key:"brandname",
+          width: 150,
+        },
+        {
+          title:"品类名",
+          dataIndex:"typename",
+          key:"typename",
+          width: 150,
+        },
         {
           title: "操作",
           dataIndex: "action",
