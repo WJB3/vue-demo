@@ -30,7 +30,7 @@
                 {
                   rules: [
                     {
-                      required: true,
+                      required: false,
                       message: '请输入描述!',
                     },
                      
