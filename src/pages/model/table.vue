@@ -46,7 +46,7 @@ export default {
   components: {
     CustomTable
   },
-  props: ["data", "pagination", "loading"],
+  props: ["data", "pagination", "loading","brandid"],
   methods: {
     filterData: function(data) {
       const newData = {};
@@ -59,6 +59,7 @@ export default {
       const filterData = this.filterData(filters);
 
       this.$store.dispatch("model/getList", {
+        brandid:this.brandid?this.brandid:undefined,
         page: pagination.current - 1,
         ...filterData
       });

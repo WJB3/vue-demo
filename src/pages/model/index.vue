@@ -11,6 +11,7 @@
           v-on:onEdit="handleEdit"
           v-on:onView="handleView"
           :loading="loading"
+          :brandid="brandid"
         ></i-table>
 
         <i-modal :visible="visible"></i-modal>
@@ -42,7 +43,8 @@ export default {
       activeKey: "list",
       panes: [],
       listClosable: false,
-      emptyObject:{id:"",name:""}
+      emptyObject:{id:"",name:""},
+      brandid:""
     };
   },
   computed: mapState({
@@ -68,7 +70,7 @@ export default {
 
   methods: {
     handleChangeBrand: function(current) {
-      console.log("handleChangeBrand");
+      this.brandid=current.uuid;
       this.getList({ brandid: current.uuid });
     },
     getList: function(params) {
