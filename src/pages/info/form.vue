@@ -3,7 +3,7 @@
     <a-form :form="form">
       <a-row :gutter="24">
         <a-col :span="8">
-          <a-form-item label="公司名称:"  :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }"> 
+          <a-form-item label="公司名称:"  :label-col="{ span:24 }" :wrapper-col="{ span: 24 }"> 
             <a-input
               v-decorator="[
                 `name`,
@@ -20,7 +20,28 @@
             />
           </a-form-item>
         </a-col>
-        <a-col :span="8">
+         <a-col :span="12">
+          <a-form-item label="描述" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+            <a-textarea
+              class="descs"
+             
+              v-decorator="[
+                `descs`,
+                {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入描述!',
+                    },
+                     
+                  ],
+                 
+                },
+              ]"
+            />
+          </a-form-item>
+        </a-col>
+        <!-- <a-col :span="8">
           <a-form-item label="公司图片:" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
             <a-upload
               name="upload_file"
@@ -50,11 +71,11 @@
               </div>
             </a-upload>
           </a-form-item>
-        </a-col>
+        </a-col> -->
       </a-row>
     </a-form>
     <footer-toolbar>
-      <a-button type="primary"  @click="handleSubmit">确定</a-button>
+      <a-button type="primary"  @click="handleSubmit" :loading="loading">确定</a-button>
     </footer-toolbar>
   </div>
 
@@ -63,6 +84,7 @@
 <script>
 import postImageService from "@/services/fileService";
 import FooterToolbar from '@/component/footer-toolbar';
+import { mapState } from "vuex";
 import axios from "axios";
 function getBase64(img, callback) {
   const reader = new FileReader();
@@ -75,13 +97,36 @@ export default {
       form: this.$form.createForm(this),
       imageUrl: "",
       loading: false,
-      headers: {}
+      headers: {},
+      currentCompany:{}
     };
   },
   components:{
     FooterToolbar
   },
+  computed: mapState({
+    data: state => state.discount.data,
+    pagination: state => state.discount.pagination,
+    type: state => state.company.type,
+    current: state => state.company.current,
+    visible: state => state.discount.visible,
+    loading: state => state.company.loading,
+    searchText:state=>state.discount.searchText
+  }),
+  mounted:function(){
+    this.getDetail()
+  },
   methods: {
+    getDetail(){
+      this.$store.dispatch("company/getDetail", {}).then(res=>{
+        this.currentCompany=res.rows && res.rows.length>0?res.rows[0]:{};
+       
+        this.form.setFieldsValue({
+          name:this.currentCompany.name,
+          descs:this.currentCompany.descs
+        })
+      });
+    },
     beforeUpload(file) {
       const isJPG = file.type.indexOf("image/") > -1;
 
@@ -107,8 +152,34 @@ export default {
           });
         }
     },
-    customRequest(params) {
-      
+    handleSubmit() {
+      this.form.validateFields((err, vals) => {
+        if (!err) {
+          const values = vals;
+
+          const { uuid } = this.current;
+
+          const newFormData = new FormData();
+          newFormData.append("name", values.name);
+          newFormData.append("descs", values.descs);
+          
+          if (this.type === "ADD") {
+            this.$store.dispatch("discount/add", newFormData).then(res => {
+             
+              if (res) {
+                this.$emit("onAddSuccess");
+              }
+            });
+          } else if (this.type === "EDIT") {
+            
+            this.$store.dispatch("company/edit", newFormData).then(res => {
+              if (res) {
+                this.getDetail()
+              }
+            });
+          }
+        }
+      });
     }
   }
 };

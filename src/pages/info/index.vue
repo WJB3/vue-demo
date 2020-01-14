@@ -1,16 +1,21 @@
 <template>
   <a-tabs v-model="activeKey" type="editable-card" @edit="onEdit">
-    <a-tab-pane tab="列表" key="list" :closable="listClosable">
+    <a-tab-pane tab="修改公司信息" :closable="false" key="form">
+      <a-card :bordered="false">
+        <i-form></i-form>
+      </a-card>
+    </a-tab-pane>
+    <!-- <a-tab-pane tab="列表" key="list" :closable="listClosable">
       <div class="wrap_table">
         <a-button type="primary" style="margin-bottom:10px;" @click="handleAddCompany">新建公司信息</a-button>
 
         <i-table></i-table>
       </div>
-    </a-tab-pane>
-    <a-tab-pane v-for="pane in panes" :tab="pane.title" :key="pane.key" :closable="pane.closable">
+    </a-tab-pane> -->
+    <!-- <a-tab-pane v-for="pane in panes" :tab="pane.title" :key="pane.key" :closable="pane.closable">
       <div v-html="pane.content"></div>
       <i-form v-if="pane.isForm"></i-form>
-    </a-tab-pane>
+    </a-tab-pane> -->
   </a-tabs>
 </template>
 
@@ -20,7 +25,7 @@ import iForm from "./form";
 export default {
   data() {
     return {
-      activeKey: "list",
+      activeKey: "form",
       panes: [],
       listClosable: false
     };

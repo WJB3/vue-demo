@@ -9,6 +9,7 @@ import trade from './trade';
 import activity from './activity';
 import statement from './statement';
 import credit from './credit';
+import company from './company';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -22,7 +23,8 @@ export default new Vuex.Store({
         trade,
         activity,
         statement,
-        credit
+        credit,
+        company
     },
     state:{
         isMenuCollapse:false,

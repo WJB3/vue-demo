@@ -101,6 +101,13 @@ const menuRoutes=[
         icon:"copy",
         component:Credit
     },
+    {
+        path:"/info",
+        key:"info",
+        title:"公司信息",
+        icon:"copy",
+        component:Info
+    },
     // {
     //     path:"/info",
     //     key:"info",
