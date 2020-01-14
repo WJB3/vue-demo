@@ -72,7 +72,7 @@ export default {
         (total, current) => total + (current.width || current.width_custom),
         0
       ) + 50+"px";
-      console.log(this.width);
+   
   },
   methods: {
     handleVisibleChange: function(visible) {
@@ -89,9 +89,11 @@ export default {
     },
     handleTableChange: function(pagination, filters, sorter) {
       const filterData = this.filterData(filters);
+      const { brand_id } = this.parameter;
 
       this.$store.dispatch("model/getList", {
         page: pagination.current - 1,
+        brandid: brand_id,
         ...filterData
       });
     },
