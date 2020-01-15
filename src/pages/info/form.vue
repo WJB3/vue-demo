@@ -96,7 +96,6 @@ export default {
     return {
       form: this.$form.createForm(this),
       imageUrl: "",
-      loading: false,
       headers: {},
       currentCompany:{}
     };
@@ -120,7 +119,7 @@ export default {
     getDetail(){
       this.$store.dispatch("company/getDetail", {}).then(res=>{
         this.currentCompany=res.rows && res.rows.length>0?res.rows[0]:{};
-       
+
         this.form.setFieldsValue({
           name:this.currentCompany.name,
           descs:this.currentCompany.descs
@@ -174,7 +173,8 @@ export default {
             
             this.$store.dispatch("company/edit", newFormData).then(res => {
               if (res) {
-                this.getDetail()
+                this.getDetail();
+                this.$message.success("修改信息成功！")
               }
             });
           }
