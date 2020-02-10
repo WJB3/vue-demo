@@ -6550,10 +6550,10 @@ ws@^6.0.0, ws@^6.2.1:
   dependencies:
     async-limiter "~1.0.0"
 
-xlsx@^0.15.3:
-  version "0.15.3"
-  resolved "https://registry.npm.taobao.org/xlsx/download/xlsx-0.15.3.tgz?cache=0&sync_timestamp=1574850899657&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fxlsx%2Fdownload%2Fxlsx-0.15.3.tgz#d8b4daabde7529b53aad88273f0776c5e9253692"
-  integrity sha1-2LTaq951KbU6rYgnPwd2xeklNpI=
+xlsx@^0.15.5:
+  version "0.15.5"
+  resolved "https://registry.npm.taobao.org/xlsx/download/xlsx-0.15.5.tgz#37d5bb8076de7337e5bb0769b3ad55d18d68eaec"
+  integrity sha1-N9W7gHbeczfluwdps61V0Y1o6uw=
   dependencies:
     adler-32 "~1.2.0"
     cfb "^1.1.3"

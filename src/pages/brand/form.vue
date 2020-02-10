@@ -87,7 +87,29 @@
             />
           </a-form-item>
         </a-col>
+         <a-col :span="8">
+          <a-form-item label="详情链接" :label-col="{ span:24 }" :wrapper-col="{ span: 24 }">
+            <a-textarea
+              class="descs"
+              :disabled="disabled"
+              v-decorator="[
+                `detail`,
+                {
+                  rules: [
+                    {
+                      required: false,
+                      message: '请输入详情链接!',
+                    },
+                     
+                  ],
+                  initialValue:current.detail
+                },
+              ]"
+            />
+          </a-form-item>
+        </a-col>
       </a-row>
+       
     </a-form>
     <footer-toolbar>
       <a-button type="primary" @click="handleSubmit" :disabled="disabled">确定</a-button>
@@ -133,6 +155,8 @@ export default {
           newFormData.append("name", values.name);
           newFormData.append("imgurl", values.imgurl);
           newFormData.append("aindex", values.aindex);
+          newFormData.append("detail", values.detail);
+          newFormData.append("descs", values.descs);
           if (this.type === "ADD") {
             this.$store.dispatch("brand/add", newFormData).then(res => {
               console.log(res);
