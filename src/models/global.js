@@ -38,7 +38,7 @@ export default new Vuex.Store({
     },
     actions:{
         async login({commit},payload){//用户登录
-            if(payload.username==="erp"&&payload.password==="123456"){
+            if(payload.username==="erp"&&payload.password==="lianghaisy123"){
                 localStorage.setItem("AUTHORITY",true);
                 return true;
             }
