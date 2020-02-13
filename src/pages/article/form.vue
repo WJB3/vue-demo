@@ -80,7 +80,9 @@
                       required: true,
                       message: '请输入描述!',
                     },
-                    
+                    {
+                      validator:this.descValidator
+                    }
                   ],
                   initialValue:current.descs
                 },
@@ -127,6 +129,16 @@ export default {
   props: ["current", "type","lesson"],
   methods: {
     customRequest(params) {},
+    descValidator(rule, value, callback){
+      if(value.length>30){
+        this.$message.error("描述不能超过30字请注意!!");
+        this.form.setFieldsValue({
+          "descs":value.substring(0,30)
+        })
+        return ;
+      }
+      callback();
+    },
     handleSubmit() {
       this.form.validateFields((err, vals) => {
         if (!err) {
