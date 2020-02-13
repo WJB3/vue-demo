@@ -10,6 +10,8 @@ import activity from './activity';
 import statement from './statement';
 import credit from './credit';
 import company from './company';
+import lesson from './lesson';
+import article from './article';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -24,7 +26,9 @@ export default new Vuex.Store({
         activity,
         statement,
         credit,
-        company
+        company,
+        lesson,
+        article
     },
     state:{
         isMenuCollapse:false,

@@ -26,7 +26,9 @@ const StaffLaborVersion=()=>import("@/pages/staff/labor/version/index.vue");
 const StaffLaborRenewal=()=>import("@/pages/staff/labor/renewal/index.vue");
 const StaffLaborRenewrecord=()=>import("@/pages/staff/labor/renewrecord/index.vue");
 const Credit=()=>import("@/pages/credit/index.vue");
-
+const Lesson=()=>import("@/pages/lesson/index.vue");
+ 
+const Article=()=>import("@/pages/article/index.vue");
 Vue.use(VueRouter);
 
 const menuRoutes=[
@@ -108,6 +110,20 @@ const menuRoutes=[
         icon:"copy",
         component:Info
     },
+    {
+        path:"/lesson",
+        key:"lesson",
+        title:"课程分类",
+        icon:"copy",
+        component:Lesson
+    },
+    {
+        path:"/article",
+        key:"article",
+        title:"课程文章",
+        icon:"file",
+        component:Article
+    }
     // {
     //     path:"/info",
     //     key:"info",
