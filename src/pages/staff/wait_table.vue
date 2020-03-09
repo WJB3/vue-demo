@@ -99,7 +99,7 @@ export default {
     handleTableChange: function(pagination, filters, sorter) {
       const filterData = this.filterData(filters);
 
-      this.$store.dispatch("brand/getList", {
+      this.$store.dispatch("staff/getWaitAuditList", {
         page: pagination.current - 1,
         ...filterData
       });
