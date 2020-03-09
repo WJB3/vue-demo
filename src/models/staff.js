@@ -45,7 +45,7 @@ export default  {
                 console.error(e);
             }
         },
-        async getWaitAuditList({commit},payload){//审核未通过
+        async getWaitAuditList({commit},payload){//待审核
             try{    
                 const list=await staffService.wait_audit_list(payload);
         
@@ -153,7 +153,7 @@ export default  {
             const pagination={
                 ...state.no_audit_pagination
             }
-            state.pagination=payload.list.rows && payload.list.rows.length>0?{total:payload.list.rows[0].count,...pagination}:{}
+            state.no_audit_pagination=payload.list.rows && payload.list.rows.length>0?{total:payload.list.rows[0].count,...pagination}:{}
             Object.assign(state,payload);
         },
         updateWaitState(state,payload){
@@ -162,7 +162,7 @@ export default  {
             const pagination={
                 ...state.wait_audit_pagination
             }
-            state.pagination=payload.list.rows && payload.list.rows.length>0?{total:payload.list.rows[0].count,...pagination}:{}
+            state.wait_audit_pagination=payload.list.rows && payload.list.rows.length>0?{total:payload.list.rows[0].count,...pagination}:{}
             Object.assign(state,payload);
         },
         updateDiscount(state,payload){
