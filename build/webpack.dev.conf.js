@@ -39,11 +39,7 @@ module.exports=merge(baseWebpackConfig,{
         disableHostCheck:true,
         useLocalIp:false,//此选项允许浏览器使用你的本地ip打开
         proxy:{//代理服务器
-            "/file":{
-                target:"https://www.lianghaisy.com:8080/upload",
-                changeOrigin:true,
-                pathRewrite:{"^/file":""}
-            },
+            
             "/api":{
                 target:"https://www.lianghaisy.com",
                 changeOrigin:true,

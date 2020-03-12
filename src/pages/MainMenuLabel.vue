@@ -1,6 +1,6 @@
 <template>
   <div class="menu_label">
-    <img src="http://www.lianghaisy.com/uploadFile/brandimgs/logo.png" style="width:80px;height:80px;" />
+    <img src="@/assets/layout/star.png" style="width:80px;height:80px;" />
     <!-- <svg class="icon" aria-hidden="true">
       <use xlink:href="#icon-Energy-"></use>
     </svg> -->

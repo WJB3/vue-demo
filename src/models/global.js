@@ -1,34 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import staff from './staff';
-import brand from './brand';
-import order from './order';
-import model from './model';
-import discount from './discount';
-import trade from './trade';
-import activity from './activity';
-import statement from './statement';
-import credit from './credit';
-import company from './company';
-import lesson from './lesson';
-import article from './article';
+ 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     namespaced:true,
     modules:{
-        staff,
-        brand,
-        order,
-        model,
-        discount,
-        trade,
-        activity,
-        statement,
-        credit,
-        company,
-        lesson,
-        article
+        
     },
     state:{
         isMenuCollapse:false,

@@ -33,7 +33,7 @@ module.exports=merge(baseWebpackConfig,{
         new HtmlWebpackPlugin({
             //将目录下的index.html引进生成的dist中的index.html
             template:'src/public/index.html',
-            title:'上海靓海实业',
+            title:'测试Vue环境搭建',
             favicon:'src/assets/favicon-shield.ico',
             minify:{
                 removeComments:true,
